@@ -12,5 +12,11 @@ URL: https://github.com/DijkJel/DIANNmv
 BugReports: https://github.com/DijkJel/DIANNmv/issues
 Imports: 
     DEP,
+    ggplot2,
+    ggrepel,
     grid,
-    SummarizedExperiment
+    reshape2,
+    stats,
+    SummarizedExperiment,
+    VennDiagram
+LazyData: true

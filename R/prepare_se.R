@@ -8,10 +8,18 @@
 #' @import DEP
 #' @import grid
 #'
-#' @return
+#' @return A summarized Experiment object
 #' @export
 #'
 #' @examples
+#' se <- prepare_se(report.pg_matrix,
+#'                 expDesign, missing_thr = 1,
+#'                 impute = TRUE) # creates se with missing values imputed
+#'
+#' se <- prepare_se(report.pg_matrix,
+#'                 expDesign,
+#'                  missing_thr = 1,
+#'                  impute = FALSE) # creates se without imputing missing values
 prepare_se = function(pg_matrix, expDesign, missing_thr = 0, impute = T){
 
   pg_uniq = DEP::make_unique(pg_matrix, 'Genes', 'Protein.Group', delim = ';')
