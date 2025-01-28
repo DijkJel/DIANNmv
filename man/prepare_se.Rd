@@ -4,16 +4,31 @@
 \alias{prepare_se}
 \title{Prepare summarizedExperiment object from diann report.pg_matrix file}
 \usage{
-prepare_se(pg_matrix, expDesign, missing_thr = 0, impute = T)
+prepare_se(
+  pg_matrix,
+  expDesign,
+  pr_matrix = NULL,
+  missing_thr = 0,
+  min_peptides = 0,
+  impute = T,
+  remove_contaminants = T
+)
 }
 \arguments{
 \item{pg_matrix}{the report.pg_matrix file from DIANN}
 
-\item{expDesign}{A data frame with the experimental design. Should contain at least 'label', 'condition', and 'replicate' columns}
+\item{expDesign}{A data frame with the experimental design. Should contain at least 'label', 'condition', and 'replicate' columns.}
+
+\item{pr_matrix}{Optional argument. If the report.pr_matrix file from DIANN is provided, peptide information will be added to output.}
 
 \item{missing_thr}{Integer specifying which proteinGroups are filtered out based on missing values.}
 
+\item{min_peptides}{An integer specifing the cutoff for razor/unique peptides. The default is 0.}
+
 \item{impute}{A logical value specifying if missing values should be imputed. Imputation is done using the 'MinProb' value from 'MsCoreUtils' package.}
+
+\item{remove_contaminants}{A logical value specifying if potential
+contaminants should be removed from the pg_matrix.}
 }
 \value{
 A summarized Experiment object

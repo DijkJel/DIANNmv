@@ -76,7 +76,7 @@ get_nPep_prMatrix = function(pr_matrix, id_column = 'Protein.Group', peptide_lev
 #' pg_matrix <- add_peptide_numbers(report.pg_matrix, peptide_numbers)
 add_peptide_numbers = function(pg_matrix, peptide_numbers, id_column = 'Protein.Group'){
 
-  pg_matrix = merge(pg_matrix, peptide_numbers, by.x = id_column, by.y = 'protein', suffixes = c('_intensity', '_npep'))
+  pg_matrix = merge(pg_matrix, peptide_numbers, by.x = id_column, by.y = 'protein', suffixes = c('', '_npep'))
   return(pg_matrix)
 }
 

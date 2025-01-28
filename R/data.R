@@ -31,3 +31,14 @@
 #'
 #' @source 241220_V118_LK_DNA_PD
 'report.pr_matrix'
+
+
+#' Data frame with potential contaminants from MaxQuant.
+#'
+#'
+#' @format ## `contaminants_maxquant`
+#' A data frame with 246 rows and 1 columns.
+#'
+#' @source MaxQuant
+'contaminants_maxquant'
+

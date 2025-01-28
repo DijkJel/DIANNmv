@@ -245,7 +245,7 @@ plot_MA = function(res, label = NULL, ns_color = 'grey70', up_color = 'red3', do
 
     ratio = grep('ratio', colnames(data), value = T)
 
-    p = ggplot2::ggplot(data, ggplot2::aes(x = log10(baseMean_mpi), y = .data[[ratio]], label = label)) +
+    p = ggplot2::ggplot(data, ggplot2::aes(x = log10(.data[['baseMean_mpi']]), y = .data[[ratio]], label = .data[['label']])) +
       ggplot2::geom_point(color = data[['color']]) +
       ggplot2::theme_classic() +
       ggrepel::geom_text_repel(max.overlaps = Inf, min.segment.length = 0.01,
@@ -256,7 +256,7 @@ plot_MA = function(res, label = NULL, ns_color = 'grey70', up_color = 'red3', do
   })
 
   names(plot_list) = names(data)
-  if(length(plot_list) == 1){plot_list = plotlist[[1]]}
+  if(length(plot_list) == 1){plot_list = plot_list[[1]]}
 
   return(plot_list)
 }
@@ -408,9 +408,9 @@ plot_DEP_barplot = function(res, comparisons = 'all', names = NULL){
 
   data = prepare_barplot_data(res, comparisons, names)
 
-  p = ggplot2::ggplot(data, ggplot2::aes(x = Group, y = DEP, fill = direction)) +
+  p = ggplot2::ggplot(data, ggplot2::aes(x = .data[['Group']], y = .data[['DEP']], fill = .data[['direction']])) +
     ggplot2::geom_bar(stat = 'identity') +
-    ggplot2::geom_text(ggplot2::aes(label = DEP), position = position_stack(vjust = 0.5), color = 'white', size = 8) +
+    ggplot2::geom_text(ggplot2::aes(label = .data[['DEP']]), position = position_stack(vjust = 0.5), color = 'white', size = 8) +
     ggplot2::scale_fill_manual(values = c('up' = 'red3', 'down' = 'dodgerblue')) +
     ggplot2::labs(x = '') +
     ggplot2::theme_classic()

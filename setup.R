@@ -14,3 +14,10 @@ use_package('ggplot2')
 use_package('ggrepel')
 use_package('VennDiagram')
 use_package('reshape2')
+
+use_vignette('DIANNmv')
+
+use_build_ignore('setup.R')
+
+devtools::build_rmd("vignettes/DIANNmv.rmd")
+install()
