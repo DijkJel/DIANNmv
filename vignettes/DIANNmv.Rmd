@@ -1,6 +1,6 @@
 ---
 title: "DIANNmv"
-output: rmarkdown::html_vignette
+output: rmarkdown::pdf_document
 vignette: >
   %\VignetteIndexEntry{DIANNmv}
   %\VignetteEngine{knitr::rmarkdown}
@@ -88,19 +88,25 @@ is created.
 
 To create this, you can run the prepare_se() function with the report.pg_matrix 
 file and associated experimental design. 
-You can specify if imputation is done (default: yes, with the minProb method),
-filter on missing values (missing_thr), and by default removes potential 
-contaminants (coming from the contaminants.txt file from maxquant).
-If you provide the report.pr_matrix alongside the report.pg_matrix, peptide
-information is automatically added and you can filter on a minimal number
-of razor/unique peptides (min_pep, default = 0).
+You can specify if and what type of imputation is done. The default is 'knn',
+which is better for DIA data I think. For DDA data, 'MinProb' would be the good.
+When 'none' is entered for the impute parameter, no imputation is done.
+Additionally, you can filter on missing values (missing_thr), and potential
+contaminants are removed by default. (Source: contaminants.txt file
+from maxquant).
+
 
 
 ```{r}
 se <- prepare_se(report.pg_matrix, expDesign) # without peptide information
 se
+```
 
+If you provide the report.pr_matrix alongside the report.pg_matrix, peptide
+information is automatically added and you can filter on a minimal number
+of razor/unique peptides (min_pep, default = 0).
 
+```{r}
 # Add peptide information and remove all proteinGroups with <2 total 
 # razor/unique peptides
 se <- prepare_se(report.pg_matrix, expDesign, report.pr_matrix, min_pep = 1)

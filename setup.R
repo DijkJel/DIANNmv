@@ -18,6 +18,8 @@ use_package('reshape2')
 use_vignette('DIANNmv')
 
 use_build_ignore('setup.R')
+use_build_ignore('DIANNmv.pdf')
+
 
 devtools::build_rmd("vignettes/DIANNmv.rmd")
 install()

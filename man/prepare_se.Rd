@@ -10,8 +10,8 @@ prepare_se(
   pr_matrix = NULL,
   missing_thr = 0,
   min_peptides = 0,
-  impute = T,
-  remove_contaminants = T
+  impute = "knn",
+  remove_contaminants = TRUE
 )
 }
 \arguments{
@@ -25,7 +25,8 @@ prepare_se(
 
 \item{min_peptides}{An integer specifing the cutoff for razor/unique peptides. The default is 0.}
 
-\item{impute}{A logical value specifying if missing values should be imputed. Imputation is done using the 'MinProb' value from 'MsCoreUtils' package.}
+\item{impute}{Specifies which imputatation method to use (default: knn). No imputation is done when entering 'none'.
+Imputation is done using the 'MinProb' value from 'MsCoreUtils' package. See ?DEP::impute for all options.}
 
 \item{remove_contaminants}{A logical value specifying if potential
 contaminants should be removed from the pg_matrix.}
@@ -39,10 +40,10 @@ Prepare summarizedExperiment object from diann report.pg_matrix file
 \examples{
 se <- prepare_se(report.pg_matrix,
                 expDesign, missing_thr = 1,
-                impute = TRUE) # creates se with missing values imputed
+                impute = 'knn') # creates se with missing values imputed
 
 se <- prepare_se(report.pg_matrix,
                 expDesign,
                  missing_thr = 1,
-                 impute = FALSE) # creates se without imputing missing values
+                 impute = 'none') # creates se without imputing missing values
 }

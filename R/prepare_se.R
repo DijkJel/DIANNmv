@@ -27,7 +27,8 @@ add_contaminants = function(pg_matrix){
 #' @param pr_matrix Optional argument. If the report.pr_matrix file from DIANN is provided, peptide information will be added to output.
 #' @param missing_thr Integer specifying which proteinGroups are filtered out based on missing values.
 #' @param min_peptides An integer specifing the cutoff for razor/unique peptides. The default is 0.
-#' @param impute A logical value specifying if missing values should be imputed. Imputation is done using the 'MinProb' value from 'MsCoreUtils' package.
+#' @param impute Specifies which imputatation method to use (default: knn). No imputation is done when entering 'none'.
+#' Imputation is done using the 'MinProb' value from 'MsCoreUtils' package. See ?DEP::impute for all options.
 #' @param remove_contaminants A logical value specifying if potential
 #' contaminants should be removed from the pg_matrix.
 #' @import DEP grid SummarizedExperiment
@@ -38,14 +39,14 @@ add_contaminants = function(pg_matrix){
 #' @examples
 #' se <- prepare_se(report.pg_matrix,
 #'                 expDesign, missing_thr = 1,
-#'                 impute = TRUE) # creates se with missing values imputed
+#'                 impute = 'knn') # creates se with missing values imputed
 #'
 #' se <- prepare_se(report.pg_matrix,
 #'                 expDesign,
 #'                  missing_thr = 1,
-#'                  impute = FALSE) # creates se without imputing missing values
+#'                  impute = 'none') # creates se without imputing missing values
 prepare_se = function(pg_matrix, expDesign, pr_matrix = NULL, missing_thr = 0,
-                      min_peptides = 0, impute = T, remove_contaminants = T){
+                      min_peptides = 0, impute = 'knn', remove_contaminants = TRUE){
 
 
   if (!is.null(pr_matrix)){
@@ -77,7 +78,7 @@ prepare_se = function(pg_matrix, expDesign, pr_matrix = NULL, missing_thr = 0,
   grid::grid.newpage()
   grid::grid.draw(p)
 
-  if(impute){se = DEP::impute(se, 'MinProb')}
+  if(!impute == 'none'){se = DEP::impute(se, impute)}
 
   return(se)
 }

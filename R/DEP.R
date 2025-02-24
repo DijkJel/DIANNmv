@@ -113,7 +113,7 @@ get_DEPresults = function(se, condition1 = NULL, condition2 = NULL, ref_conditio
     padj_cols = grep('p.adj', colnames(res))
 
     if (fdr_type == 'BH'){
-      padj_mat = apply(res[,pval_cols], 2, function(x){stats::p.adjust(x, method = 'BH')})
+      padj_mat = apply(res[,pval_cols, drop = F], 2, function(x){stats::p.adjust(x, method = 'BH')})
       res[,padj_cols] = padj_mat
       res = recode_sig_col(res, alpha, lfc)
     }
