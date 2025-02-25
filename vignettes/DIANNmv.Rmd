@@ -104,7 +104,8 @@ se
 
 If you provide the report.pr_matrix alongside the report.pg_matrix, peptide
 information is automatically added and you can filter on a minimal number
-of razor/unique peptides (min_pep, default = 0).
+of razor/unique peptides (min_pep, default = 0). Make sure the sample column
+names are identical and match the label column in the experimental design.
 
 ```{r}
 # Add peptide information and remove all proteinGroups with <2 total 
