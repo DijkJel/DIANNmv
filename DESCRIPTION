@@ -13,9 +13,12 @@ BugReports: https://github.com/DijkJel/DIANNmv/issues
 biocViews:
 Imports: 
     DEP,
+    fgsea,
     ggplot2,
     ggrepel,
     grid,
+    GSEABase,
+    msigdb,
     reshape2,
     stats,
     SummarizedExperiment,

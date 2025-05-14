@@ -5,6 +5,7 @@ use_r('prepare_se')
 use_r('peptide_functions')
 use_r('DEP')
 use_r('plots')
+use_r('gsea')
 
 use_package('DEP')
 use_package('grid')
@@ -14,6 +15,9 @@ use_package('ggplot2')
 use_package('ggrepel')
 use_package('VennDiagram')
 use_package('reshape2')
+use_package('msigdb')
+use_package('fgsea')
+use_package('GSEABase')
 
 use_vignette('DIANNmv')
 

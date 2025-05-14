@@ -58,31 +58,59 @@ recode_sig_col = function(res, pval_cutoff = 0.05, fc_cutoff = 1){
 #' @examples
 #' se <- prepare_se(report.pg_matrix, expDesign)
 #' res <- get_DEPresults(se, 'motif1', 'neg_ctrl', type = 'manual')
-get_DEPresults = function(se, condition1 = NULL, condition2 = NULL, ref_condition = NULL, alpha = 0.05, lfc = 1, type = 'manual', fdr_type = 'BH'){
+
+get_DEPresults = function(se, condition1 = NULL, condition2 = NULL, ref_condition = NULL, tests = NULL,
+                          alpha = 0.05, lfc = 1, type = 'manual', fdr_type = 'BH'){
 
 
   if (type == 'manual'){
 
-    pat = paste(condition1, condition2, sep = '|')
-    se = se[,grep(pat, colnames(se))]
-    test = paste0(condition1, '_vs_', condition2)
-    dep = DEP::test_diff(se, type = 'manual', test = test)
+    if (!is.null(tests)){
 
-    dep <- DEP::add_rejections(dep, alpha = alpha, lfc = lfc)
-    res = DEP::get_results(dep)
-    res = res[order(res$name),]
+      #browser()
+      dep = DEP::test_diff(se, type = 'manual', test = tests)
+      dep <- DEP::add_rejections(dep, alpha = alpha, lfc = lfc)
+      res = DEP::get_results(dep)
+      res = res[order(res$name),]
 
-    res$bh = stats::p.adjust(res[,grep('p.val', colnames(res))], method = 'BH')
+      pval_cols = grep('p.val', colnames(res))
+      padj_cols = grep('p.adj', colnames(res))
+      padj_names = grep('p.adj', colnames(res), value = T)
+
+      if (fdr_type == 'BH'){
+        padj_mat = apply(res[,pval_cols, drop = F], 2, function(x){stats::p.adjust(x, method = 'BH')})
+        colnames(padj_mat) = colnames(res)[padj_cols]
+        if (ncol(padj_mat) == 1){padj_mat = as.numeric(padj_mat)}
+        res[,padj_cols] = padj_mat
+        colnames(res)[padj_cols] = padj_names
+        #browser()
+        res = recode_sig_col(res, alpha, lfc)
+      }
+    }
+
+    else {
+      pat = paste(condition1, condition2, sep = '|')
+      se = se[,grep(pat, colnames(se))]
+      test = paste0(condition1, '_vs_', condition2)
+      dep = DEP::test_diff(se, type = 'manual', test = test)
+
+      dep <- DEP::add_rejections(dep, alpha = alpha, lfc = lfc)
+      res = DEP::get_results(dep)
+      res = res[order(res$name),]
+
+      res$bh = stats::p.adjust(res[,grep('p.val', colnames(res))], method = 'BH')
 
 
-    fc_col = grep('ratio', colnames(res))
-    rd = as.data.frame(rowData(dep))
-    diff_col = grep('diff', colnames(rd))
-    res[,fc_col] = rd[,diff_col]
+      fc_col = grep('ratio', colnames(res))
+      rd = as.data.frame(rowData(dep))
+      diff_col = grep('diff', colnames(rd))
+      res[,fc_col] = rd[,diff_col]
 
-    if (fdr_type == 'BH'){
-      res[,grep('p.adj', colnames(res))] = res$bh
-      res = recode_sig_col(res, alpha, lfc)
+      if (fdr_type == 'BH'){
+        res[,grep('p.adj', colnames(res))] = res$bh
+        res = recode_sig_col(res, alpha, lfc)
+      }
+
     }
   }
 
@@ -91,6 +119,7 @@ get_DEPresults = function(se, condition1 = NULL, condition2 = NULL, ref_conditio
     dep = DEP::test_diff(se, type = "control", control = ref_condition)
     res = DEP::add_rejections(dep, alpha, lfc)
     res = DEP::get_results(res)
+    res = res[order(res$name),]
 
     pval_cols = grep('p.val', colnames(res))
     padj_cols = grep('p.adj', colnames(res))
