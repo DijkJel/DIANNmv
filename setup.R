@@ -6,6 +6,7 @@ use_r('peptide_functions')
 use_r('DEP')
 use_r('plots')
 use_r('gsea')
+use_r('iBAQ')
 
 use_package('DEP')
 use_package('grid')
@@ -18,6 +19,9 @@ use_package('reshape2')
 use_package('msigdb')
 use_package('fgsea')
 use_package('GSEABase')
+use_package('seqinr')
+use_package('stringr')
+use_package('cleaver')
 
 use_vignette('DIANNmv')
 

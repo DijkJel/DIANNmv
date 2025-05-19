@@ -36,8 +36,7 @@ Prepare the data for making MA plots
 }
 \examples{
 se <- prepare_se(report.pg_matrix, expDesign)
-mpi <- get_median_intensities_prMatrix(report.pr_matrix)
-se <- add_median_peptide_intensity(se, mpi)
+se <- add_median_peptide_intensity(se, report.pr_matrix)
 res <- get_DEPresults(se, type = 'all')
 data <- prepare_MA_data(res)
 }

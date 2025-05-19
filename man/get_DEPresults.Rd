@@ -9,6 +9,7 @@ get_DEPresults(
   condition1 = NULL,
   condition2 = NULL,
   ref_condition = NULL,
+  tests = NULL,
   alpha = 0.05,
   lfc = 1,
   type = "manual",
@@ -24,6 +25,9 @@ get_DEPresults(
 
 \item{ref_condition}{One of the conditions in expDesign that is used as
 reference. Must be used in combination with type = 'control'.}
+
+\item{tests}{Character vector specifying which contrasts to test when using
+"type = 'manual'"}
 
 \item{alpha}{the p.adjust significance cutoff.}
 

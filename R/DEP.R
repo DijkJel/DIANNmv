@@ -44,6 +44,8 @@ recode_sig_col = function(res, pval_cutoff = 0.05, fc_cutoff = 1){
 #' @param lfc The log2 fold change significance cutoff.
 #' @param type Type of comparison to be made. Options are: 'manual', 'control',
 #'  and 'all'.
+#' @param tests Character vector specifying which contrasts to test when using
+#' "type = 'manual'"
 #' @param fdr_type Type of fdr correction. Options are 'fdrtool' and
 #' 'BH' (Benjamini-Hochberg). Default is 'BH'
 #'

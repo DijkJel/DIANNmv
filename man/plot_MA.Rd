@@ -38,8 +38,7 @@ Makes MA plots for each comparison in the results data frame
 
 
 se <- prepare_se(report.pg_matrix, expDesign)
-mpi <- get_median_intensities_prMatrix(report.pr_matrix)
-se <- add_median_peptide_intensity(se, mpi)
+se <- add_median_peptide_intensity(se, report.pr_matrix)
 res <- get_DEPresults(se, type = 'all')
 MAplots <- plot_MA(res)
 }

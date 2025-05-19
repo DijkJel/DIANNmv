@@ -56,12 +56,20 @@ prepare_se = function(pg_matrix, expDesign, pr_matrix = NULL, missing_thr = 0,
 
 
   pg_matrix = add_contaminants(pg_matrix)
+
   if(remove_contaminants){pg_matrix = pg_matrix[pg_matrix$Potential.contaminant != '+',]}
   pg_uniq = DEP::make_unique(pg_matrix, 'Genes', 'Protein.Group', delim = ';')
 
   pat = paste(expDesign$label, collapse = '|')
   lfq = grep(pat, colnames(pg_uniq))
   se = DEP::make_se(pg_uniq, lfq, expDesign)
+
+  if ('ibaq_peptides' %in% colnames(pg_matrix)){
+    ibaq = pg_matrix[,grep('_iBAQ$', colnames(pg_matrix))]
+    dimnames(ibaq) = list(rownames(se), colnames(se))
+    SummarizedExperiment::rowData(se)$ibaq_peptides = pg_matrix$ibaq_peptides
+    SummarizedExperiment::assay(se, 'iBAQ') = ibaq
+  }
 
   if('n_total' %in% colnames(pg_matrix)){
     pep = pg_matrix[,grep('npep', colnames(pg_matrix))]

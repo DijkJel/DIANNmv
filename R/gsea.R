@@ -1,6 +1,7 @@
 #' Downloads MSigDB
 #'
 #' @param organism Specifies for which organism to download data. 'hs' for human, 'mm' for mouse.
+#' @param id 	a character, representing the ID type to use ("SYM" for gene symbols and "EZID" for Entrez IDs).
 #'
 #' @import msigdb
 #'
@@ -9,8 +10,8 @@
 #'
 #' @examples
 #' db <- load_msigdb('mm') #downloads data for mouse.
-load_msigdb = function(organism = 'hs'){
-  msigdb.hs = msigdb::getMsigdb(org = organism, id = 'SYM')
+load_msigdb = function(organism = 'hs', id = 'SYM'){
+  msigdb.hs = msigdb::getMsigdb(org = organism, id = id)
   msigdb.hs = msigdb::appendKEGG(msigdb.hs)
   return(msigdb.hs)
 }

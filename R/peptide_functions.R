@@ -60,6 +60,29 @@ get_nPep_prMatrix = function(pr_matrix, id_column = 'Protein.Group', peptide_lev
   return(npep)
 }
 
+#' Calculate protein intensities from peptide information
+#'
+#' @param pr_matrix The report.pr_matrix file
+#' @param id_column The IDs used in the output file
+#' @param peptide_level he column specifying at which level intensities are
+#' aggregated. See \link{summarize_peptide_intensities}
+#'
+#' @import stats
+#'
+#' @return A matrix with the summed peptides intenties of razor/unique peptides
+#' @export
+#'
+#' @examples
+#' mat <- get_intensities_prMatrix(report.pr_matrix)
+get_intensities_prMatrix = function(pr_matrix, id_column = 'Protein.Group', peptide_level = 'Stripped.Sequence'){
+
+  ints = summarize_peptide_intensities(pr_matrix, peptide_level)
+  ints$protein = pr_matrix[match(rownames(ints), pr_matrix[,peptide_level]), id_column]
+  npep = stats::aggregate(ints[,-ncol(ints)], list(protein = ints$protein), FUN = function(x){sum(na.omit(x))})
+
+  return(npep)
+}
+
 #' Add the peptide number information to pg_matrix
 #'
 #' @param pg_matrix The report.pg_matrix file
@@ -113,8 +136,7 @@ get_median_intensities_prMatrix = function(pr_matrix, id_column = 'Protein.Group
 #' Adds median peptide intensities to summerizedExperiment object
 #'
 #' @param se SummerizedExperiment object returned from DEP::make_se()
-#' @param peptide_intensities Peptide intensities returned from
-#' get_median_intensities_prMatrix.
+#' @param pr_matrix The report.pr_matrix file
 #' @import SummarizedExperiment
 #'
 #' @return a summerizedExperiment object with peptide intensities as extra assay
@@ -123,11 +145,11 @@ get_median_intensities_prMatrix = function(pr_matrix, id_column = 'Protein.Group
 #' @examples
 #'
 #' se <- prepare_se(report.pg_matrix, expDesign)
-#' mpi <- get_median_intensities_prMatrix(report.pr_matrix)
-#' se <- add_median_peptide_intensity(se, mpi)
-add_median_peptide_intensity = function(se, peptide_intensities){
+#' se <- add_median_peptide_intensity(se, report.pr_matrix)
+add_median_peptide_intensity = function(se, pr_matrix){
 
-  pi = peptide_intensities
+  pi = get_median_intensities_prMatrix(pr_matrix)
+  #pi = peptide_intensities
   pi = pi[pi[,1] %in% SummarizedExperiment::rowData(se)$Protein.Group,]
   pi = pi[match(SummarizedExperiment::rowData(se)$Protein.Group, pi[,1]),]
   rownames(pi) = rownames(se)

@@ -4,10 +4,12 @@
 \alias{load_msigdb}
 \title{Downloads MSigDB}
 \usage{
-load_msigdb(organism = "hs")
+load_msigdb(organism = "hs", id = "SYM")
 }
 \arguments{
 \item{organism}{Specifies for which organism to download data. 'hs' for human, 'mm' for mouse.}
+
+\item{id}{a character, representing the ID type to use ("SYM" for gene symbols and "EZID" for Entrez IDs).}
 }
 \value{
 A GSEAbase object with genesets
