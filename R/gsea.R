@@ -9,7 +9,11 @@
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' db <- load_msigdb('mm') #downloads data for mouse.
+#' db <- load_msigdb('hs', 'EZID') #downloads data for human with EnsembleID
+#' }
+
 load_msigdb = function(organism = 'hs', id = 'SYM'){
   msigdb.hs = msigdb::getMsigdb(org = organism, id = id)
   msigdb.hs = msigdb::appendKEGG(msigdb.hs)

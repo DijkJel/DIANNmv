@@ -22,6 +22,7 @@ use_package('GSEABase')
 use_package('seqinr')
 use_package('stringr')
 use_package('cleaver')
+use_package('ggupset')
 
 use_vignette('DIANNmv')
 

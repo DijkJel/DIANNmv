@@ -321,6 +321,68 @@ plot_venn_diagram = function(res, ..., comparisons = 'all',
   grid::grid.draw(vd)
 }
 
+#' Plots upset plot showsing overlapping significant proteins between comparisons
+#'
+#' @param res A data frame with results from get_DEPresults()
+#' @param ... Additional results data frames (optional)
+#' @param comparisons A character vector specifying which comparisons
+#' to include. The default 'all' considers all comparisons present in res.
+#' @param names (optional). Specifies the labels for the different subsets.
+#' Defaults to the comparison names in colnames(res)
+#'
+#' @details
+#' The layout of the resulting upset plot can be easily edited to your liking.
+#' Check the vignette of ggupset to see how individual components can be altered.
+#'
+#'
+#' @import ggplot2 ggupset
+#'
+#' @return A ggplot object
+#' @export
+#'
+#' @examples
+#' se <- prepare_se(report.pg_matrix, expDesign)
+#' res <- get_DEPresults(se, type = 'all')
+#' vd <- plot_upset(res)
+#'
+plot_upset = function(res, ..., comparisons = 'all', names = NULL){
+
+
+  if (!('all' %in% comparisons)){
+    pat = paste(comparisons, collapse = '|')
+    res = res[,c(1, 2, grep(pat, colnames(res)))]
+  }
+
+  samples = grep('ratio', colnames(res), value = TRUE)
+  samples = gsub('_ratio', '', samples)
+  sig_cols = paste0(samples, '_significant')
+
+  df = res[,sig_cols]
+  rownames(df) = res$name
+
+  venn_list = lapply(df, function(x){rownames(df)[x]})
+
+  if (is.null(names)){names(venn_list) = samples}
+  else {names(venn_list) = names}
+
+  total_genes = unique(unlist(venn_list))
+  set_member = sapply(venn_list, function(x){total_genes %in% x})
+  set_member = apply(set_member, 1, function(x){colnames(set_member)[x]})
+
+  df = data.frame(gene = total_genes)
+  df$member_list = set_member
+
+  upset_plot = ggplot2::ggplot(df, ggplot2::aes(x = .data[['member_list']])) +
+    ggplot2::geom_bar() +
+    ggupset::scale_x_upset() +
+    ggplot2::theme_classic()
+
+  upset_plot = add_standardTheme(upset_plot)
+
+  return(upset_plot)
+}
+
+
 #' Prepare data for plot_DEP_barplot function.
 #'
 #' @param res A data frame with results from get_DEPresults()

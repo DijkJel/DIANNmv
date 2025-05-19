@@ -17,6 +17,7 @@ Imports:
     fgsea,
     ggplot2,
     ggrepel,
+    ggupset,
     grid,
     GSEABase,
     msigdb,
@@ -27,7 +28,7 @@ Imports:
     SummarizedExperiment,
     VennDiagram
 LazyData: true
-LazyDataCompression:xz
+LazyDataCompression: xz
 Suggests: 
     knitr,
     rmarkdown

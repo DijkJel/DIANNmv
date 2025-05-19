@@ -342,6 +342,21 @@ plot_venn_diagram(res, comparisons = c('neg_ctrl_vs_motif1',
                   colors = c('red', 'blue')) # specify colors used
 ```
 
+## Upset plot
+
+As an alternative to Venn diagrams, you can also plot protein membership as an
+upset plot. Individual components of the plot can be altered after the plot is 
+made. Check the 'ggupset' vignette for instructions on how to do this.
+
+
+```{r}
+
+upset_plot <- plot_upset(res)
+upset_plot
+
+```
+
+
 
 Finally, to get an overview of the number of identified significant proteins
 per condition:

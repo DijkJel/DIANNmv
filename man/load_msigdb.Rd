@@ -18,5 +18,8 @@ A GSEAbase object with genesets
 Downloads MSigDB
 }
 \examples{
+\dontrun{
 db <- load_msigdb('mm') #downloads data for mouse.
+db <- load_msigdb('hs', 'EZID') #downloads data for human with EnsembleID
+}
 }
