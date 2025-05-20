@@ -39,11 +39,11 @@ ignore the warnings):
 
 ```{r, eval = FALSE}
 if (!require('BiocManager', quietly = T)){
-  install_packages('BiocManager')
+  install.packages('BiocManager')
 }
 
 if (!require('devtools', quietly = T)){
-  install_packages('devtools')
+  install.packages('devtools')
 }
 
 install_github('DijkJel/DIANNmv')
