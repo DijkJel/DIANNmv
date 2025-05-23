@@ -20,6 +20,7 @@ Imports:
     ggupset,
     grid,
     GSEABase,
+    MsCoreUtils,
     msigdb,
     reshape2,
     seqinr,

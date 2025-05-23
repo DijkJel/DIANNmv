@@ -28,9 +28,15 @@ add_contaminants = function(pg_matrix){
 #' @param missing_thr Integer specifying which proteinGroups are filtered out based on missing values.
 #' @param min_peptides An integer specifing the cutoff for razor/unique peptides. The default is 0.
 #' @param impute Specifies which imputatation method to use (default: knn). No imputation is done when entering 'none'.
-#' Imputation is done using the 'MinProb' value from 'MsCoreUtils' package. See ?DEP::impute for all options.
+#' See details for options.
+#' @param mixed_cutoff Either 'empirally' or a value between 0-1. For details, see \link{mixed_imputation}
 #' @param remove_contaminants A logical value specifying if potential
 #' contaminants should be removed from the pg_matrix.
+#'
+#' @details
+#' For standard imputation options, see ?DEP::impute. For mixed imputation, see \link{mixed_imputation}
+#'
+#'
 #' @import DEP grid SummarizedExperiment
 #'
 #' @return A summarized Experiment object
@@ -46,10 +52,11 @@ add_contaminants = function(pg_matrix){
 #'                  missing_thr = 1,
 #'                  impute = 'none') # creates se without imputing missing values
 prepare_se = function(pg_matrix, expDesign, pr_matrix = NULL, missing_thr = 0,
-                      min_peptides = 0, impute = 'knn', remove_contaminants = TRUE){
+                      min_peptides = 0, impute = 'knn',
+                      mixed_cutoff = 'empirically', remove_contaminants = TRUE){
 
 
-  if (!is.null(pr_matrix)){
+  if (!is.null(pr_matrix) & !('n_total' %in% colnames(pg_matrix))){
     pep = get_nPep_prMatrix(pr_matrix)
     pg_matrix = add_peptide_numbers(pg_matrix, pep)
   }
@@ -86,7 +93,8 @@ prepare_se = function(pg_matrix, expDesign, pr_matrix = NULL, missing_thr = 0,
   grid::grid.newpage()
   grid::grid.draw(p)
 
-  if(!impute == 'none'){se = DEP::impute(se, impute)}
+  if(impute == 'mixed'){se = mixed_imputation(se, mixed_cutoff)}
+  else if(!impute == 'none'){se = DEP::impute(se, impute)}
 
   return(se)
 }

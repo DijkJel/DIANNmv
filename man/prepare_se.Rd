@@ -11,6 +11,7 @@ prepare_se(
   missing_thr = 0,
   min_peptides = 0,
   impute = "knn",
+  mixed_cutoff = "empirically",
   remove_contaminants = TRUE
 )
 }
@@ -26,7 +27,9 @@ prepare_se(
 \item{min_peptides}{An integer specifing the cutoff for razor/unique peptides. The default is 0.}
 
 \item{impute}{Specifies which imputatation method to use (default: knn). No imputation is done when entering 'none'.
-Imputation is done using the 'MinProb' value from 'MsCoreUtils' package. See ?DEP::impute for all options.}
+See details for options.}
+
+\item{mixed_cutoff}{Either 'empirally' or a value between 0-1. For details, see \link{mixed_imputation}}
 
 \item{remove_contaminants}{A logical value specifying if potential
 contaminants should be removed from the pg_matrix.}
@@ -36,6 +39,9 @@ A summarized Experiment object
 }
 \description{
 Prepare summarizedExperiment object from diann report.pg_matrix file
+}
+\details{
+For standard imputation options, see ?DEP::impute. For mixed imputation, see \link{mixed_imputation}
 }
 \examples{
 se <- prepare_se(report.pg_matrix,
