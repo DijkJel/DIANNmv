@@ -392,7 +392,7 @@ For this, you need to download the msigdb superset with gene sets, and extract
 the sets that you want. Most commonly, cancer hallmarks (h), curated gene sets
 (c2) and gene ontology gene sets (c5) are used. To extract these:
 
-```{r, eval = FALSE}
+```{r, eval = TRUE}
 
 db <- load_msigdb(organism = 'hs') # loads the super set
 
@@ -406,13 +406,80 @@ geneset_gobp <- get_genesets(db, collection = 'c5', subcollection = 'GOBP')
 
 ```
 
-To perform GSEA, use the results object and the genesets of choice:
+To perform GSEA, use the results object and the gene sets of choice:
 
-```{r, eval = FALSE}
+```{r, eval = TRUE}
 
 res <- get_DEPresults(se, 'motif1', 'neg_ctrl')
 gsea <- perform_GSEA(res, geneset_gobp)
 ```
+
+## Plotting of GSEA results
+
+There are several options to visualize your GSEA results. The simplest is with
+a bar plot, showing just the Normalized Enrichment Scores (NES). The default 
+options shows all significant results. Be specifying the top_n parameter, you 
+can only include the n pathways with the lowest padj value. 
+
+```{r}
+# Bar plot of 10 pathways with lowest padj values.
+barplot <- plot_gsea_barplot(gsea, top_n = 10)
+barplot
+
+#Bar plot of 10 pathways with lowest values and different colors for bars.
+barplot2 <- plot_gsea_barplot(gsea, pos_color = 'red3', 
+                              neg_color = 'dodgerblue', top_n = 10)
+
+barplot2
+```
+
+With the plot_gsea_dotplot() function, you can include more information about
+the pathways:
+
+```{r}
+
+dotplot <- plot_gsea_dotplot(gsea, top_n = 10)
+
+dotplot
+```
+
+A third way way to visualize the results from GSEA is with a volcano plot with
+the NES on the x-axis and -log10(padj) on the y-axis. Like with the volcano plot
+for DEP visualization, you can specify how to label points.
+
+
+```{r}
+# Plot all significant points (can be chatoic)
+volcano <- plot_gsea_volcano(gsea)
+
+volcano
+
+# plot 10 significant points with the lowest padj value on both sides of volcano.
+volcano <- plot_gsea_volcano(gsea, top_n = 10)
+
+volcano
+```
+
+
+
+If you ran multiple GSEAs on different results objects (from get_DEPresults()),
+you can plot them in a single bubble plot.
+
+```{r}
+
+res1 <- get_DEPresults(se, 'motif1', 'neg_ctrl')
+res2 <- get_DEPresults(se, 'motif2', 'neg_ctrl')
+
+gsea1 <- perform_GSEA(res1, geneset_gobp)
+gsea2 <- perform_GSEA(res2, geneset_gobp)
+
+bubble <- plot_gsea_bubbleplot(gsea1, gsea2,
+                               sample_names = c('motif1', 'motif2'), top_n = 10)
+
+bubble
+```
+
+
 
 
 

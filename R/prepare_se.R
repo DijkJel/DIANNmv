@@ -71,6 +71,7 @@ prepare_se = function(pg_matrix, expDesign, pr_matrix = NULL, missing_thr = 0,
   lfq = grep(pat, colnames(pg_uniq))
   se = DEP::make_se(pg_uniq, lfq, expDesign)
 
+
   if ('ibaq_peptides' %in% colnames(pg_matrix)){
     ibaq = pg_matrix[,grep('_iBAQ$', colnames(pg_matrix))]
     dimnames(ibaq) = list(rownames(se), colnames(se))
@@ -96,5 +97,6 @@ prepare_se = function(pg_matrix, expDesign, pr_matrix = NULL, missing_thr = 0,
   if(impute == 'mixed'){se = mixed_imputation(se, mixed_cutoff)}
   else if(!impute == 'none'){se = DEP::impute(se, impute)}
 
+  colnames(se) = expDesign$label
   return(se)
 }
