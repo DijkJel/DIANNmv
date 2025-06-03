@@ -23,5 +23,5 @@ Perform mixed imputation on a data matrix
 se <- prepare_se(report.pg_matrix, expDesign, report.pr_matrix, impute = 'none')
 data_missing <- as.matrix(SummarizedExperiment::assay(se)) # Intensity matrix with missing values
 conditions <- unique(se$conditions) # The experimental conditions
-data_full <- mixed_imputation_matrix(data, conditions, cutoff = 'empirically')
+data_full <- mixed_imputation_matrix(data_missing, conditions, cutoff = 'empirically')
 }

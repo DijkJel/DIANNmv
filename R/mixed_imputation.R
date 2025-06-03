@@ -110,24 +110,33 @@ get_detection_limit = function(data){
 #' se <- prepare_se(report.pg_matrix, expDesign, report.pr_matrix, impute = 'none')
 #' data_missing <- as.matrix(SummarizedExperiment::assay(se)) # Intensity matrix with missing values
 #' conditions <- unique(se$conditions) # The experimental conditions
-#' data_full <- mixed_imputation_matrix(data, conditions, cutoff = 'empirically')
+#' data_full <- mixed_imputation_matrix(data_missing, conditions, cutoff = 'empirically')
 mixed_imputation_matrix = function(data, conditions, cutoff = 'empirically'){
 
   data_split = lapply(conditions, function(x){data[,grep(x, colnames(data))]})
-  imputed_data = lapply(data_split, function(x){
-
+  masks = lapply(data_split, function(x){
     masks = create_imputation_mask(x, cutoff)
-    imputed_data = perform_mixed_imputation(x, masks)
+    #imputed_data = perform_mixed_imputation(x, masks)
   })
 
-  imputed_data = do.call(cbind, imputed_data)
+  mnar_mask = lapply(masks, '[[', 1)
+  mnar_mask = do.call(cbind, mnar_mask)
+  mar_mask = lapply(masks, '[[', 2)
+  mar_mask = do.call(cbind, mar_mask)
+
+  imputed_data = perform_mixed_imputation(data, list(mnar = mnar_mask, mar = mar_mask))
+
+  #imputed_data = do.call(cbind, imputed_data)
   return(imputed_data)
 }
+
 
 #' Perform mixed imputation on summarizedExperiment object
 #'
 #' @param se The summarizedExperiment object
 #' @param cutoff The cutoff used for MAR/MNAR classification. See \link{create_imputation_mask}
+#'
+#' @import SummarizedExperiment
 #'
 #' @return A summarizedExperiment object with complete cases after mixed imputation.
 #' @export
@@ -137,11 +146,11 @@ mixed_imputation_matrix = function(data, conditions, cutoff = 'empirically'){
 #' se <- mixed_imputation(se)
 mixed_imputation = function(se, cutoff = 'empirically'){
 
-  data = as.matrix(assay(se))
+  data = as.matrix(SummarizedExperiment::assay(se))
   conditions = unique(se$condition)
 
   data = mixed_imputation_matrix(data, conditions, cutoff)
-  assay(se) = data
+  SummarizedExperiment::assay(se) = data
 
   return(se)
 }
