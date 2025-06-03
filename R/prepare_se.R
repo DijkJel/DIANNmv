@@ -55,7 +55,6 @@ prepare_se = function(pg_matrix, expDesign, pr_matrix = NULL, missing_thr = 0,
                       min_peptides = 0, impute = 'knn',
                       mixed_cutoff = 'empirically', remove_contaminants = TRUE){
 
-
   if (!is.null(pr_matrix) & !('n_total' %in% colnames(pg_matrix))){
     pep = get_nPep_prMatrix(pr_matrix)
     pg_matrix = add_peptide_numbers(pg_matrix, pep)

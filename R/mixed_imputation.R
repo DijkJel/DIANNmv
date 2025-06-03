@@ -100,7 +100,7 @@ get_detection_limit = function(data){
 #' Perform mixed imputation on a data matrix
 #'
 #' @param data A matrix with intensity values
-#' @param conditions Character vector specifying the experimental conditions
+#' @param ed The experimental design data frame.
 #' @param cutoff The cutoff used for MAR/MNAR classification. See \link{create_imputation_mask}
 #'
 #' @return A matrix without missing values
@@ -109,11 +109,15 @@ get_detection_limit = function(data){
 #' @examples
 #' se <- prepare_se(report.pg_matrix, expDesign, report.pr_matrix, impute = 'none')
 #' data_missing <- as.matrix(SummarizedExperiment::assay(se)) # Intensity matrix with missing values
-#' conditions <- unique(se$conditions) # The experimental conditions
-#' data_full <- mixed_imputation_matrix(data_missing, conditions, cutoff = 'empirically')
-mixed_imputation_matrix = function(data, conditions, cutoff = 'empirically'){
+#' ed <- as.data.frame(SummarizedExperiment::colData(se)) # The experimental conditions
+#' data_full <- mixed_imputation_matrix(data_missing, ed, cutoff = 'empirically')
+mixed_imputation_matrix = function(data, ed, cutoff = 'empirically'){
 
-  data_split = lapply(conditions, function(x){data[,grep(x, colnames(data))]})
+  conditions = unique(ed$condition)
+
+
+  #data_split = lapply(conditions, function(x){data[,grep(x, colnames(data))]})
+  data_split = lapply(conditions, function(x){data[,ed[ed$condition == x, 'label']]})
   masks = lapply(data_split, function(x){
     masks = create_imputation_mask(x, cutoff)
     #imputed_data = perform_mixed_imputation(x, masks)
@@ -147,11 +151,10 @@ mixed_imputation_matrix = function(data, conditions, cutoff = 'empirically'){
 mixed_imputation = function(se, cutoff = 'empirically'){
 
   data = as.matrix(SummarizedExperiment::assay(se))
-  conditions = unique(se$condition)
+  ed = as.data.frame(SummarizedExperiment::colData(se))
 
-  data = mixed_imputation_matrix(data, conditions, cutoff)
+  data = mixed_imputation_matrix(data, ed, cutoff)
   SummarizedExperiment::assay(se) = data
 
   return(se)
 }
-

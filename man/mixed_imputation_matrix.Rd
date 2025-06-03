@@ -4,12 +4,12 @@
 \alias{mixed_imputation_matrix}
 \title{Perform mixed imputation on a data matrix}
 \usage{
-mixed_imputation_matrix(data, conditions, cutoff = "empirically")
+mixed_imputation_matrix(data, ed, cutoff = "empirically")
 }
 \arguments{
 \item{data}{A matrix with intensity values}
 
-\item{conditions}{Character vector specifying the experimental conditions}
+\item{ed}{The experimental design data frame.}
 
 \item{cutoff}{The cutoff used for MAR/MNAR classification. See \link{create_imputation_mask}}
 }
@@ -22,6 +22,6 @@ Perform mixed imputation on a data matrix
 \examples{
 se <- prepare_se(report.pg_matrix, expDesign, report.pr_matrix, impute = 'none')
 data_missing <- as.matrix(SummarizedExperiment::assay(se)) # Intensity matrix with missing values
-conditions <- unique(se$conditions) # The experimental conditions
-data_full <- mixed_imputation_matrix(data_missing, conditions, cutoff = 'empirically')
+ed <- as.data.frame(SummarizedExperiment::colData(se)) # The experimental conditions
+data_full <- mixed_imputation_matrix(data_missing, ed, cutoff = 'empirically')
 }
