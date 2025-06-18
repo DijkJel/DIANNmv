@@ -13,7 +13,7 @@
 #'
 #' gsea <- perform_GSEA(res, genesets)
 #' data <- prepare_gsea_data(gsea) # all significant pathways
-#' data <- prepare_gsea_data(gseam, top_n = 10) # 10 pathways with lowest p.adjust values
+#' data <- prepare_gsea_data(gsea, top_n = 10) # 10 pathways with lowest p.adjust values
 #' (minimally padj < 0.05)
 #' }
 prepare_gsea_data = function(gsea, padj_cutoff = 0.05, top_n = Inf){

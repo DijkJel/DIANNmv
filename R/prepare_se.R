@@ -20,6 +20,30 @@ add_contaminants = function(pg_matrix){
   return(pg_matrix)
 }
 
+#' Adds iBAQ values based on LFQ values to SummarizedExperiment
+#'
+#' @param se SummarizedExperiment object in prepare_se
+#'
+#' @import SummarizedExperiment
+#'
+#' @return A Summarized Experiment object with extra assay.
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' se <- add_maxLFQ_iBAQ(se)
+#' }
+
+add_maxLFQ_iBAQ = function(se){
+
+  ibaq_peps = SummarizedExperiment::rowData(se)[,'ibaq_peptides']
+  intensities = 2^as.matrix(assay(se))
+  max_lfq_ibaq = intensities / ibaq_peps
+
+  SummarizedExperiment::assay(se, 'maxLFQ_iBAQ') = max_lfq_ibaq
+  return(se)
+}
+
 #' Prepare summarizedExperiment object from diann report.pg_matrix file
 #'
 #' @param pg_matrix the report.pg_matrix file from DIANN
@@ -76,6 +100,7 @@ prepare_se = function(pg_matrix, expDesign, pr_matrix = NULL, missing_thr = 0,
     dimnames(ibaq) = list(rownames(se), colnames(se))
     SummarizedExperiment::rowData(se)$ibaq_peptides = pg_matrix$ibaq_peptides
     SummarizedExperiment::assay(se, 'iBAQ') = ibaq
+    se = add_maxLFQ_iBAQ(se)
   }
 
   if('n_total' %in% colnames(pg_matrix)){
