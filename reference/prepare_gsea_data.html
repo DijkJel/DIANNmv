@@ -39,7 +39,13 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">prepare_gsea_data</span><span class="op">(</span><span class="va">gsea</span>, padj_cutoff <span class="op">=</span> <span class="fl">0.05</span>, top_n <span class="op">=</span> <span class="cn">Inf</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">prepare_gsea_data</span><span class="op">(</span></span>
+<span>  <span class="va">gsea</span>,</span>
+<span>  padj_cutoff <span class="op">=</span> <span class="fl">0.05</span>,</span>
+<span>  top_n <span class="op">=</span> <span class="cn">Inf</span>,</span>
+<span>  remove_prefix <span class="op">=</span> <span class="cn">F</span>,</span>
+<span>  max_name_length <span class="op">=</span> <span class="cn">Inf</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -57,6 +63,14 @@
 <dt id="arg-top-n">top_n<a class="anchor" aria-label="anchor" href="#arg-top-n"></a></dt>
 <dd><p>The maximum number of pathways included. Takes the top_n pathways
 with the lowest p.adj values.</p></dd>
+
+
+<dt id="arg-remove-prefix">remove_prefix<a class="anchor" aria-label="anchor" href="#arg-remove-prefix"></a></dt>
+<dd><p>Boolean specifying to remove the prefix from pathway names.</p></dd>
+
+
+<dt id="arg-max-name-length">max_name_length<a class="anchor" aria-label="anchor" href="#arg-max-name-length"></a></dt>
+<dd><p>Numeric value specifying the max length of pathway names.</p></dd>
 
 </dl></div>
     <div class="section level2">
