@@ -39,4 +39,3 @@ use_build_ignore('DIANNmv.pdf')
 devtools::build_rmd("vignettes/DIANNmv.rmd")
 install()
 
-build_vignettes()

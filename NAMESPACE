@@ -2,6 +2,7 @@
 
 export(add_contaminants)
 export(add_iBAQ)
+export(add_maxLFQ_iBAQ)
 export(add_median_peptide_intensity)
 export(add_peptide_numbers)
 export(add_standardTheme)

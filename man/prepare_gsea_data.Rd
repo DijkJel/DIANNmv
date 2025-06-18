@@ -25,7 +25,7 @@ Prepares data for the different GSEA visualization options
 
 gsea <- perform_GSEA(res, genesets)
 data <- prepare_gsea_data(gsea) # all significant pathways
-data <- prepare_gsea_data(gseam, top_n = 10) # 10 pathways with lowest p.adjust values
+data <- prepare_gsea_data(gsea, top_n = 10) # 10 pathways with lowest p.adjust values
 (minimally padj < 0.05)
 }
 }
