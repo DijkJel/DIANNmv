@@ -4,6 +4,11 @@
 #' @param padj_cutoff The maximum p.adjust value allowed for inclusion of the pathway.
 #' @param top_n The maximum number of pathways included. Takes the top_n pathways
 #' with the lowest p.adj values.
+#' @param remove_prefix Boolean specifying to remove the prefix from pathway names.
+#' @param max_name_length Numeric value specifying the max length of pathway names.
+#'
+#' @import stringr
+#'
 #'
 #' @return A data frame with filtered GSEA data.
 #' @export
@@ -16,11 +21,62 @@
 #' data <- prepare_gsea_data(gsea, top_n = 10) # 10 pathways with lowest p.adjust values
 #' (minimally padj < 0.05)
 #' }
-prepare_gsea_data = function(gsea, padj_cutoff = 0.05, top_n = Inf){
+prepare_gsea_data = function(gsea, padj_cutoff = 0.05, top_n = Inf, remove_prefix = F, max_name_length = Inf){
+
+  remove_every_other_vowel_except_start <- function(word) {
+    chars <- stringr::str_split(word, "")[[1]]
+    n <- length(chars)
+    protected <- rep(FALSE, n)
+    is_vowel <- stringr::str_detect(chars, "[aeiouAEIOU]")
+    vowel_pos <- which(is_vowel)
+
+    # Protect vowel at start of word (first character)
+    if (n > 0 && is_vowel[1]) {
+      protected[1] <- TRUE
+    }
+
+    # Protect vowels after underscore
+    for (i in 2:n) {
+      if (chars[i-1] == "_" && is_vowel[i]) {
+        protected[i] <- TRUE
+      }
+    }
+
+    # Get non-protected vowel positions
+    non_protected_vowel_pos <- vowel_pos[!protected[vowel_pos]]
+
+    # Keep every other non-protected vowel (remove every second)
+    # e.g. keep 1st, 3rd, 5th; remove 2nd, 4th, etc.
+    keep <- seq(1, length(non_protected_vowel_pos), by = 2)
+    to_remove <- non_protected_vowel_pos[-keep]
+
+    # Replace those vowels with empty strings
+    chars[to_remove] <- ""
+    paste(chars, collapse = "")
+  }
 
   gsea = gsea[gsea$padj < padj_cutoff,]
   gsea = gsea[order(gsea$padj),]
   gsea = gsea[1:ifelse(is.infinite(top_n), nrow(gsea), min(top_n, nrow(gsea))),]
+
+  if (remove_prefix){gsea$pathway = gsub("^[^_]*_", "", gsea$pathway)}
+
+  pw_names = sapply(gsea$pathway, function(x){
+
+    pw_len = nchar(x)
+    pw_name = x
+    if (nchar(pw_name) > max_name_length){
+      pw_name = remove_every_other_vowel_except_start(pw_name)
+    }
+    if (nchar(pw_name) > max_name_length){
+      pw_name = stringr::str_sub(pw_name, 1, max_name_length)
+      pw_name = paste0(pw_name, '-')
+    }
+
+    return(pw_name)
+  })
+
+  gsea$pathway = pw_names
 
   return(gsea)
 }
@@ -178,6 +234,8 @@ plot_gsea_dotplot = function(gsea, padj_cutoff = 0.05, top_n = Inf){
           plot.title = element_text(hjust = 0.5)) +
     ggplot2::scale_color_viridis_c() +
     ggplot2::labs(y = 'Normalized Enrichment Score', x = '')
+
+  return(complex_dotplot)
 }
 
 #' Plots GSEA data as volcano plot

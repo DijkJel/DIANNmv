@@ -4,7 +4,13 @@
 \alias{prepare_gsea_data}
 \title{Prepares data for the different GSEA visualization options}
 \usage{
-prepare_gsea_data(gsea, padj_cutoff = 0.05, top_n = Inf)
+prepare_gsea_data(
+  gsea,
+  padj_cutoff = 0.05,
+  top_n = Inf,
+  remove_prefix = F,
+  max_name_length = Inf
+)
 }
 \arguments{
 \item{gsea}{Output from \link{perform_GSEA}.}
@@ -13,6 +19,10 @@ prepare_gsea_data(gsea, padj_cutoff = 0.05, top_n = Inf)
 
 \item{top_n}{The maximum number of pathways included. Takes the top_n pathways
 with the lowest p.adj values.}
+
+\item{remove_prefix}{Boolean specifying to remove the prefix from pathway names.}
+
+\item{max_name_length}{Numeric value specifying the max length of pathway names.}
 }
 \value{
 A data frame with filtered GSEA data.

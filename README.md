@@ -6,5 +6,5 @@
 <!-- badges: start -->
 <!-- badges: end -->
 
-See <https://dijkjel.github.io/DIANNmv/> for installation and usage
-instructions.
+See <https://dijkjel.github.io/DIANNmv/> (’Get Started tab at top) for
+installation and usage instructions.
