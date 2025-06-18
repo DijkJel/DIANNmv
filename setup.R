@@ -30,7 +30,11 @@ use_package('ggupset')
 use_package('MsCoreUtils')
 
 
+use_readme_rmd()
+build_readme()
+
 use_vignette('DIANNmv')
+use_article('DIANNmv')
 
 use_build_ignore('setup.R')
 use_build_ignore('DIANNmv.pdf')

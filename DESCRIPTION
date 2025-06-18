@@ -1,5 +1,5 @@
 Package: DIANNmv
-Title: What the Package Does (One Line, Title Case)
+Title: For analysis and visualization of DIANN MS-data
 Version: 0.0.0.9000
 Authors@R: 
     person("First", "Last", , "first.last@example.com", role = c("aut", "cre"))
