@@ -105,9 +105,10 @@ prepare_gsea_data = function(gsea, padj_cutoff = 0.05, top_n = Inf, remove_prefi
 #' #Bar plot of 10 pathways with lowest values and different colors for bars.
 #' barplot <- plot_gsea_barplot(gsea, pos_color = 'red3', neg_color = 'dodgerblue', top_n = 10)
 #' }
-plot_gsea_barplot = function(gsea, pos_color = 'gold1', neg_color = 'darkblue', padj_cutoff = 0.05, top_n = Inf){
+plot_gsea_barplot = function(gsea, pos_color = 'gold1', neg_color = 'darkblue', padj_cutoff = 0.05,
+                             top_n = Inf, remove_prefix = F, max_name_length = Inf){
 
-  data = prepare_gsea_data(gsea, padj_cutoff, top_n)
+  data = prepare_gsea_data(gsea, padj_cutoff, top_n, remove_prefix, max_name_length)
   data$group = ifelse(data$NES < 0, 'Negative', 'Positive')
 
   barplot = ggplot2::ggplot(data, ggplot2::aes(x = reorder(.data[['pathway']], .data[['NES']]), y = .data[['NES']], fill = .data[['group']])) +
@@ -158,7 +159,8 @@ plot_gsea_barplot = function(gsea, pos_color = 'gold1', neg_color = 'darkblue', 
 #' bubbleplot <- plot_gsea_bubbleplot(gsea1, gsea2, top_n = 10, sample_names = c('test1', 'test2'))
 #' }
 
-plot_gsea_bubbleplot = function(gsea, ..., sample_names = NULL, padj_cutoff = 0.05, top_n = Inf){
+plot_gsea_bubbleplot = function(gsea, ..., sample_names = NULL, padj_cutoff = 0.05,
+                                top_n = Inf, remove_prefix = F, max_name_length = Inf){
 
   l = list(gsea, ...)
   if (!is.null(sample_names)){
@@ -212,7 +214,8 @@ plot_gsea_bubbleplot = function(gsea, ..., sample_names = NULL, padj_cutoff = 0.
 #' gsea <- perform_GSEA(res, genesets)
 #' dotplot <- plot_gsea_dotplot(gsea, top_n = 10)
 #' }
-plot_gsea_dotplot = function(gsea, padj_cutoff = 0.05, top_n = Inf){
+plot_gsea_dotplot = function(gsea, padj_cutoff = 0.05,
+                             top_n = Inf, remove_prefix = F, max_name_length = Inf){
 
   data = prepare_gsea_data(gsea, padj_cutoff, top_n)
   data$group = ifelse(data$NES < 0, 'Repressed', 'Activated')
@@ -261,7 +264,9 @@ plot_gsea_dotplot = function(gsea, padj_cutoff = 0.05, top_n = Inf){
 #' gsea <- perform_GSEA(res, genesets)
 #' volcano <- plot_gsea_volcano(gsea, top_n = 10)
 #' }
-plot_gsea_volcano = function(gsea, padj_cutoff = 0.05, label = 'sig', top_n = NULL, up_color = 'red3', down_color = 'dodgerblue', ns_color = 'grey70'){
+plot_gsea_volcano = function(gsea, padj_cutoff = 0.05, label = 'sig', top_n = NULL,
+                             remove_prefix = F, max_name_length = Inf,
+                             up_color = 'red3', down_color = 'dodgerblue', ns_color = 'grey70'){
 
 
   data = as.data.frame(gsea[,1:7])
