@@ -421,14 +421,19 @@ a bar plot, showing just the Normalized Enrichment Scores (NES). The default
 options shows all significant results. Be specifying the top_n parameter, you 
 can only include the n pathways with the lowest padj value. 
 
+We also remove the prefix, and shorten the names of the pathways to a maximum
+of 35 characters. 
+
 ```{r}
 # Bar plot of 10 pathways with lowest padj values.
-barplot <- plot_gsea_barplot(gsea, top_n = 10)
+barplot <- plot_gsea_barplot(gsea, top_n = 10, remove_prefix = T,
+                             max_name_length = 35)
 barplot
 
 #Bar plot of 10 pathways with lowest values and different colors for bars.
 barplot2 <- plot_gsea_barplot(gsea, pos_color = 'red3', 
-                              neg_color = 'dodgerblue', top_n = 10)
+                              neg_color = 'dodgerblue', top_n = 10, 
+                              remove_prefix = T, max_name_length = 35)
 
 barplot2
 ```
@@ -438,7 +443,8 @@ the pathways:
 
 ```{r}
 
-dotplot <- plot_gsea_dotplot(gsea, top_n = 10)
+dotplot <- plot_gsea_dotplot(gsea, top_n = 10,
+                             remove_prefix = T, max_name_length = 35)
 
 dotplot
 ```
@@ -449,13 +455,14 @@ for DEP visualization, you can specify how to label points.
 
 
 ```{r}
-# Plot all significant points (can be chatoic)
+# Plot all significant points (can be chaotic)
 volcano <- plot_gsea_volcano(gsea)
 
 volcano
 
 # plot 10 significant points with the lowest padj value on both sides of volcano.
-volcano <- plot_gsea_volcano(gsea, top_n = 10)
+volcano <- plot_gsea_volcano(gsea, top_n = 10, 
+                              remove_prefix = T, max_name_length = 35)
 
 volcano
 ```
@@ -474,7 +481,8 @@ gsea1 <- perform_GSEA(res1, geneset_gobp)
 gsea2 <- perform_GSEA(res2, geneset_gobp)
 
 bubble <- plot_gsea_bubbleplot(gsea1, gsea2,
-                               sample_names = c('motif1', 'motif2'), top_n = 10)
+                               sample_names = c('motif1', 'motif2'), top_n = 10,
+                                remove_prefix = T, max_name_length = 35)
 
 bubble
 ```
