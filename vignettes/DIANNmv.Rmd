@@ -461,8 +461,8 @@ volcano <- plot_gsea_volcano(gsea)
 volcano
 
 # plot 10 significant points with the lowest padj value on both sides of volcano.
-volcano <- plot_gsea_volcano(gsea, top_n = 10, 
-                              remove_prefix = T, max_name_length = 35)
+volcano <- plot_gsea_volcano(gsea, top_n = 10)
+                              
 
 volcano
 ```
