@@ -89,6 +89,8 @@ prepare_gsea_data = function(gsea, padj_cutoff = 0.05, top_n = Inf, remove_prefi
 #' @param padj_cutoff The maximum p.adjust value allowed for inclusion of the pathway.
 #' @param top_n The maximum number of pathways included. Takes the top_n pathways
 #' with the lowest p.adj values.
+#' @param remove_prefix Boolean specifying to remove the prefix from pathway names.
+#' @param max_name_length Numeric value specifying the max length of pathway names.
 #'
 #' @import ggplot2
 #'
@@ -140,6 +142,8 @@ plot_gsea_barplot = function(gsea, pos_color = 'gold1', neg_color = 'darkblue', 
 #' @param padj_cutoff padj_cutoff The maximum p.adjust value allowed for inclusion of the pathway.
 #' @param top_n he maximum number of pathways included. Takes the top_n pathways
 #' with the lowest p.adj values.
+#' @param remove_prefix Boolean specifying to remove the prefix from pathway names.
+#' @param max_name_length Numeric value specifying the max length of pathway names.
 #'
 #' @import ggplot2
 #'
@@ -203,6 +207,8 @@ plot_gsea_bubbleplot = function(gsea, ..., sample_names = NULL, padj_cutoff = 0.
 #' @param padj_cutoff padj_cutoff The maximum p.adjust value allowed for inclusion of the pathway.
 #' @param top_n The maximum number of pathways included. Takes the top_n pathways
 #' with the lowest p.adj values.
+#' @param remove_prefix Boolean specifying to remove the prefix from pathway names.
+#' @param max_name_length Numeric value specifying the max length of pathway names.
 #'
 #' @import ggplot2
 #'
@@ -250,6 +256,8 @@ plot_gsea_dotplot = function(gsea, padj_cutoff = 0.05,
 #' the top_n up- and top_n down-regulated proteins based on the p.adj.
 #' When providing a vector with protein names, only those points are labeled.
 #' @param top_n Specifies how many significant points to label.
+#' @param remove_prefix Boolean specifying to remove the prefix from pathway names.
+#' @param max_name_length Numeric value specifying the max length of pathway names.
 #' @param up_color Character string specifying the color for significant points with positive NES.
 #' @param down_color Character string specifying the color for significant points with positive NES.
 #' @param ns_color Character string specifying the color for non-significant points.
