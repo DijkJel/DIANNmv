@@ -117,7 +117,7 @@ plot_gsea_barplot = function(gsea, pos_color = 'gold1', neg_color = 'darkblue', 
     ggplot2::geom_bar(stat = 'identity', width = 0.6) +
     ggplot2::geom_text(data = data[data$NES > 0,], ggplot2::aes(x = .data[['pathway']], y = 0, label = paste0(.data[['pathway']], '   '), hjust = 1), size = 3.5) +
     ggplot2::geom_text(data = data[data$NES < 0,], ggplot2::aes(x = .data[['pathway']], y = 0, label = paste0(.data[['pathway']], '   '), hjust = 0), size = 3.5) +
-    ggplot2::scale_fill_manual(values = c(Negative = 'darkblue', Positive = 'gold1')) +
+    ggplot2::scale_fill_manual(values = c(Negative = neg_color, Positive = pos_color)) +
     ggplot2::theme_classic() +
     ggplot2::theme(axis.text.y = element_blank(),
           axis.line.y = element_blank(),
@@ -173,7 +173,7 @@ plot_gsea_bubbleplot = function(gsea, ..., sample_names = NULL, padj_cutoff = 0.
     names(l) = paste0('sample_', 1:length(l))
   }
 
-  l = lapply(l, function(x){prepare_gsea_data(x, padj_cutoff = padj_cutoff, top_n = top_n)})
+  l = lapply(l, function(x){prepare_gsea_data(gsea, padj_cutoff, top_n, remove_prefix, max_name_length)})
 
   poi = unique(unlist(lapply(l, function(x){x$pathway})))
   df = data.frame(pathway = poi)
@@ -223,7 +223,7 @@ plot_gsea_bubbleplot = function(gsea, ..., sample_names = NULL, padj_cutoff = 0.
 plot_gsea_dotplot = function(gsea, padj_cutoff = 0.05,
                              top_n = Inf, remove_prefix = F, max_name_length = Inf){
 
-  data = prepare_gsea_data(gsea, padj_cutoff, top_n)
+  data = data = prepare_gsea_data(gsea, padj_cutoff, top_n, remove_prefix, max_name_length)
   data$group = ifelse(data$NES < 0, 'Repressed', 'Activated')
   data$group = factor(data$group, levels = c('Repressed', 'Activated'))
 
@@ -273,7 +273,6 @@ plot_gsea_dotplot = function(gsea, padj_cutoff = 0.05,
 #' volcano <- plot_gsea_volcano(gsea, top_n = 10)
 #' }
 plot_gsea_volcano = function(gsea, padj_cutoff = 0.05, label = 'sig', top_n = NULL,
-                             remove_prefix = F, max_name_length = Inf,
                              up_color = 'red3', down_color = 'dodgerblue', ns_color = 'grey70'){
 
 
