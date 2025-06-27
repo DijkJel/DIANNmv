@@ -6,6 +6,10 @@
 #' with the lowest p.adj values.
 #' @param remove_prefix Boolean specifying to remove the prefix from pathway names.
 #' @param max_name_length Numeric value specifying the max length of pathway names.
+#' @param break_names Boolean value that indicates if pathway names should be shown
+#' on two lines when the length exceedds the max_name_length parameter
+#' @param max_name_length Numeric value indicating the maximum characters of the
+#' pathway names before they are shortened.
 #'
 #' @import stringr
 #'
@@ -21,7 +25,19 @@
 #' data <- prepare_gsea_data(gsea, top_n = 10) # 10 pathways with lowest p.adjust values
 #' (minimally padj < 0.05)
 #' }
-prepare_gsea_data = function(gsea, padj_cutoff = 0.05, top_n = Inf, remove_prefix = F, max_name_length = Inf){
+prepare_gsea_data = function(gsea, padj_cutoff = 0.05, top_n = Inf, remove_prefix = F, break_names = T, max_name_length = Inf){
+
+  break_pw_name = function(pathway_name){
+
+    separate_words = strsplit(pathway_name, '_')[[1]]
+    cs = cumsum(sapply(sep, nchar))
+    cutoff = which(cs > 0.5*nchar(pathway_name))[[1]]
+    first_part = paste(separate_words[1:(cutoff-1)], collapse = '_')
+    second_part = paste(separate_words[cutoff:length(separate_words)], collapse = '_')
+    total = paste0(first_part, '_', '\n', second_part)
+
+    return(total)
+  }
 
   remove_every_other_vowel_except_start <- function(word) {
     chars <- stringr::str_split(word, "")[[1]]
@@ -65,21 +81,30 @@ prepare_gsea_data = function(gsea, padj_cutoff = 0.05, top_n = Inf, remove_prefi
 
     pw_len = nchar(x)
     pw_name = x
-    if (nchar(pw_name) > max_name_length){
-      pw_name = remove_every_other_vowel_except_start(pw_name)
+
+    if (nchar(pw_name) > max_name_length  & break_names){
+      pw_name = break_pw_name(pw_name)
     }
-    if (nchar(pw_name) > max_name_length){
-      pw_name = stringr::str_sub(pw_name, 1, max_name_length)
-      pw_name = paste0(pw_name, '-')
+
+    else if (nchar(pw_name) > max_name_length){
+      pw_name = remove_every_other_vowel_except_start(pw_name)
+
+
+      if (nchar(pw_name) > max_name_length){
+        pw_name = stringr::str_sub(pw_name, 1, max_name_length)
+        pw_name = paste0(pw_name, '-')
+      }
     }
 
     return(pw_name)
   })
 
+  gsea = as.data.frame(gsea)
   gsea$pathway = pw_names
 
   return(gsea)
 }
+
 
 #' Plots GSEA results as bar plot.
 #'
