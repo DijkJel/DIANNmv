@@ -9,6 +9,7 @@ prepare_gsea_data(
   padj_cutoff = 0.05,
   top_n = Inf,
   remove_prefix = F,
+  break_names = T,
   max_name_length = Inf
 )
 }
@@ -22,7 +23,11 @@ with the lowest p.adj values.}
 
 \item{remove_prefix}{Boolean specifying to remove the prefix from pathway names.}
 
-\item{max_name_length}{Numeric value specifying the max length of pathway names.}
+\item{break_names}{Boolean value that indicates if pathway names should be shown
+on two lines when the length exceedds the max_name_length parameter}
+
+\item{max_name_length}{Numeric value indicating the maximum characters of the
+pathway names before they are shortened.}
 }
 \value{
 A data frame with filtered GSEA data.

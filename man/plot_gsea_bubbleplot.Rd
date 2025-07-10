@@ -9,7 +9,9 @@ plot_gsea_bubbleplot(
   ...,
   sample_names = NULL,
   padj_cutoff = 0.05,
-  top_n = Inf
+  top_n = Inf,
+  remove_prefix = F,
+  max_name_length = Inf
 )
 }
 \arguments{
@@ -23,6 +25,10 @@ plot_gsea_bubbleplot(
 
 \item{top_n}{he maximum number of pathways included. Takes the top_n pathways
 with the lowest p.adj values.}
+
+\item{remove_prefix}{Boolean specifying to remove the prefix from pathway names.}
+
+\item{max_name_length}{Numeric value specifying the max length of pathway names.}
 }
 \value{
 A ggplot object

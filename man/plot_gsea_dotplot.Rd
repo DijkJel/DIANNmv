@@ -4,7 +4,13 @@
 \alias{plot_gsea_dotplot}
 \title{Plots GSEA data as a faceted dot plot showing NES, padj, and set size.}
 \usage{
-plot_gsea_dotplot(gsea, padj_cutoff = 0.05, top_n = Inf)
+plot_gsea_dotplot(
+  gsea,
+  padj_cutoff = 0.05,
+  top_n = Inf,
+  remove_prefix = F,
+  max_name_length = Inf
+)
 }
 \arguments{
 \item{gsea}{gsea Output from \link{perform_GSEA}.}
@@ -13,6 +19,10 @@ plot_gsea_dotplot(gsea, padj_cutoff = 0.05, top_n = Inf)
 
 \item{top_n}{The maximum number of pathways included. Takes the top_n pathways
 with the lowest p.adj values.}
+
+\item{remove_prefix}{Boolean specifying to remove the prefix from pathway names.}
+
+\item{max_name_length}{Numeric value specifying the max length of pathway names.}
 }
 \value{
 A ggplot object.

@@ -286,6 +286,26 @@ res <- get_DEPresults(se, type = 'all')
 ```
 # Plotting
 
+## Protein Coverage
+
+To plot the coverage and intensity of identified peptides of a protein, you can 
+use plot_protein_coverage(). This expects the report.pr_matrix file. You can 
+plot multiple proteins faceted, and highlight amino acid positions in the
+protein. By default, overlapping peptides (e.g. due to miscleavages) are 
+combined and the intensities are summed.
+
+```{r}
+# The default option
+smad4 <- plot_protein_coverage(report.pr_matrix, 'SMAD4')
+
+# Indicate amino acid positions and zoom in on aa 50-200 of protein:
+smad4_zoom <- plot_protein_coverage(report.pr_matrix, 'SMAD4', c(100, 120),
+                                    zoom = c(50, 200))
+
+```
+
+
+
 ## Volcano plots
 
 The plotVolcano() function returns volcano plots with the specified significance

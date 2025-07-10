@@ -30,7 +30,7 @@ prepare_gsea_data = function(gsea, padj_cutoff = 0.05, top_n = Inf, remove_prefi
   break_pw_name = function(pathway_name){
 
     separate_words = strsplit(pathway_name, '_')[[1]]
-    cs = cumsum(sapply(sep, nchar))
+    cs = cumsum(sapply(separate_words, nchar))
     cutoff = which(cs > 0.5*nchar(pathway_name))[[1]]
     first_part = paste(separate_words[1:(cutoff-1)], collapse = '_')
     second_part = paste(separate_words[cutoff:length(separate_words)], collapse = '_')
@@ -281,8 +281,6 @@ plot_gsea_dotplot = function(gsea, padj_cutoff = 0.05,
 #' the top_n up- and top_n down-regulated proteins based on the p.adj.
 #' When providing a vector with protein names, only those points are labeled.
 #' @param top_n Specifies how many significant points to label.
-#' @param remove_prefix Boolean specifying to remove the prefix from pathway names.
-#' @param max_name_length Numeric value specifying the max length of pathway names.
 #' @param up_color Character string specifying the color for significant points with positive NES.
 #' @param down_color Character string specifying the color for significant points with positive NES.
 #' @param ns_color Character string specifying the color for non-significant points.

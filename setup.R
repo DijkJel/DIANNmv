@@ -9,6 +9,7 @@ use_r('gsea')
 use_r('gsea_plots')
 use_r('iBAQ')
 use_r('mixed_imputation')
+use_r('protein_coverage')
 
 
 
@@ -28,7 +29,7 @@ use_package('stringr')
 use_package('cleaver')
 use_package('ggupset')
 use_package('MsCoreUtils')
-
+use_package('ivs')
 
 use_readme_rmd()
 build_readme()
