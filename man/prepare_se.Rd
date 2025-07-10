@@ -48,8 +48,9 @@ se <- prepare_se(report.pg_matrix,
                 expDesign, missing_thr = 1,
                 impute = 'knn') # creates se with missing values imputed
 
+# creates se without imputing missing values.
 se <- prepare_se(report.pg_matrix,
                 expDesign,
                  missing_thr = 1,
-                 impute = 'none') # creates se without imputing missing values
+                 impute = 'none')
 }
