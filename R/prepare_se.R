@@ -44,6 +44,44 @@ add_maxLFQ_iBAQ = function(se){
   return(se)
 }
 
+
+#' Tidies sample names and parses an experimental design.
+#'
+#' @param pg_matrix The report.pg_matrix file
+#' @param pr_matrix The report.pr_matrix file
+#'
+#' @details
+#' This functions tidies sample names and prepares and experimental design,
+#' assuming that the structure of the sample names is <prefix_condition_replicate>.
+#' An example of the prepared sample names and expDesign is printed in the console.
+#'
+#'
+#' @return A list with a tidied pg_matrix, pr_matrix, and parsed expDesign.
+#' @export
+#'
+#' @examples
+#' tidy_data <- prepare_diann_data(report.pg_matrix, report.pr_matrix)
+#' pg_matrix <- tidy_data$pg_matrix
+#' pr_matrix <- tidy_data$pr_matrix
+prepare_diann_data = function(pg_matrix, pr_matrix){
+
+  cn = colnames(pg_matrix)[5:ncol(pg_matrix)]
+  cn = sapply(cn, function(x){strsplit(x, '_|\\.')[[1]]})
+  cn = cn[apply(cn, 1, function(row) !all(row == row[1])),]
+  cn = apply(cn, 2, function(x){paste(x, collapse = '_')})
+
+  colnames(pg_matrix)[5:ncol(pg_matrix)] = cn
+  colnames(pr_matrix)[11:ncol(pr_matrix)] = cn
+
+  ed = data.frame(label = cn,
+                  condition = gsub('_\\d+$', '', cn),
+                  replicate = gsub('.*_(\\d+)$', '\\1', cn))
+
+  rownames(ed) = ed$label
+  print(ed)
+  return(list(pg_matrix = pg_matrix, pr_matrix = pr_matrix, expDesign = ed))
+}
+
 #' Prepare summarizedExperiment object from diann report.pg_matrix file
 #'
 #' @param pg_matrix the report.pg_matrix file from DIANN
@@ -71,10 +109,11 @@ add_maxLFQ_iBAQ = function(se){
 #'                 expDesign, missing_thr = 1,
 #'                 impute = 'knn') # creates se with missing values imputed
 #'
+#' # creates se without imputing missing values.
 #' se <- prepare_se(report.pg_matrix,
 #'                 expDesign,
 #'                  missing_thr = 1,
-#'                  impute = 'none') # creates se without imputing missing values
+#'                  impute = 'none')
 prepare_se = function(pg_matrix, expDesign, pr_matrix = NULL, missing_thr = 0,
                       min_peptides = 0, impute = 'knn',
                       mixed_cutoff = 'empirically', remove_contaminants = TRUE){
@@ -122,5 +161,20 @@ prepare_se = function(pg_matrix, expDesign, pr_matrix = NULL, missing_thr = 0,
   else if(!impute == 'none'){se = DEP::impute(se, impute)}
 
   colnames(se) = expDesign$label
+  return(se)
+}
+
+#' Prepares summarizedExperiment object to work with functions from DEP package.
+#'
+#' @param se The summarizedExperiment object created with \link{prepare_se}
+#'
+#' @return A summarizedExperiment object.
+#' @export
+#'
+#' @examples
+#' se <- prepare_se(report.pg_matrix, expDesign, report.pr_matrix)
+#' se_dep <- use_dep(se)
+use_dep = function(se){
+  colnames(se) = SummarizedExperiment::colData(se)$ID
   return(se)
 }

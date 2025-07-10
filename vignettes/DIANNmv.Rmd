@@ -82,6 +82,20 @@ for both motifs. The names in the 'label' column correspond to the intensity
 columns in report.pg_matrix and should be in the same order
 and identically named.
 
+## Prepare input data
+
+If the sample names in the report.pg_matrix and report.pr_matrix are structured
+like <prefix_condition_replicate>, the prepare_diann_data() function can tidy
+the sample names and create an experimentalDesign for you, which can be used 
+downstream. Alternatively, this can be done manually.
+
+```{r}
+tidy_data <- prepare_diann_data(report.pg_matrix, report.pr_matrix)
+pg_matrix <- tidy_data$pg_matrix
+pr_matrix <- tidy_data$pr_matrix
+```
+
+
 ## Prepare the Summarized Experiment object
 
 The report.pg_matrix, report.pr_matrix and expDesign are combined in a
@@ -134,6 +148,18 @@ colnames(rd) # Information for each proteinGroup in the se.
 cd = as.data.frame(colData(se)) 
 cd # The experimental design
 
+```
+### Note on integration with the DEP package
+
+If your experimental design and sample labels follow the convention of
+<prefix_condition_replicate>, the created summararizedExperiment object should
+work seamlessly with DEP. However, if you deviate from this structure (e.g. 
+use different condition names than those that are in the sample names), you
+might run into problems. If you want to use DEP functions anyways, you can
+run use_dep() to make it work.
+
+```{r}
+se_dep <- use_dep(se)
 ```
 
 
