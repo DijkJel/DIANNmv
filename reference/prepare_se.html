@@ -120,10 +120,11 @@ contaminants should be removed from the pg_matrix.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Done cluster 800 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Done cluster 2221 </span>
 <span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># creates se without imputing missing values.</span></span></span>
 <span class="r-in"><span><span class="va">se</span> <span class="op">&lt;-</span> <span class="fu">prepare_se</span><span class="op">(</span><span class="va">report.pg_matrix</span>,</span></span>
 <span class="r-in"><span>                <span class="va">expDesign</span>,</span></span>
 <span class="r-in"><span>                 missing_thr <span class="op">=</span> <span class="fl">1</span>,</span></span>
-<span class="r-in"><span>                 impute <span class="op">=</span> <span class="st">'none'</span><span class="op">)</span> <span class="co"># creates se without imputing missing values</span></span></span>
+<span class="r-in"><span>                 impute <span class="op">=</span> <span class="st">'none'</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="prepare_se-2.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>

@@ -23,6 +23,7 @@
 <url><loc>https://dijkjel.github.io/DIANNmv/reference/get_intensities_prMatrix.html</loc></url>
 <url><loc>https://dijkjel.github.io/DIANNmv/reference/get_median_intensities_prMatrix.html</loc></url>
 <url><loc>https://dijkjel.github.io/DIANNmv/reference/get_nPep_prMatrix.html</loc></url>
+<url><loc>https://dijkjel.github.io/DIANNmv/reference/get_peptide_position_in_protein.html</loc></url>
 <url><loc>https://dijkjel.github.io/DIANNmv/reference/get_ranked_genes.html</loc></url>
 <url><loc>https://dijkjel.github.io/DIANNmv/reference/ibaq_peptides.html</loc></url>
 <url><loc>https://dijkjel.github.io/DIANNmv/reference/index.html</loc></url>
@@ -38,16 +39,20 @@
 <url><loc>https://dijkjel.github.io/DIANNmv/reference/plot_gsea_bubbleplot.html</loc></url>
 <url><loc>https://dijkjel.github.io/DIANNmv/reference/plot_gsea_dotplot.html</loc></url>
 <url><loc>https://dijkjel.github.io/DIANNmv/reference/plot_gsea_volcano.html</loc></url>
+<url><loc>https://dijkjel.github.io/DIANNmv/reference/plot_protein_coverage.html</loc></url>
 <url><loc>https://dijkjel.github.io/DIANNmv/reference/plot_upset.html</loc></url>
 <url><loc>https://dijkjel.github.io/DIANNmv/reference/plot_venn_diagram.html</loc></url>
 <url><loc>https://dijkjel.github.io/DIANNmv/reference/prepare_MA_data.html</loc></url>
 <url><loc>https://dijkjel.github.io/DIANNmv/reference/prepare_barplot_data.html</loc></url>
+<url><loc>https://dijkjel.github.io/DIANNmv/reference/prepare_diann_data.html</loc></url>
 <url><loc>https://dijkjel.github.io/DIANNmv/reference/prepare_gsea_data.html</loc></url>
+<url><loc>https://dijkjel.github.io/DIANNmv/reference/prepare_peptide_data.html</loc></url>
 <url><loc>https://dijkjel.github.io/DIANNmv/reference/prepare_se.html</loc></url>
 <url><loc>https://dijkjel.github.io/DIANNmv/reference/prepare_volcano_data.html</loc></url>
 <url><loc>https://dijkjel.github.io/DIANNmv/reference/recode_sig_col.html</loc></url>
 <url><loc>https://dijkjel.github.io/DIANNmv/reference/report.pg_matrix.html</loc></url>
 <url><loc>https://dijkjel.github.io/DIANNmv/reference/report.pr_matrix.html</loc></url>
 <url><loc>https://dijkjel.github.io/DIANNmv/reference/summarize_peptide_intensities.html</loc></url>
+<url><loc>https://dijkjel.github.io/DIANNmv/reference/use_dep.html</loc></url>
 </urlset>
 

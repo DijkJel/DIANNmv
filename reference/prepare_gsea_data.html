@@ -44,6 +44,7 @@
 <span>  padj_cutoff <span class="op">=</span> <span class="fl">0.05</span>,</span>
 <span>  top_n <span class="op">=</span> <span class="cn">Inf</span>,</span>
 <span>  remove_prefix <span class="op">=</span> <span class="cn">F</span>,</span>
+<span>  break_names <span class="op">=</span> <span class="cn">T</span>,</span>
 <span>  max_name_length <span class="op">=</span> <span class="cn">Inf</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -69,8 +70,14 @@ with the lowest p.adj values.</p></dd>
 <dd><p>Boolean specifying to remove the prefix from pathway names.</p></dd>
 
 
+<dt id="arg-break-names">break_names<a class="anchor" aria-label="anchor" href="#arg-break-names"></a></dt>
+<dd><p>Boolean value that indicates if pathway names should be shown
+on two lines when the length exceedds the max_name_length parameter</p></dd>
+
+
 <dt id="arg-max-name-length">max_name_length<a class="anchor" aria-label="anchor" href="#arg-max-name-length"></a></dt>
-<dd><p>Numeric value specifying the max length of pathway names.</p></dd>
+<dd><p>Numeric value indicating the maximum characters of the
+pathway names before they are shortened.</p></dd>
 
 </dl></div>
     <div class="section level2">
