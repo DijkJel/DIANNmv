@@ -323,10 +323,13 @@ combined and the intensities are summed.
 ```{r}
 # The default option
 smad4 <- plot_protein_coverage(report.pr_matrix, 'SMAD4')
+smad4
 
 # Indicate amino acid positions and zoom in on aa 50-200 of protein:
 smad4_zoom <- plot_protein_coverage(report.pr_matrix, 'SMAD4', c(100, 120),
                                     zoom = c(50, 200))
+
+smad4_zoom
 
 ```
 
