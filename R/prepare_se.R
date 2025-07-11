@@ -67,8 +67,8 @@ prepare_diann_data = function(pg_matrix, pr_matrix){
 
   cn = colnames(pg_matrix)[5:ncol(pg_matrix)]
   cn = sapply(cn, function(x){strsplit(x, '_|\\.')[[1]]})
-  max_len = max(lengths(bla))
-  vals = sapply(1:max_len, function(x){vals = sapply(bla, function(y){y[x]})})
+  max_len = max(lengths(cn))
+  vals = sapply(1:max_len, function(x){vals = sapply(cn, function(y){y[x]})})
   vals = vals[,!apply(vals, 2, function(x){length(unique(x)) == 1})]
   cn = apply(vals, 1, function(x){paste(na.omit(x), collapse = '_')})
 
@@ -163,8 +163,12 @@ prepare_se = function(pg_matrix, expDesign, pr_matrix = NULL, missing_thr = 0,
   else if(!impute == 'none'){se = DEP::impute(se, impute)}
 
   colnames(se) = colData(se)$ID
-  #colnames(pr_matrix)[11:ncol(pr_matrix)] = SummarizedExperiment::colData(se)$ID
-  #SummarizedExperiment::metadata(se)$pr_matrix = pr_matrix
+
+  if(!is.null(pr_matrix)){
+    colnames(pr_matrix)[11:ncol(pr_matrix)] = SummarizedExperiment::colData(se)$ID
+    S4Vectors::metadata(se)$pr_matrix = pr_matrix
+  }
+
   return(se)
 }
 

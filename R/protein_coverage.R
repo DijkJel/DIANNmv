@@ -208,13 +208,14 @@ prepare_peptide_data = function(pr_matrix, genes, positions = NULL, zoom = NULL,
 #' @export
 #'
 #' @examples
-#' smad4 <- plot_protein_coverage(report.pr_matrix, 'SMAD4', positions = c(100, 150))
+#' se <- prepare_se(report.pg_matrix, expDesign, report.pr_matrix)
+#' smad4 <- plot_protein_coverage(se, 'SMAD4', positions = c(100, 150))
 #'
 #' # Zoom in on first 200 AA of protein
-#' smad4 <- plot_protein_coverage(report.pr_matrix, 'SMAD4', positions = c(100, 150), zoom = c(1, 200))
+#' smad4 <- plot_protein_coverage(se, 'SMAD4', positions = c(100, 150), zoom = c(1, 200))
 plot_protein_coverage = function(se, genes, positions = NULL, zoom = NULL, fasta = NULL, organism = 'hs', combine_overlap = T, dodge_labels = T, scaling = 'centered'){
 
-  pr_matrix = metadata(se)$pr_matrix
+  pr_matrix = S4Vectors::metadata(se)$pr_matrix
   data_list = prepare_peptide_data(pr_matrix, genes, positions, zoom, fasta, organism, combine_overlap, dodge_labels)
   data = data_list$data
   #data = na.omit(data)
