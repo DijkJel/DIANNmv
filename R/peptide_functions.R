@@ -155,9 +155,9 @@ add_median_peptide_intensity = function(se, pr_matrix){
   rownames(pi) = rownames(se)
   pi = pi[,-1]
 
-  if (!all(colnames(pi) == colnames(se))){
+  if (!all(colnames(pi) == SummarizedExperiment::colData(se)$label)){
     colnames(pi) = colnames(se)
-    warning('Colnames of peptide file do not match colnames SE. Same sample orde for both is assumed.')
+    warning('Colnames of peptide file do not match colnames SE. Same sample order for both is assumed.')
   }
 
   SummarizedExperiment::assay(se, 'median_peptide_intensities') = pi
