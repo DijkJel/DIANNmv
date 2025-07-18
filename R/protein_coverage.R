@@ -186,7 +186,7 @@ prepare_peptide_data = function(pr_matrix, genes, positions = NULL, zoom = NULL,
 
 #' Plots the coverage of proteins.
 #'
-#' @param pr_matrix The report.pr_matrix file.
+#' @param pr_matrix The SummarizedExperiment object from \link{create_se}
 #' @param genes The gene names of the proteins that you would like to plot.
 #' @param positions A numeric vector indiciting the amino acid positions that
 #' you want to highlight.
@@ -208,12 +208,14 @@ prepare_peptide_data = function(pr_matrix, genes, positions = NULL, zoom = NULL,
 #' @export
 #'
 #' @examples
-#' smad4 <- plot_protein_coverage(report.pr_matrix, 'SMAD4', positions = c(100, 150))
+#' se <- prepare_se(report.pg_matrix, expDesign, report.pr_matrix)
+#' smad4 <- plot_protein_coverage(se, 'SMAD4', positions = c(100, 150))
 #'
 #' # Zoom in on first 200 AA of protein
-#' smad4 <- plot_protein_coverage(report.pr_matrix, 'SMAD4', positions = c(100, 150), zoom = c(1, 200))
-plot_protein_coverage = function(pr_matrix, genes, positions = NULL, zoom = NULL, fasta = NULL, organism = 'hs', combine_overlap = T, dodge_labels = T, scaling = 'centered'){
+#' smad4 <- plot_protein_coverage(se, 'SMAD4', positions = c(100, 150), zoom = c(1, 200))
+plot_protein_coverage = function(se, genes, positions = NULL, zoom = NULL, fasta = NULL, organism = 'hs', combine_overlap = T, dodge_labels = T, scaling = 'centered'){
 
+  pr_matrix = S4Vectors::metadata(se)$pr_matrix
   data_list = prepare_peptide_data(pr_matrix, genes, positions, zoom, fasta, organism, combine_overlap, dodge_labels)
   data = data_list$data
   #data = na.omit(data)

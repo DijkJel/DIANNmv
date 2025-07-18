@@ -116,6 +116,8 @@ prepare_gsea_data = function(gsea, padj_cutoff = 0.05, top_n = Inf, remove_prefi
 #' with the lowest p.adj values.
 #' @param remove_prefix Boolean specifying to remove the prefix from pathway names.
 #' @param max_name_length Numeric value specifying the max length of pathway names.
+#' @param break_names Boolean value that indicates if pathway names should be shown
+#' on two lines when the length exceedds the max_name_length parameter
 #'
 #' @import ggplot2
 #'
@@ -133,9 +135,9 @@ prepare_gsea_data = function(gsea, padj_cutoff = 0.05, top_n = Inf, remove_prefi
 #' barplot <- plot_gsea_barplot(gsea, pos_color = 'red3', neg_color = 'dodgerblue', top_n = 10)
 #' }
 plot_gsea_barplot = function(gsea, pos_color = 'gold1', neg_color = 'darkblue', padj_cutoff = 0.05,
-                             top_n = Inf, remove_prefix = F, max_name_length = Inf){
+                             top_n = Inf, remove_prefix = F, max_name_length = Inf, break_names = T){
 
-  data = prepare_gsea_data(gsea, padj_cutoff, top_n, remove_prefix, max_name_length)
+  data = prepare_gsea_data(gsea, padj_cutoff, top_n, remove_prefix, max_name_length, break_names)
   data$group = ifelse(data$NES < 0, 'Negative', 'Positive')
 
   barplot = ggplot2::ggplot(data, ggplot2::aes(x = reorder(.data[['pathway']], .data[['NES']]), y = .data[['NES']], fill = .data[['group']])) +
@@ -169,6 +171,8 @@ plot_gsea_barplot = function(gsea, pos_color = 'gold1', neg_color = 'darkblue', 
 #' with the lowest p.adj values.
 #' @param remove_prefix Boolean specifying to remove the prefix from pathway names.
 #' @param max_name_length Numeric value specifying the max length of pathway names.
+#' @param break_names Boolean value that indicates if pathway names should be shown
+#' on two lines when the length exceedds the max_name_length parameter
 #'
 #' @import ggplot2
 #'
@@ -189,7 +193,7 @@ plot_gsea_barplot = function(gsea, pos_color = 'gold1', neg_color = 'darkblue', 
 #' }
 
 plot_gsea_bubbleplot = function(gsea, ..., sample_names = NULL, padj_cutoff = 0.05,
-                                top_n = Inf, remove_prefix = F, max_name_length = Inf){
+                                top_n = Inf, remove_prefix = F, max_name_length = Inf, break_names = T){
 
   l = list(gsea, ...)
   if (!is.null(sample_names)){
@@ -234,6 +238,8 @@ plot_gsea_bubbleplot = function(gsea, ..., sample_names = NULL, padj_cutoff = 0.
 #' with the lowest p.adj values.
 #' @param remove_prefix Boolean specifying to remove the prefix from pathway names.
 #' @param max_name_length Numeric value specifying the max length of pathway names.
+#' @param break_names Boolean value that indicates if pathway names should be shown
+#' on two lines when the length exceedds the max_name_length parameter
 #'
 #' @import ggplot2
 #'
@@ -246,9 +252,9 @@ plot_gsea_bubbleplot = function(gsea, ..., sample_names = NULL, padj_cutoff = 0.
 #' dotplot <- plot_gsea_dotplot(gsea, top_n = 10)
 #' }
 plot_gsea_dotplot = function(gsea, padj_cutoff = 0.05,
-                             top_n = Inf, remove_prefix = F, max_name_length = Inf){
+                             top_n = Inf, remove_prefix = F, max_name_length = Inf, break_names = T){
 
-  data = data = prepare_gsea_data(gsea, padj_cutoff, top_n, remove_prefix, max_name_length)
+  data = data = prepare_gsea_data(gsea, padj_cutoff, top_n, remove_prefix, max_name_length, break_names)
   data$group = ifelse(data$NES < 0, 'Repressed', 'Activated')
   data$group = factor(data$group, levels = c('Repressed', 'Activated'))
 

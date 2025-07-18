@@ -5,7 +5,7 @@
 \title{Plots the coverage of proteins.}
 \usage{
 plot_protein_coverage(
-  pr_matrix,
+  se,
   genes,
   positions = NULL,
   zoom = NULL,
@@ -17,8 +17,6 @@ plot_protein_coverage(
 )
 }
 \arguments{
-\item{pr_matrix}{The report.pr_matrix file.}
-
 \item{genes}{The gene names of the proteins that you would like to plot.}
 
 \item{positions}{A numeric vector indiciting the amino acid positions that
@@ -40,6 +38,8 @@ on different heights so that they do not overlap in the plot.}
 
 \item{scaling}{Boolean value indicating whether the peptide intensities should
 be centered over the different replicates.}
+
+\item{pr_matrix}{The SummarizedExperiment object from \link{create_se}}
 }
 \value{
 A ggplot2 object showing the found peptides for a protein.
@@ -48,8 +48,9 @@ A ggplot2 object showing the found peptides for a protein.
 Plots the coverage of proteins.
 }
 \examples{
-smad4 <- plot_protein_coverage(report.pr_matrix, 'SMAD4', positions = c(100, 150))
+se <- prepare_se(report.pg_matrix, expDesign, report.pr_matrix)
+smad4 <- plot_protein_coverage(se, 'SMAD4', positions = c(100, 150))
 
 # Zoom in on first 200 AA of protein
-smad4 <- plot_protein_coverage(report.pr_matrix, 'SMAD4', positions = c(100, 150), zoom = c(1, 200))
+smad4 <- plot_protein_coverage(se, 'SMAD4', positions = c(100, 150), zoom = c(1, 200))
 }
