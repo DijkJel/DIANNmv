@@ -24,6 +24,7 @@ Imports:
     MsCoreUtils,
     msigdb,
     reshape2,
+    S4Vectors,
     seqinr,
     stats,
     stringr,

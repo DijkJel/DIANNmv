@@ -17,6 +17,8 @@ plot_protein_coverage(
 )
 }
 \arguments{
+\item{se}{The SummarizedExperiment object from \link{create_se}}
+
 \item{genes}{The gene names of the proteins that you would like to plot.}
 
 \item{positions}{A numeric vector indiciting the amino acid positions that
@@ -38,8 +40,6 @@ on different heights so that they do not overlap in the plot.}
 
 \item{scaling}{Boolean value indicating whether the peptide intensities should
 be centered over the different replicates.}
-
-\item{pr_matrix}{The SummarizedExperiment object from \link{create_se}}
 }
 \value{
 A ggplot2 object showing the found peptides for a protein.

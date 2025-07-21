@@ -186,7 +186,7 @@ prepare_peptide_data = function(pr_matrix, genes, positions = NULL, zoom = NULL,
 
 #' Plots the coverage of proteins.
 #'
-#' @param pr_matrix The SummarizedExperiment object from \link{create_se}
+#' @param se The SummarizedExperiment object from \link{prepare_se}
 #' @param genes The gene names of the proteins that you would like to plot.
 #' @param positions A numeric vector indiciting the amino acid positions that
 #' you want to highlight.
@@ -202,7 +202,7 @@ prepare_peptide_data = function(pr_matrix, genes, positions = NULL, zoom = NULL,
 #' @param scaling Boolean value indicating whether the peptide intensities should
 #' be centered over the different replicates.
 #'
-#' @import ggplot2
+#' @import ggplot2 S4Vectors
 #'
 #' @return A ggplot2 object showing the found peptides for a protein.
 #' @export

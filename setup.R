@@ -30,6 +30,7 @@ use_package('cleaver')
 use_package('ggupset')
 use_package('MsCoreUtils')
 use_package('ivs')
+use_package('S4Vectors')
 
 use_readme_rmd()
 build_readme()
