@@ -11,7 +11,8 @@ plot_gsea_bubbleplot(
   padj_cutoff = 0.05,
   top_n = Inf,
   remove_prefix = F,
-  max_name_length = Inf
+  max_name_length = Inf,
+  break_names = T
 )
 }
 \arguments{
@@ -29,6 +30,9 @@ with the lowest p.adj values.}
 \item{remove_prefix}{Boolean specifying to remove the prefix from pathway names.}
 
 \item{max_name_length}{Numeric value specifying the max length of pathway names.}
+
+\item{break_names}{Boolean value that indicates if pathway names should be shown
+on two lines when the length exceedds the max_name_length parameter}
 }
 \value{
 A ggplot object

@@ -67,7 +67,6 @@ prepare_diann_data = function(pg_matrix, pr_matrix){
 
   cn = colnames(pg_matrix)[5:ncol(pg_matrix)]
   cn = sapply(cn, function(x){strsplit(x, '_|\\.')[[1]]})
-  cn = as.data.frame(cn)
 
   max_len = max(lengths(cn))
   vals = sapply(1:max_len, function(x){vals = sapply(cn, function(y){y[x]})})
