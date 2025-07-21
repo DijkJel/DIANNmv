@@ -202,7 +202,7 @@ plot_gsea_bubbleplot = function(gsea, ..., sample_names = NULL, padj_cutoff = 0.
     names(l) = paste0('sample_', 1:length(l))
   }
 
-  l = lapply(l, function(x){prepare_gsea_data(gsea, padj_cutoff, top_n, remove_prefix, max_name_length)})
+  l = lapply(l, function(x){prepare_gsea_data(gsea, padj_cutoff, top_n, remove_prefix, max_name_length, break_names)})
 
   poi = unique(unlist(lapply(l, function(x){x$pathway})))
   df = data.frame(pathway = poi)
