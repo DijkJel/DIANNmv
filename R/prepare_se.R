@@ -164,7 +164,7 @@ prepare_se = function(pg_matrix, expDesign, pr_matrix = NULL, missing_thr = 0,
   if(impute == 'mixed'){se = mixed_imputation(se, mixed_cutoff)}
   else if(!impute == 'none'){se = DEP::impute(se, impute)}
 
-  colnames(se) = colData(se)$ID
+  colnames(se) = SummarizedExperiment::colData(se)$ID
 
   if(!is.null(pr_matrix)){
     colnames(pr_matrix)[11:ncol(pr_matrix)] = SummarizedExperiment::colData(se)$ID
