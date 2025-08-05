@@ -35,8 +35,8 @@ A list with data frames.
 Prepare the data for making MA plots
 }
 \examples{
-se <- prepare_se(report.pg_matrix, expDesign)
-se <- add_median_peptide_intensity(se, report.pr_matrix)
+se <- prepare_se(report.pg_matrix, expDesign, report.pr_matrix)
+se <- add_median_peptide_intensity(se)
 res <- get_DEPresults(se, type = 'all')
 data <- prepare_MA_data(res)
 }

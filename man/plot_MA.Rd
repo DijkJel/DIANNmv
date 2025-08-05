@@ -35,10 +35,8 @@ A single ggplot object (1 comparison) or a list with ggplot objects.
 Makes MA plots for each comparison in the results data frame
 }
 \examples{
-
-
-se <- prepare_se(report.pg_matrix, expDesign)
-se <- add_median_peptide_intensity(se, report.pr_matrix)
+se <- prepare_se(report.pg_matrix, expDesign, report.pr_matrix)
+se <- add_median_peptide_intensity(se)
 res <- get_DEPresults(se, type = 'all')
 MAplots <- plot_MA(res)
 }

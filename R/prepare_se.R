@@ -66,7 +66,7 @@ add_maxLFQ_iBAQ = function(se){
 prepare_diann_data = function(pg_matrix, pr_matrix){
 
   cn = colnames(pg_matrix)[5:ncol(pg_matrix)]
-  cn = sapply(cn, function(x){strsplit(x, '_|\\.')[[1]]})
+  cn = lapply(cn, function(x){strsplit(x, '_|\\.')[[1]]})
 
   max_len = max(lengths(cn))
   vals = sapply(1:max_len, function(x){vals = sapply(cn, function(y){y[x]})})
@@ -122,7 +122,10 @@ prepare_se = function(pg_matrix, expDesign, pr_matrix = NULL, missing_thr = 0,
                       min_peptides = 0, impute = 'knn',
                       mixed_cutoff = 'empirically', remove_contaminants = TRUE){
 
+
+
   if (!is.null(pr_matrix) & !('n_total' %in% colnames(pg_matrix))){
+    pr_matrix[11:ncol(pr_matrix)] = lapply(pr_matrix[,11:ncol(pr_matrix)], as.numeric)
     pep = get_nPep_prMatrix(pr_matrix)
     pg_matrix = add_peptide_numbers(pg_matrix, pep)
   }
@@ -135,6 +138,7 @@ prepare_se = function(pg_matrix, expDesign, pr_matrix = NULL, missing_thr = 0,
 
   pat = paste(expDesign$label, collapse = '|')
   lfq = grep(pat, colnames(pg_uniq))
+  pg_uniq[,lfq] = lapply(pg_uniq[,lfq], as.numeric)
   se = DEP::make_se(pg_uniq, lfq, expDesign)
 
 

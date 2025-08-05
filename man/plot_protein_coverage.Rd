@@ -17,7 +17,7 @@ plot_protein_coverage(
 )
 }
 \arguments{
-\item{se}{The SummarizedExperiment object from \link{create_se}}
+\item{se}{The SummarizedExperiment object from \link{prepare_se}}
 
 \item{genes}{The gene names of the proteins that you would like to plot.}
 

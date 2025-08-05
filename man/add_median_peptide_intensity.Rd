@@ -4,12 +4,10 @@
 \alias{add_median_peptide_intensity}
 \title{Adds median peptide intensities to summerizedExperiment object}
 \usage{
-add_median_peptide_intensity(se, pr_matrix)
+add_median_peptide_intensity(se)
 }
 \arguments{
 \item{se}{SummerizedExperiment object returned from DEP::make_se()}
-
-\item{pr_matrix}{The report.pr_matrix file}
 }
 \value{
 a summerizedExperiment object with peptide intensities as extra assay
@@ -19,6 +17,6 @@ Adds median peptide intensities to summerizedExperiment object
 }
 \examples{
 
-se <- prepare_se(report.pg_matrix, expDesign)
-se <- add_median_peptide_intensity(se, report.pr_matrix)
+se <- prepare_se(report.pg_matrix, expDesign, report.pr_matrix)
+se <- add_median_peptide_intensity(se)
 }

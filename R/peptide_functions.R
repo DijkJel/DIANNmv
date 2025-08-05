@@ -136,18 +136,18 @@ get_median_intensities_prMatrix = function(pr_matrix, id_column = 'Protein.Group
 #' Adds median peptide intensities to summerizedExperiment object
 #'
 #' @param se SummerizedExperiment object returned from DEP::make_se()
-#' @param pr_matrix The report.pr_matrix file
-#' @import SummarizedExperiment
+#' @import SummarizedExperiment S4Vectors
 #'
 #' @return a summerizedExperiment object with peptide intensities as extra assay
 #' @export
 #'
 #' @examples
 #'
-#' se <- prepare_se(report.pg_matrix, expDesign)
-#' se <- add_median_peptide_intensity(se, report.pr_matrix)
-add_median_peptide_intensity = function(se, pr_matrix){
+#' se <- prepare_se(report.pg_matrix, expDesign, report.pr_matrix)
+#' se <- add_median_peptide_intensity(se)
+add_median_peptide_intensity = function(se){
 
+  pr_matrix = S4Vectors::metadata(se)$pr_matrix
   pi = get_median_intensities_prMatrix(pr_matrix)
   #pi = peptide_intensities
   pi = pi[pi[,1] %in% SummarizedExperiment::rowData(se)$Protein.Group,]

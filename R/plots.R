@@ -171,8 +171,8 @@ plotVolcano = function(res, pval_cutoff = 0.05, fc_cutoff = 1, label = 'sig', to
 #' @export
 #'
 #' @examples
-#' se <- prepare_se(report.pg_matrix, expDesign)
-#' se <- add_median_peptide_intensity(se, report.pr_matrix)
+#' se <- prepare_se(report.pg_matrix, expDesign, report.pr_matrix)
+#' se <- add_median_peptide_intensity(se)
 #' res <- get_DEPresults(se, type = 'all')
 #' data <- prepare_MA_data(res)
 prepare_MA_data = function(res, label = NULL, ns_color = 'grey70', up_color = 'red3', down_color = 'dodgerblue'){
@@ -226,10 +226,8 @@ prepare_MA_data = function(res, label = NULL, ns_color = 'grey70', up_color = 'r
 #' @export
 #'
 #' @examples
-#'
-#'
-#' se <- prepare_se(report.pg_matrix, expDesign)
-#' se <- add_median_peptide_intensity(se, report.pr_matrix)
+#' se <- prepare_se(report.pg_matrix, expDesign, report.pr_matrix)
+#' se <- add_median_peptide_intensity(se)
 #' res <- get_DEPresults(se, type = 'all')
 #' MAplots <- plot_MA(res)
 plot_MA = function(res, label = NULL, ns_color = 'grey70', up_color = 'red3', down_color = 'dodgerblue'){

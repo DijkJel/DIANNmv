@@ -77,7 +77,7 @@ prepare_peptide_data = function(pr_matrix, genes, positions = NULL, zoom = NULL,
     upid =  x[1,'uniprotID']
     gene = pr_matrix[match(upid, pr_matrix$Protein.Group),'Genes']
     protein_sequence = fasta[fasta$uniprotID == x[1,'uniprotID'],'sequence']
-    ibaq_sequences = cleaver::cleave(protein_sequence, enzym = )[[1]]
+    ibaq_sequences = cleaver::cleave(protein_sequence, enzym = 'trypsin')[[1]]
 
     ibaq_sequences = ibaq_sequences[nchar(ibaq_sequences) >= 7 & nchar(ibaq_sequences) <= 30]
 

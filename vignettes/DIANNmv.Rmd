@@ -262,11 +262,12 @@ head(mpi)
 
 ```
 
-To add mpi to the se object directly:
+To add mpi to the se object directly (this requires that the se includes the 
+pr_matrix when running prepare_se()):
 
 ```{r}
 
- se <- add_median_peptide_intensity(se, report.pr_matrix)
+ se <- add_median_peptide_intensity(se)
  se # an extra assay 'median_peptide_intensities' is added
  mpi <- assay(se, 'median_peptide_intensities')
  
