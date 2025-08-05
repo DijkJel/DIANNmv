@@ -585,10 +585,11 @@ mpi as separate object:</p>
 <span><span class="co">#&gt; 4  78935.65  82479.8       NA  78484.7        NA</span></span>
 <span><span class="co">#&gt; 5  47525.95       NA  65137.5  71409.6  23997.25</span></span>
 <span><span class="co">#&gt; 6   9534.49  17388.9  16438.0  25568.2   8499.39</span></span></code></pre></div>
-<p>To add mpi to the se object directly:</p>
+<p>To add mpi to the se object directly (this requires that the se
+includes the pr_matrix when running prepare_se()):</p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
-<span> <span class="va">se</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/add_median_peptide_intensity.html">add_median_peptide_intensity</a></span><span class="op">(</span><span class="va">se</span>, <span class="va">report.pr_matrix</span><span class="op">)</span></span>
+<span> <span class="va">se</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/add_median_peptide_intensity.html">add_median_peptide_intensity</a></span><span class="op">(</span><span class="va">se</span><span class="op">)</span></span>
 <span> <span class="va">se</span> <span class="co"># an extra assay 'median_peptide_intensities' is added</span></span>
 <span><span class="co">#&gt; class: SummarizedExperiment </span></span>
 <span><span class="co">#&gt; dim: 5508 9 </span></span>
@@ -726,88 +727,88 @@ are used, but it can handle five comparisons maximally. You can specify
 which comparisons to include.</p>
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_venn_diagram.html">plot_venn_diagram</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span> <span class="co"># all comparisons</span></span>
-<span><span class="co">#&gt; INFO [2025-07-31 09:17:55] [[1]]</span></span>
-<span><span class="co">#&gt; INFO [2025-07-31 09:17:55] venn_list</span></span>
-<span><span class="co">#&gt; INFO [2025-07-31 09:17:55] </span></span>
-<span><span class="co">#&gt; INFO [2025-07-31 09:17:55] $filename</span></span>
-<span><span class="co">#&gt; INFO [2025-07-31 09:17:55] NULL</span></span>
-<span><span class="co">#&gt; INFO [2025-07-31 09:17:55] </span></span>
-<span><span class="co">#&gt; INFO [2025-07-31 09:17:55] $disable.logging</span></span>
-<span><span class="co">#&gt; INFO [2025-07-31 09:17:55] T</span></span>
-<span><span class="co">#&gt; INFO [2025-07-31 09:17:55] </span></span>
-<span><span class="co">#&gt; INFO [2025-07-31 09:17:55] $fill</span></span>
-<span><span class="co">#&gt; INFO [2025-07-31 09:17:55] colors</span></span>
-<span><span class="co">#&gt; INFO [2025-07-31 09:17:55] </span></span>
-<span><span class="co">#&gt; INFO [2025-07-31 09:17:55] $fontfamily</span></span>
-<span><span class="co">#&gt; INFO [2025-07-31 09:17:55] [1] "sans"</span></span>
-<span><span class="co">#&gt; INFO [2025-07-31 09:17:55] </span></span>
-<span><span class="co">#&gt; INFO [2025-07-31 09:17:55] $fontface</span></span>
-<span><span class="co">#&gt; INFO [2025-07-31 09:17:55] [1] "bold"</span></span>
-<span><span class="co">#&gt; INFO [2025-07-31 09:17:55] </span></span>
-<span><span class="co">#&gt; INFO [2025-07-31 09:17:55] $cat.fontfamily</span></span>
-<span><span class="co">#&gt; INFO [2025-07-31 09:17:55] [1] "sans"</span></span>
-<span><span class="co">#&gt; INFO [2025-07-31 09:17:55] </span></span>
-<span><span class="co">#&gt; INFO [2025-07-31 09:17:55] $lty</span></span>
-<span><span class="co">#&gt; INFO [2025-07-31 09:17:55] [1] 0</span></span>
-<span><span class="co">#&gt; INFO [2025-07-31 09:17:55]</span></span></code></pre></div>
+<span><span class="co">#&gt; INFO [2025-08-05 10:52:03] [[1]]</span></span>
+<span><span class="co">#&gt; INFO [2025-08-05 10:52:03] venn_list</span></span>
+<span><span class="co">#&gt; INFO [2025-08-05 10:52:03] </span></span>
+<span><span class="co">#&gt; INFO [2025-08-05 10:52:03] $filename</span></span>
+<span><span class="co">#&gt; INFO [2025-08-05 10:52:03] NULL</span></span>
+<span><span class="co">#&gt; INFO [2025-08-05 10:52:03] </span></span>
+<span><span class="co">#&gt; INFO [2025-08-05 10:52:03] $disable.logging</span></span>
+<span><span class="co">#&gt; INFO [2025-08-05 10:52:03] T</span></span>
+<span><span class="co">#&gt; INFO [2025-08-05 10:52:03] </span></span>
+<span><span class="co">#&gt; INFO [2025-08-05 10:52:03] $fill</span></span>
+<span><span class="co">#&gt; INFO [2025-08-05 10:52:03] colors</span></span>
+<span><span class="co">#&gt; INFO [2025-08-05 10:52:03] </span></span>
+<span><span class="co">#&gt; INFO [2025-08-05 10:52:03] $fontfamily</span></span>
+<span><span class="co">#&gt; INFO [2025-08-05 10:52:03] [1] "sans"</span></span>
+<span><span class="co">#&gt; INFO [2025-08-05 10:52:03] </span></span>
+<span><span class="co">#&gt; INFO [2025-08-05 10:52:03] $fontface</span></span>
+<span><span class="co">#&gt; INFO [2025-08-05 10:52:03] [1] "bold"</span></span>
+<span><span class="co">#&gt; INFO [2025-08-05 10:52:03] </span></span>
+<span><span class="co">#&gt; INFO [2025-08-05 10:52:03] $cat.fontfamily</span></span>
+<span><span class="co">#&gt; INFO [2025-08-05 10:52:03] [1] "sans"</span></span>
+<span><span class="co">#&gt; INFO [2025-08-05 10:52:03] </span></span>
+<span><span class="co">#&gt; INFO [2025-08-05 10:52:03] $lty</span></span>
+<span><span class="co">#&gt; INFO [2025-08-05 10:52:03] [1] 0</span></span>
+<span><span class="co">#&gt; INFO [2025-08-05 10:52:03]</span></span></code></pre></div>
 <p><img src="DIANNmv_files/figure-html/unnamed-chunk-22-1.png" width="700"></p>
 <div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_venn_diagram.html">plot_venn_diagram</a></span><span class="op">(</span><span class="va">res</span>, comparisons <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'neg_ctrl_vs_motif1'</span>, </span>
 <span>                                       <span class="st">'neg_ctrl_vs_motif2'</span><span class="op">)</span><span class="op">)</span> <span class="co"># only two comp.</span></span>
-<span><span class="co">#&gt; INFO [2025-07-31 09:17:55] [[1]]</span></span>
-<span><span class="co">#&gt; INFO [2025-07-31 09:17:55] venn_list</span></span>
-<span><span class="co">#&gt; INFO [2025-07-31 09:17:55] </span></span>
-<span><span class="co">#&gt; INFO [2025-07-31 09:17:55] $filename</span></span>
-<span><span class="co">#&gt; INFO [2025-07-31 09:17:55] NULL</span></span>
-<span><span class="co">#&gt; INFO [2025-07-31 09:17:55] </span></span>
-<span><span class="co">#&gt; INFO [2025-07-31 09:17:55] $disable.logging</span></span>
-<span><span class="co">#&gt; INFO [2025-07-31 09:17:55] T</span></span>
-<span><span class="co">#&gt; INFO [2025-07-31 09:17:55] </span></span>
-<span><span class="co">#&gt; INFO [2025-07-31 09:17:55] $fill</span></span>
-<span><span class="co">#&gt; INFO [2025-07-31 09:17:55] colors</span></span>
-<span><span class="co">#&gt; INFO [2025-07-31 09:17:55] </span></span>
-<span><span class="co">#&gt; INFO [2025-07-31 09:17:55] $fontfamily</span></span>
-<span><span class="co">#&gt; INFO [2025-07-31 09:17:55] [1] "sans"</span></span>
-<span><span class="co">#&gt; INFO [2025-07-31 09:17:55] </span></span>
-<span><span class="co">#&gt; INFO [2025-07-31 09:17:55] $fontface</span></span>
-<span><span class="co">#&gt; INFO [2025-07-31 09:17:55] [1] "bold"</span></span>
-<span><span class="co">#&gt; INFO [2025-07-31 09:17:55] </span></span>
-<span><span class="co">#&gt; INFO [2025-07-31 09:17:55] $cat.fontfamily</span></span>
-<span><span class="co">#&gt; INFO [2025-07-31 09:17:55] [1] "sans"</span></span>
-<span><span class="co">#&gt; INFO [2025-07-31 09:17:55] </span></span>
-<span><span class="co">#&gt; INFO [2025-07-31 09:17:55] $lty</span></span>
-<span><span class="co">#&gt; INFO [2025-07-31 09:17:55] [1] 0</span></span>
-<span><span class="co">#&gt; INFO [2025-07-31 09:17:55]</span></span></code></pre></div>
+<span><span class="co">#&gt; INFO [2025-08-05 10:52:03] [[1]]</span></span>
+<span><span class="co">#&gt; INFO [2025-08-05 10:52:03] venn_list</span></span>
+<span><span class="co">#&gt; INFO [2025-08-05 10:52:03] </span></span>
+<span><span class="co">#&gt; INFO [2025-08-05 10:52:03] $filename</span></span>
+<span><span class="co">#&gt; INFO [2025-08-05 10:52:03] NULL</span></span>
+<span><span class="co">#&gt; INFO [2025-08-05 10:52:03] </span></span>
+<span><span class="co">#&gt; INFO [2025-08-05 10:52:03] $disable.logging</span></span>
+<span><span class="co">#&gt; INFO [2025-08-05 10:52:03] T</span></span>
+<span><span class="co">#&gt; INFO [2025-08-05 10:52:03] </span></span>
+<span><span class="co">#&gt; INFO [2025-08-05 10:52:03] $fill</span></span>
+<span><span class="co">#&gt; INFO [2025-08-05 10:52:03] colors</span></span>
+<span><span class="co">#&gt; INFO [2025-08-05 10:52:03] </span></span>
+<span><span class="co">#&gt; INFO [2025-08-05 10:52:03] $fontfamily</span></span>
+<span><span class="co">#&gt; INFO [2025-08-05 10:52:03] [1] "sans"</span></span>
+<span><span class="co">#&gt; INFO [2025-08-05 10:52:03] </span></span>
+<span><span class="co">#&gt; INFO [2025-08-05 10:52:03] $fontface</span></span>
+<span><span class="co">#&gt; INFO [2025-08-05 10:52:03] [1] "bold"</span></span>
+<span><span class="co">#&gt; INFO [2025-08-05 10:52:03] </span></span>
+<span><span class="co">#&gt; INFO [2025-08-05 10:52:03] $cat.fontfamily</span></span>
+<span><span class="co">#&gt; INFO [2025-08-05 10:52:03] [1] "sans"</span></span>
+<span><span class="co">#&gt; INFO [2025-08-05 10:52:03] </span></span>
+<span><span class="co">#&gt; INFO [2025-08-05 10:52:03] $lty</span></span>
+<span><span class="co">#&gt; INFO [2025-08-05 10:52:03] [1] 0</span></span>
+<span><span class="co">#&gt; INFO [2025-08-05 10:52:03]</span></span></code></pre></div>
 <p><img src="DIANNmv_files/figure-html/unnamed-chunk-22-2.png" width="700"></p>
 <div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="fu"><a href="../reference/plot_venn_diagram.html">plot_venn_diagram</a></span><span class="op">(</span><span class="va">res</span>, comparisons <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'neg_ctrl_vs_motif1'</span>, </span>
 <span>                                       <span class="st">'neg_ctrl_vs_motif2'</span><span class="op">)</span>, </span>
 <span>                  colors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'red'</span>, <span class="st">'blue'</span><span class="op">)</span><span class="op">)</span> <span class="co"># specify colors used</span></span>
-<span><span class="co">#&gt; INFO [2025-07-31 09:17:55] [[1]]</span></span>
-<span><span class="co">#&gt; INFO [2025-07-31 09:17:55] venn_list</span></span>
-<span><span class="co">#&gt; INFO [2025-07-31 09:17:55] </span></span>
-<span><span class="co">#&gt; INFO [2025-07-31 09:17:55] $filename</span></span>
-<span><span class="co">#&gt; INFO [2025-07-31 09:17:55] NULL</span></span>
-<span><span class="co">#&gt; INFO [2025-07-31 09:17:55] </span></span>
-<span><span class="co">#&gt; INFO [2025-07-31 09:17:55] $disable.logging</span></span>
-<span><span class="co">#&gt; INFO [2025-07-31 09:17:55] T</span></span>
-<span><span class="co">#&gt; INFO [2025-07-31 09:17:55] </span></span>
-<span><span class="co">#&gt; INFO [2025-07-31 09:17:55] $fill</span></span>
-<span><span class="co">#&gt; INFO [2025-07-31 09:17:55] colors</span></span>
-<span><span class="co">#&gt; INFO [2025-07-31 09:17:55] </span></span>
-<span><span class="co">#&gt; INFO [2025-07-31 09:17:55] $fontfamily</span></span>
-<span><span class="co">#&gt; INFO [2025-07-31 09:17:55] [1] "sans"</span></span>
-<span><span class="co">#&gt; INFO [2025-07-31 09:17:55] </span></span>
-<span><span class="co">#&gt; INFO [2025-07-31 09:17:55] $fontface</span></span>
-<span><span class="co">#&gt; INFO [2025-07-31 09:17:55] [1] "bold"</span></span>
-<span><span class="co">#&gt; INFO [2025-07-31 09:17:55] </span></span>
-<span><span class="co">#&gt; INFO [2025-07-31 09:17:55] $cat.fontfamily</span></span>
-<span><span class="co">#&gt; INFO [2025-07-31 09:17:55] [1] "sans"</span></span>
-<span><span class="co">#&gt; INFO [2025-07-31 09:17:55] </span></span>
-<span><span class="co">#&gt; INFO [2025-07-31 09:17:55] $lty</span></span>
-<span><span class="co">#&gt; INFO [2025-07-31 09:17:55] [1] 0</span></span>
-<span><span class="co">#&gt; INFO [2025-07-31 09:17:55]</span></span></code></pre></div>
+<span><span class="co">#&gt; INFO [2025-08-05 10:52:03] [[1]]</span></span>
+<span><span class="co">#&gt; INFO [2025-08-05 10:52:03] venn_list</span></span>
+<span><span class="co">#&gt; INFO [2025-08-05 10:52:03] </span></span>
+<span><span class="co">#&gt; INFO [2025-08-05 10:52:03] $filename</span></span>
+<span><span class="co">#&gt; INFO [2025-08-05 10:52:03] NULL</span></span>
+<span><span class="co">#&gt; INFO [2025-08-05 10:52:03] </span></span>
+<span><span class="co">#&gt; INFO [2025-08-05 10:52:03] $disable.logging</span></span>
+<span><span class="co">#&gt; INFO [2025-08-05 10:52:03] T</span></span>
+<span><span class="co">#&gt; INFO [2025-08-05 10:52:03] </span></span>
+<span><span class="co">#&gt; INFO [2025-08-05 10:52:03] $fill</span></span>
+<span><span class="co">#&gt; INFO [2025-08-05 10:52:03] colors</span></span>
+<span><span class="co">#&gt; INFO [2025-08-05 10:52:03] </span></span>
+<span><span class="co">#&gt; INFO [2025-08-05 10:52:03] $fontfamily</span></span>
+<span><span class="co">#&gt; INFO [2025-08-05 10:52:03] [1] "sans"</span></span>
+<span><span class="co">#&gt; INFO [2025-08-05 10:52:03] </span></span>
+<span><span class="co">#&gt; INFO [2025-08-05 10:52:03] $fontface</span></span>
+<span><span class="co">#&gt; INFO [2025-08-05 10:52:03] [1] "bold"</span></span>
+<span><span class="co">#&gt; INFO [2025-08-05 10:52:03] </span></span>
+<span><span class="co">#&gt; INFO [2025-08-05 10:52:03] $cat.fontfamily</span></span>
+<span><span class="co">#&gt; INFO [2025-08-05 10:52:03] [1] "sans"</span></span>
+<span><span class="co">#&gt; INFO [2025-08-05 10:52:03] </span></span>
+<span><span class="co">#&gt; INFO [2025-08-05 10:52:03] $lty</span></span>
+<span><span class="co">#&gt; INFO [2025-08-05 10:52:03] [1] 0</span></span>
+<span><span class="co">#&gt; INFO [2025-08-05 10:52:03]</span></span></code></pre></div>
 <p><img src="DIANNmv_files/figure-html/unnamed-chunk-22-3.png" width="700"></p>
 </div>
 <div class="section level3">
