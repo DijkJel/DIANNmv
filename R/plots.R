@@ -141,19 +141,27 @@ plotVolcano = function(res, pval_cutoff = 0.05, fc_cutoff = 1, label = 'sig', to
     padj_col = grep('p.adj', colnames(data), value = T)
     impute_col = grep('imputed', colnames(data), value = T)
 
-
-    if (specify_imputed){dotshape = data$shape}
-    else {dotshape = 19}
-
     data$category = ifelse(data[,impute_col], 'imputed', 'not-imputed')
 
-    p = ggplot2::ggplot(data, aes(x = .data[[ratio_col]], y = -log10(.data[[padj_col]]), label = label)) +
-      ggplot2::geom_point(ggplot2::aes(shape = .data[['category']]), color = data$color) +
-      ggplot2::geom_hline(yintercept = -log10(pval_cutoff), color = 'red', linetype = 'dashed', linewidth = 1) +
-      ggplot2::geom_vline(xintercept = c(-fc_cutoff, fc_cutoff), color = 'red', linetype = 'dashed', linewidth = 1) +
-      ggrepel::geom_text_repel(max.overlaps = Inf, min.segment.length = 0.01) +
-      ggplot2::ggtitle(title) + ggplot2::theme_classic() +
-      ggplot2::scale_shape_manual(values = c('imputed' = 21, 'not-imputed' = 19))
+    if (specify_imputed){
+
+      p = ggplot2::ggplot(data, aes(x = .data[[ratio_col]], y = -log10(.data[[padj_col]]), label = label)) +
+        ggplot2::geom_point(ggplot2::aes(shape = .data[['category']]), color = data$color) +
+        ggplot2::geom_hline(yintercept = -log10(pval_cutoff), color = 'red', linetype = 'dashed', linewidth = 1) +
+        ggplot2::geom_vline(xintercept = c(-fc_cutoff, fc_cutoff), color = 'red', linetype = 'dashed', linewidth = 1) +
+        ggrepel::geom_text_repel(max.overlaps = Inf, min.segment.length = 0.01) +
+        ggplot2::ggtitle(title) + ggplot2::theme_classic() +
+        ggplot2::scale_shape_manual(values = c('imputed' = 21, 'not-imputed' = 19))
+    }
+
+    else {
+      p = ggplot2::ggplot(data, aes(x = .data[[ratio_col]], y = -log10(.data[[padj_col]]), label = label)) +
+        ggplot2::geom_point(color = data$color) +
+        ggplot2::geom_hline(yintercept = -log10(pval_cutoff), color = 'red', linetype = 'dashed', linewidth = 1) +
+        ggplot2::geom_vline(xintercept = c(-fc_cutoff, fc_cutoff), color = 'red', linetype = 'dashed', linewidth = 1) +
+        ggrepel::geom_text_repel(max.overlaps = Inf, min.segment.length = 0.01) +
+        ggplot2::ggtitle(title) + ggplot2::theme_classic()
+    }
 
     p = add_standardTheme(p)
     return(p)

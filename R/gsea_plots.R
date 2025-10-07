@@ -174,7 +174,7 @@ plot_gsea_barplot = function(gsea, pos_color = 'gold1', neg_color = 'darkblue', 
 #' @param break_names Boolean value that indicates if pathway names should be shown
 #' on two lines when the length exceedds the max_name_length parameter
 #'
-#' @import ggplot2
+#' @import ggplot2 reshape2
 #'
 #' @return A ggplot object
 #' @export
@@ -218,7 +218,13 @@ plot_gsea_bubbleplot = function(gsea, ..., sample_names = NULL, padj_cutoff = 0.
   data = do.call(rbind, data_l)
   data$sample = factor(data$sample, levels = names(l))
 
-  bubbleplot = ggplot2::ggplot(data, ggplot2::aes(x = .data[['sample']], y = reorder(.data[['pathway']], .data[['NES']]), color = .data[['NES']], size = -log10(.data[['padj']]))) +
+  data_wide = reshape2::dcast(pathway ~ sample, data = data, value.var = 'NES')
+  data_wide$max_NES = apply(data_wide[,-1], 1, max, na.rm = T)
+  data_wide = data_wide[order(data_wide$max_NES, decreasing = T),]
+
+  data$pathway = factor(data$pathway, levels = data_wide$pathway)
+
+  bubbleplot = ggplot2::ggplot(data, ggplot2::aes(x = .data[['sample']], y = .data[['pathway']], color = .data[['NES']], size = -log10(.data[['padj']]))) +
     ggplot2::geom_point() +
     ggplot2::scale_color_gradient2(low = 'dodgerblue4', mid = 'white', high = 'red3') +
     ggplot2::theme_minimal() +

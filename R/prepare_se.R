@@ -49,6 +49,8 @@ add_maxLFQ_iBAQ = function(se){
 #'
 #' @param pg_matrix The report.pg_matrix file
 #' @param pr_matrix The report.pr_matrix file
+#' @param no_samples Optional numeric value specifying the number of samples.
+#' If not provided, a educated guess will be made.
 #'
 #' @details
 #' This functions tidies sample names and prepares and experimental design,
@@ -63,9 +65,24 @@ add_maxLFQ_iBAQ = function(se){
 #' tidy_data <- prepare_diann_data(report.pg_matrix, report.pr_matrix)
 #' pg_matrix <- tidy_data$pg_matrix
 #' pr_matrix <- tidy_data$pr_matrix
-prepare_diann_data = function(pg_matrix, pr_matrix){
+prepare_diann_data = function(pg_matrix, pr_matrix, no_samples = NULL){
 
-  cn = colnames(pg_matrix)[5:ncol(pg_matrix)]
+  if (is.null(no_samples)){
+    if (any(grepl('raw$', colnames(pg_matrix)))){
+      start_index_pg = grep('raw$', colnames(pg_matrix))[1]
+      start_index_pr = grep('raw$', colnames(pr_matrix))[1]
+    }
+    else {
+      start_index_pg = 7
+      start_index_pr = 11
+    }
+  }
+  else {
+    start_index_pg = ncol(pg_matrix) - no_samples + 1
+    start_index_pr = ncol(pr_matrix) - no_samples + 1
+  }
+
+  cn = colnames(pg_matrix)[start_index_pg:ncol(pg_matrix)]
   cn = sapply(cn, function(x){gsub("\\.[^.]*$", "", x)})
   cn = lapply(cn, function(x) {strsplit(x, "_|\\.")[[1]]})
 
@@ -77,8 +94,8 @@ prepare_diann_data = function(pg_matrix, pr_matrix){
 
   cn = apply(vals, 1, function(x){paste(na.omit(x), collapse = '_')})
 
-  colnames(pg_matrix)[5:ncol(pg_matrix)] = cn
-  colnames(pr_matrix)[11:ncol(pr_matrix)] = cn
+  colnames(pg_matrix)[start_index_pg:ncol(pg_matrix)] = cn
+  colnames(pr_matrix)[start_index_pr:ncol(pr_matrix)] = cn
 
   ed = data.frame(label = cn,
                   condition = gsub('_\\d+$', '', cn),
