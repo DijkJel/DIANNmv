@@ -13,10 +13,13 @@ plot_protein_coverage(
   organism = "hs",
   combine_overlap = T,
   dodge_labels = T,
-  scaling = "centered"
+  scaling = "centered",
+  condition_order = NULL
 )
 }
 \arguments{
+\item{se}{The SummarizedExperiment object from \link{prepare_se}.}
+
 \item{genes}{The gene names of the proteins that you would like to plot.}
 
 \item{positions}{A numeric vector indiciting the amino acid positions that
@@ -39,7 +42,8 @@ on different heights so that they do not overlap in the plot.}
 \item{scaling}{Boolean value indicating whether the peptide intensities should
 be centered over the different replicates.}
 
-\item{pr_matrix}{The SummarizedExperiment object from \link{create_se}}
+\item{condition_order}{Character vector that specifies the order of the conditions
+on the y-axis.}
 }
 \value{
 A ggplot2 object showing the found peptides for a protein.

@@ -12,7 +12,8 @@ plotVolcano(
   top_n = NULL,
   up_color = "red3",
   down_color = "dodgerblue",
-  ns_color = "grey70"
+  ns_color = "grey70",
+  specify_imputed = T
 )
 }
 \arguments{
@@ -36,6 +37,9 @@ up-regulated proteins.}
 proteins.}
 
 \item{ns_color}{Specifies the color of non-significant proteins.}
+
+\item{specify_imputed}{Boolean specifying whether proteins with imputed values
+need to be indicated with open circles, versus closed circles for complete cases.}
 }
 \value{
 A single ggplot object (1 comparison) or a list with ggplot objects.

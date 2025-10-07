@@ -43,6 +43,7 @@ add_standardTheme  = function(plot){
 #' res <- get_DEPresults(se, type = 'all')
 #' data <- prepare_volcano_data(res)
 #'
+
 prepare_volcano_data = function(res, pval_cutoff = 0.05, fc_cutoff = 1, label = 'sig', top_n = NULL,
                                 up_color = 'red3', down_color = 'dodgerblue', ns_color = 'grey70'){
 
@@ -56,10 +57,12 @@ prepare_volcano_data = function(res, pval_cutoff = 0.05, fc_cutoff = 1, label = 
     sig_col = grep('sig', colnames(df))
     ratio_col = grep('ratio', colnames(df))
     padj_col = grep('p.adj', colnames(df))
+    impute_col = grep('imputed', colnames(df))
 
     df$color = up_color
     df$color = ifelse(df[,ratio_col] < 0, down_color, df$color)
     df$color = ifelse(df[,sig_col], df$color, ns_color)
+    df$shape = ifelse(df[,impute_col], 1, 19)
 
     if (length(label) == 1 & 'sig' %in% label){
       df$label = ifelse(df[[sig_col]], df$name, '')
@@ -101,6 +104,8 @@ prepare_volcano_data = function(res, pval_cutoff = 0.05, fc_cutoff = 1, label = 
 #' @param down_color Specifies the color of the significantly down-regulated
 #' proteins.
 #' @param ns_color Specifies the color of non-significant proteins.
+#' @param specify_imputed Boolean specifying whether proteins with imputed values
+#' need to be indicated with open circles, versus closed circles for complete cases.
 #'
 #' @import ggplot2 ggrepel
 #'
@@ -119,8 +124,7 @@ prepare_volcano_data = function(res, pval_cutoff = 0.05, fc_cutoff = 1, label = 
 #' vol <- plotVolcano(res, label = c('SMAD3', 'SMAD4')) # Only labels SMAD3/4
 #' vol <- plotVolcano(res, up_color = 'green', down_color = 'yellow') #
 #' # Gives a very ugly volcano plot
-
-plotVolcano = function(res, pval_cutoff = 0.05, fc_cutoff = 1, label = 'sig', top_n = NULL, up_color = 'red3', down_color = 'dodgerblue', ns_color = 'grey70'){
+plotVolcano = function(res, pval_cutoff = 0.05, fc_cutoff = 1, label = 'sig', top_n = NULL, up_color = 'red3', down_color = 'dodgerblue', ns_color = 'grey70', specify_imputed = T){
 
   data = prepare_volcano_data(res, pval_cutoff, fc_cutoff, label, top_n, up_color, down_color, ns_color)
   titles = names(data)
@@ -133,16 +137,23 @@ plotVolcano = function(res, pval_cutoff = 0.05, fc_cutoff = 1, label = 'sig', to
     data$color = factor(data$color, levels = c(ns_color, down_color, up_color))
     data = data[order(data$color, decreasing = T),]
 
-
     ratio_col = grep('ratio', colnames(data), value = T)
     padj_col = grep('p.adj', colnames(data), value = T)
+    impute_col = grep('imputed', colnames(data), value = T)
+
+
+    if (specify_imputed){dotshape = data$shape}
+    else {dotshape = 19}
+
+    data$category = ifelse(data[,impute_col], 'imputed', 'not-imputed')
 
     p = ggplot2::ggplot(data, aes(x = .data[[ratio_col]], y = -log10(.data[[padj_col]]), label = label)) +
-      ggplot2::geom_point(color = data$color) +
+      ggplot2::geom_point(ggplot2::aes(shape = .data[[category]]), color = data$color) +
       ggplot2::geom_hline(yintercept = -log10(pval_cutoff), color = 'red', linetype = 'dashed', linewidth = 1) +
       ggplot2::geom_vline(xintercept = c(-fc_cutoff, fc_cutoff), color = 'red', linetype = 'dashed', linewidth = 1) +
       ggrepel::geom_text_repel(max.overlaps = Inf, min.segment.length = 0.01) +
-      ggplot2::ggtitle(title) + ggplot2::theme_classic()
+      ggplot2::ggtitle(title) + ggplot2::theme_classic() +
+      ggplot2::scale_shape_manual(values = c('imputed' = 21, 'not-imputed' = 19))
 
     p = add_standardTheme(p)
     return(p)
@@ -152,6 +163,7 @@ plotVolcano = function(res, pval_cutoff = 0.05, fc_cutoff = 1, label = 'sig', to
   if (length(plot_list) == 1){plot_list = plot_list[[1]]}
   return(plot_list)
 }
+
 
 #' Prepare the data for making MA plots
 #'

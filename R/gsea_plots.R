@@ -137,7 +137,7 @@ prepare_gsea_data = function(gsea, padj_cutoff = 0.05, top_n = Inf, remove_prefi
 plot_gsea_barplot = function(gsea, pos_color = 'gold1', neg_color = 'darkblue', padj_cutoff = 0.05,
                              top_n = Inf, remove_prefix = F, max_name_length = Inf, break_names = T){
 
-  data = prepare_gsea_data(gsea, padj_cutoff, top_n, remove_prefix, max_name_length, break_names)
+  data = prepare_gsea_data(gsea, padj_cutoff, top_n, remove_prefix, break_names, max_name_length)
   data$group = ifelse(data$NES < 0, 'Negative', 'Positive')
 
   barplot = ggplot2::ggplot(data, ggplot2::aes(x = reorder(.data[['pathway']], .data[['NES']]), y = .data[['NES']], fill = .data[['group']])) +
@@ -202,7 +202,7 @@ plot_gsea_bubbleplot = function(gsea, ..., sample_names = NULL, padj_cutoff = 0.
     names(l) = paste0('sample_', 1:length(l))
   }
 
-  l = lapply(l, function(x){prepare_gsea_data(gsea, padj_cutoff, top_n, remove_prefix, max_name_length)})
+  l = lapply(l, function(x){prepare_gsea_data(x, padj_cutoff, top_n, remove_prefix, break_names, max_name_length)})
 
   poi = unique(unlist(lapply(l, function(x){x$pathway})))
   df = data.frame(pathway = poi)
@@ -254,7 +254,7 @@ plot_gsea_bubbleplot = function(gsea, ..., sample_names = NULL, padj_cutoff = 0.
 plot_gsea_dotplot = function(gsea, padj_cutoff = 0.05,
                              top_n = Inf, remove_prefix = F, max_name_length = Inf, break_names = T){
 
-  data = data = prepare_gsea_data(gsea, padj_cutoff, top_n, remove_prefix, max_name_length, break_names)
+  data = data = prepare_gsea_data(gsea, padj_cutoff, top_n, remove_prefix, break_names, max_name_length)
   data$group = ifelse(data$NES < 0, 'Repressed', 'Activated')
   data$group = factor(data$group, levels = c('Repressed', 'Activated'))
 
@@ -347,3 +347,68 @@ plot_gsea_volcano = function(gsea, padj_cutoff = 0.05, label = 'sig', top_n = NU
   p = add_standardTheme(p)
 
 }
+
+#' Creates individual GSEA enrichment plots for selected pathwways.
+#'
+#' @param genesets A list with pathways/genesets created with \link{get_genesets}.
+#' @param pathways A character vector specifying which pathways need to be plotted.
+#' @param res Results from \link{get_DEPresults}. Requires a 1-vs-1 comparison.
+#' @param line_color Character specifying which color the solid line in the plot is.
+#' @param ES_color Character specifying which colro the dashed line specifying ES-score in the plot is.
+#' @param linewidth Numeric value specifying the thickness of the plotted lines.
+#' @param ticksSize Numeric value specifying the thickness of the ticks in lower part graph.
+#'
+#' @import fgsea ggplot2
+#'
+#' @return An single or list of ggplot2 objects.
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' db <- load_msigdb()
+#' genesets <- get_genesets(db, 'h')
+#' res <- get_DEPresults(se, 'motif1', 'neg_ctrl')
+#' pathways <- c('HALLMARK_MYC_TARGETS_V1', 'HALLMARK_TGF_BETA_SIGNALING')
+#' enrichment_plots <- plot_gsea_enrichment_plot(genesets, pathways, res)
+#' }
+#'
+plot_gsea_enrichment_plot = function(genesets, pathways, res, line_color = 'green', ES_color = 'red', linewidth = 1, ticksSize = 0.2){
+
+  ranked_genes = get_ranked_genes(res)
+  pat = paste(pathways, collapse = '|')
+  pws = genesets[grep(pat, names(genesets), ignore.case = T)]
+
+  separate_plots = lapply(seq(pws), function(x){
+    pw = pws[[x]]
+    pd <- fgsea::plotEnrichmentData(pathway = pw, stats = ranked_genes,
+                                    gseaParam = 1)
+
+
+    p = with(pd, ggplot2::ggplot(data = curve) + ggplot2::geom_line(ggplot2::aes(x = rank,
+                                                                                 y = ES), color = line_color, linewidth = linewidth) +
+               ggplot2::geom_segment(data = ticks, mapping = ggplot2::aes(x = rank, y = -spreadES/16, xend = rank,
+                                                                          yend = spreadES/16), linewidth = ticksSize) +
+               ggplot2::geom_hline(yintercept = posES, colour = ES_color, linetype = "dashed", linewidth = linewidth) +
+               ggplot2::geom_hline(yintercept = negES, colour = ES_color, linetype = "dashed", linewidth = linewidth) +
+               ggplot2::geom_hline(yintercept = 0, colour = "black", linewidth = linewidth) +
+               ggplot2::theme(panel.background = ggplot2::element_blank(),
+                              panel.grid.major = ggplot2::element_line(color = "grey92")))
+
+    p + ggplot2::labs(x = "Rank", y = "Enrichment Score", title = names(pathways)[x])
+  })
+
+
+  separate_plots = lapply(separate_plots, function(x){x + ggplot2::theme(axis.text = ggplot2::element_text(size = 18, color = 'black'),
+                                                                         axis.title = ggplot2::element_text(size = 18),
+                                                                         plot.title = ggplot2::element_text(size = 14, hjust = 0.5))})
+
+  separate_plots = lapply(seq(separate_plots), function(x){
+    p = separate_plots[[x]]
+    p + ggplot2::ggtitle(names(pws)[x])
+  })
+
+  names(separate_plots) = names(pws)
+  if (length(separate_plots) == 1){separate_plots = separate_plots[[1]]}
+  return(separate_plots)
+}
+

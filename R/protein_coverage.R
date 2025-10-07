@@ -186,7 +186,7 @@ prepare_peptide_data = function(pr_matrix, genes, positions = NULL, zoom = NULL,
 
 #' Plots the coverage of proteins.
 #'
-#' @param pr_matrix The SummarizedExperiment object from \link{create_se}
+#' @param se The SummarizedExperiment object from \link{prepare_se}.
 #' @param genes The gene names of the proteins that you would like to plot.
 #' @param positions A numeric vector indiciting the amino acid positions that
 #' you want to highlight.
@@ -201,6 +201,8 @@ prepare_peptide_data = function(pr_matrix, genes, positions = NULL, zoom = NULL,
 #' on different heights so that they do not overlap in the plot.
 #' @param scaling Boolean value indicating whether the peptide intensities should
 #' be centered over the different replicates.
+#' @param condition_order Character vector that specifies the order of the conditions
+#' on the y-axis.
 #'
 #' @import ggplot2
 #'
@@ -213,9 +215,13 @@ prepare_peptide_data = function(pr_matrix, genes, positions = NULL, zoom = NULL,
 #'
 #' # Zoom in on first 200 AA of protein
 #' smad4 <- plot_protein_coverage(se, 'SMAD4', positions = c(100, 150), zoom = c(1, 200))
-plot_protein_coverage = function(se, genes, positions = NULL, zoom = NULL, fasta = NULL, organism = 'hs', combine_overlap = T, dodge_labels = T, scaling = 'centered'){
+plot_protein_coverage = function(se, genes, positions = NULL, zoom = NULL, fasta = NULL, organism = 'hs', combine_overlap = T, dodge_labels = T, scaling = 'centered', condition_order = NULL){
 
   pr_matrix = S4Vectors::metadata(se)$pr_matrix
+  rd = as.data.frame(rowData(se))
+  pr_names = rd[match(pr_matrix$Protein.Group, rd$Protein.Group), 'name']
+  pr_matrix$Genes = pr_names
+
   data_list = prepare_peptide_data(pr_matrix, genes, positions, zoom, fasta, organism, combine_overlap, dodge_labels)
   data = data_list$data
   #data = na.omit(data)
@@ -223,6 +229,13 @@ plot_protein_coverage = function(se, genes, positions = NULL, zoom = NULL, fasta
 
   full_length = data[!duplicated(paste0(data$sample, data$gene)), c('sample', 'gene', 'x_start', 'x_end', 'full_length_start', 'full_length_end')]
   full_length$x_end = full_length$x_end - 0.2
+
+  if (!is.null(condition_order)){
+    ed = as.data.frame(colData(se))
+    ed_order = sapply(condition_order, function(x){grep(x, ed$condition)})
+    sample_order = ed[ed_order, 'ID']
+    data$sample = factor(data$sample, levels = c('theoretical', sample_order))
+  }
 
   if (scaling == 'centered'){
 
@@ -233,16 +246,20 @@ plot_protein_coverage = function(se, genes, positions = NULL, zoom = NULL, fasta
       ggplot2::theme_classic() +
       ggplot2::facet_grid(~gene, scales = 'free') +
       ggplot2::scale_fill_gradient2(low = 'dodgerblue', mid = 'white', high = 'red3') +
+      ggplot2::scale_x_discrete(limits = levels(data$sample)) +
       ggplot2::coord_flip()
   }
   else{
+    min_value = min(data[data$sample != 'theoretical', 'intensity'], na.rm = T)
+
     p = ggplot2::ggplot(data[!is.na(data$intensity),], ggplot2::aes(x = sample)) +
       ggplot2::geom_rect(data = full_length, ggplot2::aes(xmin = .data[['x_start']]-((.data[['x_end']] - .data[['x_start']])/2), xmax = .data[['x_end']]-((.data[['x_end']] - .data[['x_start']])/2), ymin = .data[['full_length_start']], ymax = .data[['full_length_end']]), fill = 'grey')+
       ggplot2::geom_rect(ggplot2::aes(xmin = .data[['x_start']]-((.data[['x_end']] - .data[['x_start']])/2), xmax = .data[['x_end']]-((.data[['x_end']] - .data[['x_start']])/2), ymin = start, ymax = end, fill = .data[['intensity']]), alpha = 1) +
       ggplot2::geom_rect(data = data[data$sample == 'theoretical',], ggplot2::aes(xmin = .data[['x_start']]-((.data[['x_end']] - .data[['x_start']])/2), xmax = .data[['x_end']]-((.data[['x_end']] - .data[['x_start']])/2), ymin = start, ymax = end), fill = 'black') +
       ggplot2::theme_classic() +
       ggplot2::facet_grid(~gene, scales = 'free') +
-      ggplot2::scale_fill_viridis_c(limits = c(5, NA)) +
+      ggplot2::scale_fill_viridis_c(limits = c(min_value, NA)) +
+      ggplot2::scale_x_discrete(limits = levels(data$sample)) +
       ggplot2::coord_flip()
   }
 
