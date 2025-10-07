@@ -148,7 +148,7 @@ plotVolcano = function(res, pval_cutoff = 0.05, fc_cutoff = 1, label = 'sig', to
     data$category = ifelse(data[,impute_col], 'imputed', 'not-imputed')
 
     p = ggplot2::ggplot(data, aes(x = .data[[ratio_col]], y = -log10(.data[[padj_col]]), label = label)) +
-      ggplot2::geom_point(ggplot2::aes(shape = .data[[category]]), color = data$color) +
+      ggplot2::geom_point(ggplot2::aes(shape = .data[['category']]), color = data$color) +
       ggplot2::geom_hline(yintercept = -log10(pval_cutoff), color = 'red', linetype = 'dashed', linewidth = 1) +
       ggplot2::geom_vline(xintercept = c(-fc_cutoff, fc_cutoff), color = 'red', linetype = 'dashed', linewidth = 1) +
       ggrepel::geom_text_repel(max.overlaps = Inf, min.segment.length = 0.01) +
