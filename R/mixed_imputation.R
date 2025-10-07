@@ -115,9 +115,8 @@ mixed_imputation_matrix = function(data, ed, cutoff = 'empirically'){
 
   conditions = unique(ed$condition)
 
-
   #data_split = lapply(conditions, function(x){data[,grep(x, colnames(data))]})
-  data_split = lapply(conditions, function(x){data[,ed[ed$condition == x, 'label']]})
+  data_split = lapply(conditions, function(x){data[,ed[ed$condition == x, 'ID']]})
   masks = lapply(data_split, function(x){
     masks = create_imputation_mask(x, cutoff)
     #imputed_data = perform_mixed_imputation(x, masks)
