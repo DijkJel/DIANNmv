@@ -201,8 +201,9 @@ prepare_se = function(pg_matrix, expDesign, pr_matrix = NULL, missing_thr = 0,
 
   if(!is.null(pr_matrix)){
     colnames(pr_matrix)[11:ncol(pr_matrix)] = SummarizedExperiment::colData(se)$ID
-    rnames = sapply(pr_matrix$Genes, function(x){strsplit(x, ';')[[1]][1]})
-    rownames(pr_matrix) = make.unique(rnames)
+    rd = rowData(se)
+    unique_names = rd[match(pr_matrix$Protein.Group, rd$Protein.Group), 'name']
+    pr_matrix$Genes = unique_names
     S4Vectors::metadata(se)$pr_matrix = pr_matrix
   }
 
