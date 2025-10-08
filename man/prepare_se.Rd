@@ -10,7 +10,7 @@ prepare_se(
   pr_matrix = NULL,
   missing_thr = 0,
   min_peptides = 1,
-  impute = "knn",
+  impute = "mixed",
   mixed_cutoff = "empirically",
   remove_contaminants = TRUE
 )
