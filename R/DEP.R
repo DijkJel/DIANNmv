@@ -65,11 +65,22 @@ get_DEPresults = function(se, condition1 = NULL, condition2 = NULL, ref_conditio
                           alpha = 0.05, lfc = 1, type = 'manual', fdr_type = 'BH'){
 
 
+  get_imputation_column = function(se, conditions = NULL){
+    imputation_mask = SummarizedExperiment::assay(se, 'imputation_mask')
+    pat = paste(conditions, collapse = '|')
+    if (!is.null(conditions)){imputation_mask = imputation_mask[,grep(pat, colnames(imputation_mask))]}
+    is_imputed = apply(imputation_mask, 1, any)
+    return(is_imputed)
+  }
+
   if (type == 'manual'){
 
     if (!is.null(tests)){
 
-      #browser()
+      pats = lapply(tests, function(x){strsplit(x, '_vs_')[[1]]})
+      imputation_mask = sapply(pats, function(x){get_imputation_column(se, x)})
+      colnames(imputation_mask) = paste0(tests, '_imputed')
+
       dep = DEP::test_diff(se, type = 'manual', test = tests)
       dep <- DEP::add_rejections(dep, alpha = alpha, lfc = lfc)
       res = DEP::get_results(dep)
@@ -85,7 +96,6 @@ get_DEPresults = function(se, condition1 = NULL, condition2 = NULL, ref_conditio
         if (ncol(padj_mat) == 1){padj_mat = as.numeric(padj_mat)}
         res[,padj_cols] = padj_mat
         colnames(res)[padj_cols] = padj_names
-        #browser()
         res = recode_sig_col(res, alpha, lfc)
       }
     }
@@ -94,8 +104,11 @@ get_DEPresults = function(se, condition1 = NULL, condition2 = NULL, ref_conditio
       pat = paste(condition1, condition2, sep = '|')
       se = se[,grep(pat, colnames(se))]
       test = paste0(condition1, '_vs_', condition2)
-      dep = DEP::test_diff(se, type = 'manual', test = test)
 
+      imputation_mask = as.matrix(get_imputation_column(se, c(condition1, condition2)), ncol = 1)
+      colnames(imputation_mask) = paste0(test, '_imputed')
+
+      dep = DEP::test_diff(se, type = 'manual', test = test)
       dep <- DEP::add_rejections(dep, alpha = alpha, lfc = lfc)
       res = DEP::get_results(dep)
       res = res[order(res$name),]
@@ -118,6 +131,13 @@ get_DEPresults = function(se, condition1 = NULL, condition2 = NULL, ref_conditio
 
   else if (type == 'control'){
 
+    conditions = unique(SummarizedExperiment::colData(se)$condition)
+    conditions = conditions[conditions != ref_condition]
+    conditions = lapply(conditions, c, ref_condition)
+    imputation_mask = sapply(conditions, function(x){get_imputation_column(se, x)})
+    cnames = sapply(conditions, paste, collapse = '_vs_')
+    colnames(imputation_mask) = paste0(cnames, '_imputed')
+
     dep = DEP::test_diff(se, type = "control", control = ref_condition)
     res = DEP::add_rejections(dep, alpha, lfc)
     res = DEP::get_results(res)
@@ -135,10 +155,16 @@ get_DEPresults = function(se, condition1 = NULL, condition2 = NULL, ref_conditio
   }
 
   else if (type == 'all'){
-
     dep = DEP::test_diff(se, type = 'all')
     res = DEP::add_rejections(dep, alpha, lfc)
     res = DEP::get_results(res)
+
+    pats = grep('ratio', colnames(res), value = T)
+    pats = gsub('_ratio', '', pats)
+    pats = lapply(pats, function(x){strsplit(x, '_vs_')[[1]]})
+    imputation_mask = sapply(pats, function(x){get_imputation_column(se, x)})
+    cnames = sapply(pats, paste, collapse = '_vs_')
+    colnames(imputation_mask) = paste0(cnames, '_imputed')
 
     pval_cols = grep('p.val', colnames(res))
     padj_cols = grep('p.adj', colnames(res))
@@ -148,15 +174,16 @@ get_DEPresults = function(se, condition1 = NULL, condition2 = NULL, ref_conditio
       res[,padj_cols] = padj_mat
       res = recode_sig_col(res, alpha, lfc)
     }
-
   }
-
 
   if ('baseMean_mpi' %in% names(SummarizedExperiment::rowData(se))){
     mpi = assay(se, 'median_peptide_intensities')
     mpi = rowMeans(mpi, na.rm = T)
     res$baseMean_mpi = mpi
   }
+
+  imputation_mask = imputation_mask[res$name,,drop = F]
+  res = cbind(res, imputation_mask)
+
   return(res)
 }
-

@@ -9,7 +9,7 @@ prepare_se(
   expDesign,
   pr_matrix = NULL,
   missing_thr = 0,
-  min_peptides = 0,
+  min_peptides = 1,
   impute = "knn",
   mixed_cutoff = "empirically",
   remove_contaminants = TRUE

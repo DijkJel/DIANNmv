@@ -52,6 +52,7 @@ install_github('DijkJel/DIANNmv')
 library(DIANNmv)
 library(SummarizedExperiment)
 library(ggplot2)
+
 ```
 
 # Required input data & example data
@@ -103,8 +104,9 @@ summarizedExperiment (se) object that is used for downstream analysis and plotti
 
 To create an se object, you can run the prepare_se() function
 with the report.pg_matrix file and associated experimental design. 
-You can specify if and what type of imputation is done. The default is 'knn',
-which is better for DIA data I think. For DDA data, 'MinProb' would be the good.
+You can specify if and what type of imputation is done. The default is 'mixed',
+which uses both missing-not-at-random (MNAR) and missing-at-random (MAR) imputation.
+For MNAR/MAR specific imputation, 'knn' and 'MinProb' are advised, respectively.
 When 'none' is entered for the impute parameter, no imputation is done.
 Additionally, you can filter on missing values (missing_thr), and potential
 contaminants are removed by default. (Source: contaminants.txt file
@@ -118,13 +120,13 @@ se
 
 If you provide the report.pr_matrix alongside the report.pg_matrix, peptide
 information is automatically added and you can filter on a minimal number
-of razor/unique peptides (min_pep, default = 0). Make sure the sample column
+of razor/unique peptides (min_pep, default = 1). Make sure the sample column
 names are identical and match the label column in the experimental design.
 
 ```{r}
 # Add peptide information and remove all proteinGroups with <2 total 
 # razor/unique peptides
-se <- prepare_se(report.pg_matrix, expDesign, report.pr_matrix, min_pep = 1)
+se <- prepare_se(report.pg_matrix, expDesign, report.pr_matrix, min_pep = 2)
 se
 
 ```
@@ -326,6 +328,7 @@ combined and the intensities are summed.
 smad4 <- plot_protein_coverage(se, 'SMAD4')
 smad4
 
+
 # Indicate amino acid positions and zoom in on aa 50-200 of protein:
 smad4_zoom <- plot_protein_coverage(se, 'SMAD4', c(100, 120),
                                     zoom = c(50, 200))
@@ -341,8 +344,9 @@ smad4_zoom
 The plotVolcano() function returns volcano plots with the specified significance
 cutoffs. If more than 1 comparison is present in your results data frame, a list
 of volcano plots will be returned which can be accessed by the '$' operator. 
-Check the help page for plotVolcano() (`?plotVolcano`) to see the different 
-options for labeling specific points in the volcano.
+By default, proteins that have any imputed values in the two conditions compared
+will be specified. Check the help page for plotVolcano() (`?plotVolcano`)
+to see the different options for labeling specific points in the volcano.
 
 
 ```{r}
@@ -535,6 +539,17 @@ bubble <- plot_gsea_bubbleplot(gsea1, gsea2,
                                 remove_prefix = T, max_name_length = 35)
 
 bubble
+```
+
+
+Finally, you can plot enrichment plots for individual pathways with 
+plot_gsea_enrichment_plot():
+
+```{r}
+pathways <- c('HALLMARK_MYC_TARGETS_V1', 'HALLMARK_TGF_BETA_SIGNALING')
+enrichment_plots <- plot_gsea_enrichment_plot(geneset_hallmarks, pathways, res)
+
+enrichment_plots$HALLMARK_MYC_TARGETS_V1
 ```
 
 

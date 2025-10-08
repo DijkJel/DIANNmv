@@ -49,6 +49,8 @@ add_maxLFQ_iBAQ = function(se){
 #'
 #' @param pg_matrix The report.pg_matrix file
 #' @param pr_matrix The report.pr_matrix file
+#' @param no_samples Optional numeric value specifying the number of samples.
+#' If not provided, a educated guess will be made.
 #'
 #' @details
 #' This functions tidies sample names and prepares and experimental design,
@@ -63,19 +65,37 @@ add_maxLFQ_iBAQ = function(se){
 #' tidy_data <- prepare_diann_data(report.pg_matrix, report.pr_matrix)
 #' pg_matrix <- tidy_data$pg_matrix
 #' pr_matrix <- tidy_data$pr_matrix
-prepare_diann_data = function(pg_matrix, pr_matrix){
+prepare_diann_data = function(pg_matrix, pr_matrix, no_samples = NULL){
 
-  cn = colnames(pg_matrix)[5:ncol(pg_matrix)]
-  cn = lapply(cn, function(x){strsplit(x, '_|\\.')[[1]]})
+  if (is.null(no_samples)){
+    if (any(grepl('raw$', colnames(pg_matrix)))){
+      start_index_pg = grep('raw$', colnames(pg_matrix))[1]
+      start_index_pr = grep('raw$', colnames(pr_matrix))[1]
+    }
+    else {
+      start_index_pg = 7
+      start_index_pr = 11
+    }
+  }
+  else {
+    start_index_pg = ncol(pg_matrix) - no_samples + 1
+    start_index_pr = ncol(pr_matrix) - no_samples + 1
+  }
+
+  cn = colnames(pg_matrix)[start_index_pg:ncol(pg_matrix)]
+  cn = sapply(cn, function(x){gsub("\\.[^.]*$", "", x)})
+  cn = lapply(cn, function(x) {strsplit(x, "_|\\.")[[1]]})
 
   max_len = max(lengths(cn))
   vals = sapply(1:max_len, function(x){vals = sapply(cn, function(y){y[x]})})
-  vals = vals[,!apply(vals, 2, function(x){length(unique(x)) == 1}), drop = F]
+  selection = !apply(vals, 2, function(x) {length(unique(x)) == 1})
+  selection[max(which(!selection == T))] = T
+  vals = vals[,selection, drop = F]
 
   cn = apply(vals, 1, function(x){paste(na.omit(x), collapse = '_')})
 
-  colnames(pg_matrix)[5:ncol(pg_matrix)] = cn
-  colnames(pr_matrix)[11:ncol(pr_matrix)] = cn
+  colnames(pg_matrix)[start_index_pg:ncol(pg_matrix)] = cn
+  colnames(pr_matrix)[start_index_pr:ncol(pr_matrix)] = cn
 
   ed = data.frame(label = cn,
                   condition = gsub('_\\d+$', '', cn),
@@ -119,7 +139,7 @@ prepare_diann_data = function(pg_matrix, pr_matrix){
 #'                  missing_thr = 1,
 #'                  impute = 'none')
 prepare_se = function(pg_matrix, expDesign, pr_matrix = NULL, missing_thr = 0,
-                      min_peptides = 0, impute = 'knn',
+                      min_peptides = 1, impute = 'mixed',
                       mixed_cutoff = 'empirically', remove_contaminants = TRUE){
 
 
@@ -133,7 +153,12 @@ prepare_se = function(pg_matrix, expDesign, pr_matrix = NULL, missing_thr = 0,
 
   pg_matrix = add_contaminants(pg_matrix)
 
-  if(remove_contaminants){pg_matrix = pg_matrix[pg_matrix$Potential.contaminant != '+',]}
+  if (!is.null(pr_matrix)){
+    pr_matrix[pr_matrix$Gene == '', 'Genes'] = pr_matrix[pr_matrix$Genes == '', 1]
+    pr_matrix = pr_matrix[!grepl('cRAP', pr_matrix[,1]) & !pr_matrix[,1] %in% pg_matrix[pg_matrix$Potential.contaminant == '+', 1],]
+  }
+
+  if(remove_contaminants){pg_matrix = pg_matrix[pg_matrix$Potential.contaminant != '+' | !grepl('cRAP', pg_matrix[,1]),]}
   pg_uniq = DEP::make_unique(pg_matrix, 'Genes', 'Protein.Group', delim = ';')
 
   pat = paste(expDesign$label, collapse = '|')
@@ -155,15 +180,19 @@ prepare_se = function(pg_matrix, expDesign, pr_matrix = NULL, missing_thr = 0,
     dimnames(pep) = list(rownames(se), colnames(se))
     SummarizedExperiment::rowData(se)$npep_total = pg_matrix$n_total
     SummarizedExperiment::assay(se, 'peptide_info') = pep
-    se = se[SummarizedExperiment::rowData(se)$npep_total > min_peptides,]
+    se = se[SummarizedExperiment::rowData(se)$npep_total >= min_peptides,]
   }
 
 
-  se_filt = DEP::filter_missval(se, missing_thr)
-  se = DEP::normalize_vsn(se_filt)
-  p = DEP::plot_normalization(se_filt, se)
+  se_before_normalization = DEP::filter_missval(se, missing_thr)
+  se_after_normalization = DEP::normalize_vsn(se_before_normalization)
+  p = DEP::plot_normalization(se_before_normalization, se_after_normalization)
   grid::grid.newpage()
   grid::grid.draw(p)
+
+  se = se_after_normalization
+  imputation_mask = is.na(SummarizedExperiment::assay(se))
+  SummarizedExperiment::assay(se, 'imputation_mask') = imputation_mask
 
   if(impute == 'mixed'){se = mixed_imputation(se, mixed_cutoff)}
   else if(!impute == 'none'){se = DEP::impute(se, impute)}
@@ -172,6 +201,8 @@ prepare_se = function(pg_matrix, expDesign, pr_matrix = NULL, missing_thr = 0,
 
   if(!is.null(pr_matrix)){
     colnames(pr_matrix)[11:ncol(pr_matrix)] = SummarizedExperiment::colData(se)$ID
+    rnames = sapply(pr_matrix$Genes, function(x){strsplit(x, ';')[[1]][1]})
+    rownames(pr_matrix) = make.unique(rnames)
     S4Vectors::metadata(se)$pr_matrix = pr_matrix
   }
 

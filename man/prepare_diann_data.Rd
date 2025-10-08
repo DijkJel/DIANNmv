@@ -4,12 +4,15 @@
 \alias{prepare_diann_data}
 \title{Tidies sample names and parses an experimental design.}
 \usage{
-prepare_diann_data(pg_matrix, pr_matrix)
+prepare_diann_data(pg_matrix, pr_matrix, no_samples = NULL)
 }
 \arguments{
 \item{pg_matrix}{The report.pg_matrix file}
 
 \item{pr_matrix}{The report.pr_matrix file}
+
+\item{no_samples}{Optional numeric value specifying the number of samples.
+If not provided, a educated guess will be made.}
 }
 \value{
 A list with a tidied pg_matrix, pr_matrix, and parsed expDesign.
