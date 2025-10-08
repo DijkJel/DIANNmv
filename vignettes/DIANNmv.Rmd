@@ -104,8 +104,9 @@ summarizedExperiment (se) object that is used for downstream analysis and plotti
 
 To create an se object, you can run the prepare_se() function
 with the report.pg_matrix file and associated experimental design. 
-You can specify if and what type of imputation is done. The default is 'knn',
-which is better for DIA data I think. For DDA data, 'MinProb' would be the good.
+You can specify if and what type of imputation is done. The default is 'mixed',
+which uses both missing-not-at-random (MNAR) and missing-at-random (MAR) imputation.
+For MNAR/MAR specific imputation, 'knn' and 'MinProb' are advised, respectively.
 When 'none' is entered for the impute parameter, no imputation is done.
 Additionally, you can filter on missing values (missing_thr), and potential
 contaminants are removed by default. (Source: contaminants.txt file

@@ -139,7 +139,7 @@ prepare_diann_data = function(pg_matrix, pr_matrix, no_samples = NULL){
 #'                  missing_thr = 1,
 #'                  impute = 'none')
 prepare_se = function(pg_matrix, expDesign, pr_matrix = NULL, missing_thr = 0,
-                      min_peptides = 1, impute = 'knn',
+                      min_peptides = 1, impute = 'mixed',
                       mixed_cutoff = 'empirically', remove_contaminants = TRUE){
 
   if (!is.null(pr_matrix) & !('n_total' %in% colnames(pg_matrix))){
