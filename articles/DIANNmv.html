@@ -302,9 +302,11 @@ you, which can be used downstream. Alternatively, this can be done
 manually.</prefix_condition_replicate></p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tidy_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/prepare_diann_data.html">prepare_diann_data</a></span><span class="op">(</span><span class="va">report.pg_matrix</span>, <span class="va">report.pr_matrix</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning in max(which(!selection == T)): no non-missing arguments to max;</span></span>
+<span><span class="co">#&gt; returning -Inf</span></span>
+<span><span class="co">#&gt; Warning in colnames(pr_matrix)[start_index_pr:ncol(pr_matrix)] &lt;- cn: number of</span></span>
+<span><span class="co">#&gt; items to replace is not a multiple of replacement length</span></span>
 <span><span class="co">#&gt;                 label condition replicate</span></span>
-<span><span class="co">#&gt; neg_ctrl_1 neg_ctrl_1  neg_ctrl         1</span></span>
-<span><span class="co">#&gt; neg_ctrl_2 neg_ctrl_2  neg_ctrl         2</span></span>
 <span><span class="co">#&gt; neg_ctrl_3 neg_ctrl_3  neg_ctrl         3</span></span>
 <span><span class="co">#&gt; motif1_1     motif1_1    motif1         1</span></span>
 <span><span class="co">#&gt; motif1_2     motif1_2    motif1         2</span></span>
@@ -323,74 +325,79 @@ a summarizedExperiment (se) object that is used for downstream analysis
 and plotting.</p>
 <p>To create an se object, you can run the prepare_se() function with
 the report.pg_matrix file and associated experimental design. You can
-specify if and what type of imputation is done. The default is ‘knn’,
-which is better for DIA data I think. For DDA data, ‘MinProb’ would be
-the good. When ‘none’ is entered for the impute parameter, no imputation
-is done. Additionally, you can filter on missing values (missing_thr),
-and potential contaminants are removed by default. (Source:
-contaminants.txt file from maxquant).</p>
+specify if and what type of imputation is done. The default is ‘mixed’,
+which uses both missing-not-at-random (MNAR) and missing-at-random (MAR)
+imputation. For MNAR/MAR specific imputation, ‘knn’ and ‘MinProb’ are
+advised, respectively. When ‘none’ is entered for the impute parameter,
+no imputation is done. Additionally, you can filter on missing values
+(missing_thr), and potential contaminants are removed by default.
+(Source: contaminants.txt file from maxquant).</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">se</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/prepare_se.html">prepare_se</a></span><span class="op">(</span><span class="va">report.pg_matrix</span>, <span class="va">expDesign</span><span class="op">)</span> <span class="co"># without peptide information</span></span></code></pre></div>
 <p><img src="DIANNmv_files/figure-html/unnamed-chunk-5-1.png" width="700"></p>
-<pre><code><span><span class="co">#&gt; Imputing along margin 1 (features/rows).</span></span>
+<pre><code><span><span class="co">#&gt; Imputing along margin 2 (samples/columns).</span></span>
+<span><span class="co">#&gt; [1] 0.3066195</span></span>
+<span><span class="co">#&gt; Imputing along margin 1 (features/rows).</span></span>
 <span><span class="co">#&gt; Warning in knnimp(x, k, maxmiss = rowmax, maxp = maxp): 36 rows with more than 50 % entries missing;</span></span>
 <span><span class="co">#&gt;  mean imputation used for these rows</span></span>
-<span><span class="co">#&gt; Cluster size 5548 broken into 2022 3526 </span></span>
-<span><span class="co">#&gt; Cluster size 2022 broken into 673 1349 </span></span>
-<span><span class="co">#&gt; Done cluster 673 </span></span>
-<span><span class="co">#&gt; Done cluster 1349 </span></span>
-<span><span class="co">#&gt; Done cluster 2022 </span></span>
-<span><span class="co">#&gt; Cluster size 3526 broken into 1495 2031 </span></span>
-<span><span class="co">#&gt; Done cluster 1495 </span></span>
-<span><span class="co">#&gt; Cluster size 2031 broken into 1030 1001 </span></span>
-<span><span class="co">#&gt; Done cluster 1030 </span></span>
-<span><span class="co">#&gt; Done cluster 1001 </span></span>
+<span><span class="co">#&gt; Cluster size 5574 broken into 2304 3270 </span></span>
+<span><span class="co">#&gt; Cluster size 2304 broken into 720 1584 </span></span>
+<span><span class="co">#&gt; Done cluster 720 </span></span>
+<span><span class="co">#&gt; Cluster size 1584 broken into 953 631 </span></span>
+<span><span class="co">#&gt; Done cluster 953 </span></span>
+<span><span class="co">#&gt; Done cluster 631 </span></span>
+<span><span class="co">#&gt; Done cluster 1584 </span></span>
+<span><span class="co">#&gt; Done cluster 2304 </span></span>
+<span><span class="co">#&gt; Cluster size 3270 broken into 1239 2031 </span></span>
+<span><span class="co">#&gt; Done cluster 1239 </span></span>
+<span><span class="co">#&gt; Cluster size 2031 broken into 1024 1007 </span></span>
+<span><span class="co">#&gt; Done cluster 1024 </span></span>
+<span><span class="co">#&gt; Done cluster 1007 </span></span>
 <span><span class="co">#&gt; Done cluster 2031 </span></span>
-<span><span class="co">#&gt; Done cluster 3526</span></span>
+<span><span class="co">#&gt; Done cluster 3270</span></span>
 <span><span class="va">se</span></span>
 <span><span class="co">#&gt; class: SummarizedExperiment </span></span>
-<span><span class="co">#&gt; dim: 5584 9 </span></span>
+<span><span class="co">#&gt; dim: 5610 9 </span></span>
 <span><span class="co">#&gt; metadata(0):</span></span>
-<span><span class="co">#&gt; assays(1): ''</span></span>
-<span><span class="co">#&gt; rownames(5584): A2M A2ML1 ... ZYX ZZZ3</span></span>
-<span><span class="co">#&gt; rowData names(9): Protein.Group Protein.Names ... imputed num_NAs</span></span>
+<span><span class="co">#&gt; assays(2): '' imputation_mask</span></span>
+<span><span class="co">#&gt; rownames(5610): A2M A2ML1 ... ZYX ZZZ3</span></span>
+<span><span class="co">#&gt; rowData names(7): Protein.Group Protein.Names ... name ID</span></span>
 <span><span class="co">#&gt; colnames(9): neg_ctrl_1 neg_ctrl_2 ... motif2_2 motif2_3</span></span>
 <span><span class="co">#&gt; colData names(4): label ID condition replicate</span></span></code></pre>
 <p>If you provide the report.pr_matrix alongside the report.pg_matrix,
 peptide information is automatically added and you can filter on a
-minimal number of razor/unique peptides (min_pep, default = 0). Make
+minimal number of razor/unique peptides (min_pep, default = 1). Make
 sure the sample column names are identical and match the label column in
 the experimental design.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Add peptide information and remove all proteinGroups with &lt;2 total </span></span>
 <span><span class="co"># razor/unique peptides</span></span>
-<span><span class="va">se</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/prepare_se.html">prepare_se</a></span><span class="op">(</span><span class="va">report.pg_matrix</span>, <span class="va">expDesign</span>, <span class="va">report.pr_matrix</span>, min_pep <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">se</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/prepare_se.html">prepare_se</a></span><span class="op">(</span><span class="va">report.pg_matrix</span>, <span class="va">expDesign</span>, <span class="va">report.pr_matrix</span>, min_pep <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
 <p><img src="DIANNmv_files/figure-html/unnamed-chunk-6-1.png" width="700"></p>
-<pre><code><span><span class="co">#&gt; Imputing along margin 1 (features/rows).</span></span>
+<pre><code><span><span class="co">#&gt; Imputing along margin 2 (samples/columns).</span></span>
+<span><span class="co">#&gt; [1] 0.2979843</span></span>
+<span><span class="co">#&gt; Imputing along margin 1 (features/rows).</span></span>
 <span><span class="co">#&gt; Warning in knnimp(x, k, maxmiss = rowmax, maxp = maxp): 19 rows with more than 50 % entries missing;</span></span>
 <span><span class="co">#&gt;  mean imputation used for these rows</span></span>
-<span><span class="co">#&gt; Cluster size 5237 broken into 2152 3085 </span></span>
-<span><span class="co">#&gt; Cluster size 2152 broken into 1645 507 </span></span>
-<span><span class="co">#&gt; Cluster size 1645 broken into 656 989 </span></span>
-<span><span class="co">#&gt; Done cluster 656 </span></span>
-<span><span class="co">#&gt; Done cluster 989 </span></span>
-<span><span class="co">#&gt; Done cluster 1645 </span></span>
-<span><span class="co">#&gt; Done cluster 507 </span></span>
-<span><span class="co">#&gt; Done cluster 2152 </span></span>
-<span><span class="co">#&gt; Cluster size 3085 broken into 1977 1108 </span></span>
-<span><span class="co">#&gt; Cluster size 1977 broken into 976 1001 </span></span>
-<span><span class="co">#&gt; Done cluster 976 </span></span>
-<span><span class="co">#&gt; Done cluster 1001 </span></span>
-<span><span class="co">#&gt; Done cluster 1977 </span></span>
-<span><span class="co">#&gt; Done cluster 1108 </span></span>
-<span><span class="co">#&gt; Done cluster 3085</span></span>
+<span><span class="co">#&gt; Cluster size 5260 broken into 3646 1614 </span></span>
+<span><span class="co">#&gt; Cluster size 3646 broken into 2279 1367 </span></span>
+<span><span class="co">#&gt; Cluster size 2279 broken into 1220 1059 </span></span>
+<span><span class="co">#&gt; Done cluster 1220 </span></span>
+<span><span class="co">#&gt; Done cluster 1059 </span></span>
+<span><span class="co">#&gt; Done cluster 2279 </span></span>
+<span><span class="co">#&gt; Done cluster 1367 </span></span>
+<span><span class="co">#&gt; Done cluster 3646 </span></span>
+<span><span class="co">#&gt; Cluster size 1614 broken into 1176 438 </span></span>
+<span><span class="co">#&gt; Done cluster 1176 </span></span>
+<span><span class="co">#&gt; Done cluster 438 </span></span>
+<span><span class="co">#&gt; Done cluster 1614</span></span>
 <span><span class="va">se</span></span>
 <span><span class="co">#&gt; class: SummarizedExperiment </span></span>
-<span><span class="co">#&gt; dim: 5256 9 </span></span>
+<span><span class="co">#&gt; dim: 5279 9 </span></span>
 <span><span class="co">#&gt; metadata(1): pr_matrix</span></span>
-<span><span class="co">#&gt; assays(2): '' peptide_info</span></span>
-<span><span class="co">#&gt; rownames(5256): A2M A2ML1 ... ZYX ZZZ3</span></span>
-<span><span class="co">#&gt; rowData names(11): Protein.Group Protein.Names ... imputed num_NAs</span></span>
+<span><span class="co">#&gt; assays(3): '' peptide_info imputation_mask</span></span>
+<span><span class="co">#&gt; rownames(5279): A2M A2ML1 ... ZYX ZZZ3</span></span>
+<span><span class="co">#&gt; rowData names(9): Protein.Group Protein.Names ... ID npep_total</span></span>
 <span><span class="co">#&gt; colnames(9): neg_ctrl_1 neg_ctrl_2 ... motif2_2 motif2_3</span></span>
 <span><span class="co">#&gt; colData names(4): label ID condition replicate</span></span></code></pre>
 <p>The summarizedExperiment object stores a lot of information. As you
@@ -407,12 +414,11 @@ its documentation. In short, to access different parts of data:</p>
 <span></span>
 <span><span class="va">rd</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html" class="external-link">rowData</a></span><span class="op">(</span><span class="va">se</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">rd</span><span class="op">)</span> <span class="co"># Information for each proteinGroup in the se.</span></span>
-<span><span class="co">#&gt;  [1] "Protein.Group"             "Protein.Names"            </span></span>
-<span><span class="co">#&gt;  [3] "Genes"                     "First.Protein.Description"</span></span>
-<span><span class="co">#&gt;  [5] "n_total"                   "Potential.contaminant"    </span></span>
-<span><span class="co">#&gt;  [7] "name"                      "ID"                       </span></span>
-<span><span class="co">#&gt;  [9] "npep_total"                "imputed"                  </span></span>
-<span><span class="co">#&gt; [11] "num_NAs"</span></span>
+<span><span class="co">#&gt; [1] "Protein.Group"             "Protein.Names"            </span></span>
+<span><span class="co">#&gt; [3] "Genes"                     "First.Protein.Description"</span></span>
+<span><span class="co">#&gt; [5] "n_total"                   "Potential.contaminant"    </span></span>
+<span><span class="co">#&gt; [7] "name"                      "ID"                       </span></span>
+<span><span class="co">#&gt; [9] "npep_total"</span></span>
 <span></span>
 <span><span class="va">cd</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html" class="external-link">colData</a></span><span class="op">(</span><span class="va">se</span><span class="op">)</span><span class="op">)</span> </span>
 <span><span class="va">cd</span> <span class="co"># The experimental design</span></span>
@@ -524,24 +530,23 @@ addition, the number of iBAQ peptides is added to the rowData.</p>
 <code class="sourceCode R"><span><span class="va">pg</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/add_iBAQ.html">add_iBAQ</a></span><span class="op">(</span><span class="va">report.pg_matrix</span>, <span class="va">report.pr_matrix</span>, organism <span class="op">=</span> <span class="st">'hs'</span><span class="op">)</span></span>
 <span><span class="va">se</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/prepare_se.html">prepare_se</a></span><span class="op">(</span><span class="va">pg</span>, <span class="va">expDesign</span>, <span class="va">report.pr_matrix</span><span class="op">)</span></span></code></pre></div>
 <p><img src="DIANNmv_files/figure-html/unnamed-chunk-15-1.png" width="700"></p>
-<pre><code><span><span class="co">#&gt; Imputing along margin 1 (features/rows).</span></span>
+<pre><code><span><span class="co">#&gt; Imputing along margin 2 (samples/columns).</span></span>
+<span><span class="co">#&gt; [1] 0.3059733</span></span>
+<span><span class="co">#&gt; Imputing along margin 1 (features/rows).</span></span>
 <span><span class="co">#&gt; Warning in knnimp(x, k, maxmiss = rowmax, maxp = maxp): 33 rows with more than 50 % entries missing;</span></span>
 <span><span class="co">#&gt;  mean imputation used for these rows</span></span>
-<span><span class="co">#&gt; Cluster size 5475 broken into 3183 2292 </span></span>
-<span><span class="co">#&gt; Cluster size 3183 broken into 2053 1130 </span></span>
-<span><span class="co">#&gt; Cluster size 2053 broken into 1034 1019 </span></span>
-<span><span class="co">#&gt; Done cluster 1034 </span></span>
-<span><span class="co">#&gt; Done cluster 1019 </span></span>
-<span><span class="co">#&gt; Done cluster 2053 </span></span>
-<span><span class="co">#&gt; Done cluster 1130 </span></span>
-<span><span class="co">#&gt; Done cluster 3183 </span></span>
-<span><span class="co">#&gt; Cluster size 2292 broken into 1624 668 </span></span>
-<span><span class="co">#&gt; Cluster size 1624 broken into 716 908 </span></span>
-<span><span class="co">#&gt; Done cluster 716 </span></span>
-<span><span class="co">#&gt; Done cluster 908 </span></span>
-<span><span class="co">#&gt; Done cluster 1624 </span></span>
-<span><span class="co">#&gt; Done cluster 668 </span></span>
-<span><span class="co">#&gt; Done cluster 2292</span></span>
+<span><span class="co">#&gt; Cluster size 5500 broken into 3626 1874 </span></span>
+<span><span class="co">#&gt; Cluster size 3626 broken into 1266 2360 </span></span>
+<span><span class="co">#&gt; Done cluster 1266 </span></span>
+<span><span class="co">#&gt; Cluster size 2360 broken into 1196 1164 </span></span>
+<span><span class="co">#&gt; Done cluster 1196 </span></span>
+<span><span class="co">#&gt; Done cluster 1164 </span></span>
+<span><span class="co">#&gt; Done cluster 2360 </span></span>
+<span><span class="co">#&gt; Done cluster 3626 </span></span>
+<span><span class="co">#&gt; Cluster size 1874 broken into 1281 593 </span></span>
+<span><span class="co">#&gt; Done cluster 1281 </span></span>
+<span><span class="co">#&gt; Done cluster 593 </span></span>
+<span><span class="co">#&gt; Done cluster 1874</span></span>
 <span><span class="va">iBAQ</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html" class="external-link">assay</a></span><span class="op">(</span><span class="va">se</span>, <span class="st">'iBAQ'</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">iBAQ</span><span class="op">)</span></span>
 <span><span class="co">#&gt;       neg_ctrl_1  neg_ctrl_2 neg_ctrl_3   motif1_1  motif1_2  motif1_3</span></span>
@@ -592,11 +597,12 @@ includes the pr_matrix when running prepare_se()):</p>
 <span> <span class="va">se</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/add_median_peptide_intensity.html">add_median_peptide_intensity</a></span><span class="op">(</span><span class="va">se</span><span class="op">)</span></span>
 <span> <span class="va">se</span> <span class="co"># an extra assay 'median_peptide_intensities' is added</span></span>
 <span><span class="co">#&gt; class: SummarizedExperiment </span></span>
-<span><span class="co">#&gt; dim: 5508 9 </span></span>
+<span><span class="co">#&gt; dim: 5533 9 </span></span>
 <span><span class="co">#&gt; metadata(1): pr_matrix</span></span>
-<span><span class="co">#&gt; assays(5): '' iBAQ maxLFQ_iBAQ peptide_info median_peptide_intensities</span></span>
-<span><span class="co">#&gt; rownames(5508): A2M A2ML1 ... ZYX ZZZ3</span></span>
-<span><span class="co">#&gt; rowData names(13): Protein.Group Protein.Names ... num_NAs baseMean_mpi</span></span>
+<span><span class="co">#&gt; assays(6): '' iBAQ ... imputation_mask median_peptide_intensities</span></span>
+<span><span class="co">#&gt; rownames(5533): A2M A2ML1 ... ZYX ZZZ3</span></span>
+<span><span class="co">#&gt; rowData names(11): Protein.Group Protein.Names ... npep_total</span></span>
+<span><span class="co">#&gt;   baseMean_mpi</span></span>
 <span><span class="co">#&gt; colnames(9): neg_ctrl_1 neg_ctrl_2 ... motif2_2 motif2_3</span></span>
 <span><span class="co">#&gt; colData names(4): label ID condition replicate</span></span>
 <span> <span class="va">mpi</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html" class="external-link">assay</a></span><span class="op">(</span><span class="va">se</span>, <span class="st">'median_peptide_intensities'</span><span class="op">)</span></span>
@@ -660,19 +666,22 @@ summed.</p>
 <span><span class="va">smad4</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/plot_protein_coverage.html">plot_protein_coverage</a></span><span class="op">(</span><span class="va">se</span>, <span class="st">'SMAD4'</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Warning: Duplicated aesthetics after name standardisation: <span style="color: #00BB00;">ymin</span></span></span>
 <span><span class="va">smad4</span></span>
-<span><span class="co">#&gt; Warning: Duplicated aesthetics after name standardisation: <span style="color: #00BB00;">ymin</span></span></span></code></pre></div>
+<span><span class="co">#&gt; Warning: Duplicated aesthetics after name standardisation: <span style="color: #00BB00;">ymin</span></span></span>
+<span><span class="co">#&gt; Duplicated aesthetics after name standardisation: <span style="color: #00BB00;">ymin</span></span></span></code></pre></div>
 <p><img src="DIANNmv_files/figure-html/unnamed-chunk-19-1.png" width="700"></p>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
+<span></span>
 <span><span class="co"># Indicate amino acid positions and zoom in on aa 50-200 of protein:</span></span>
 <span><span class="va">smad4_zoom</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/plot_protein_coverage.html">plot_protein_coverage</a></span><span class="op">(</span><span class="va">se</span>, <span class="st">'SMAD4'</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">100</span>, <span class="fl">120</span><span class="op">)</span>,</span>
 <span>                                    zoom <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">50</span>, <span class="fl">200</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Warning: Duplicated aesthetics after name standardisation: <span style="color: #00BB00;">ymin</span></span></span>
-<span><span class="co">#&gt; Coordinate system already present. Adding new coordinate system, which will</span></span>
-<span><span class="co">#&gt; replace the existing one.</span></span>
+<span><span class="co">#&gt; Coordinate system already present.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Adding new coordinate system, which will replace the existing one.</span></span>
 <span></span>
 <span><span class="va">smad4_zoom</span></span>
-<span><span class="co">#&gt; Warning: Duplicated aesthetics after name standardisation: <span style="color: #00BB00;">ymin</span></span></span></code></pre></div>
+<span><span class="co">#&gt; Warning: Duplicated aesthetics after name standardisation: <span style="color: #00BB00;">ymin</span></span></span>
+<span><span class="co">#&gt; Duplicated aesthetics after name standardisation: <span style="color: #00BB00;">ymin</span></span></span></code></pre></div>
 <p><img src="DIANNmv_files/figure-html/unnamed-chunk-19-2.png" width="700"></p>
 </div>
 <div class="section level3">
@@ -681,9 +690,10 @@ summed.</p>
 <p>The plotVolcano() function returns volcano plots with the specified
 significance cutoffs. If more than 1 comparison is present in your
 results data frame, a list of volcano plots will be returned which can
-be accessed by the ‘$’ operator. Check the help page for plotVolcano()
-(<code><a href="../reference/plotVolcano.html">?plotVolcano</a></code>) to see the different options for labeling
-specific points in the volcano.</p>
+be accessed by the ‘$’ operator. By default, proteins that have any
+imputed values in the two conditions compared will be specified. Check
+the help page for plotVolcano() (<code><a href="../reference/plotVolcano.html">?plotVolcano</a></code>) to see the
+different options for labeling specific points in the volcano.</p>
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="fu"><a href="../reference/plotVolcano.html">plotVolcano</a></span><span class="op">(</span><span class="va">res_man</span><span class="op">)</span> <span class="co"># Default volcano plot if one comparison is present.</span></span></code></pre></div>
@@ -712,9 +722,9 @@ an MA-plot, with abundances on the x-axis, and fold-changes on the
 y-axis. Significant hits are indicated in blue/red:</p>
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_MA.html">plot_MA</a></span><span class="op">(</span><span class="va">res_man</span>, label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'SMAD3'</span>, <span class="st">'SMAD4'</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: Removed 1 row containing missing values or values outside the scale range</span></span>
+<span><span class="co">#&gt; Warning: Removed 26 rows containing missing values or values outside the scale range</span></span>
 <span><span class="co">#&gt; (`geom_point()`).</span></span>
-<span><span class="co">#&gt; Warning: Removed 1 row containing missing values or values outside the scale range</span></span>
+<span><span class="co">#&gt; Warning: Removed 26 rows containing missing values or values outside the scale range</span></span>
 <span><span class="co">#&gt; (`geom_text_repel()`).</span></span></code></pre></div>
 <p><img src="DIANNmv_files/figure-html/unnamed-chunk-21-1.png" width="700"></p>
 </div>
@@ -727,88 +737,88 @@ are used, but it can handle five comparisons maximally. You can specify
 which comparisons to include.</p>
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_venn_diagram.html">plot_venn_diagram</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span> <span class="co"># all comparisons</span></span>
-<span><span class="co">#&gt; INFO [2025-08-05 11:01:15] [[1]]</span></span>
-<span><span class="co">#&gt; INFO [2025-08-05 11:01:15] venn_list</span></span>
-<span><span class="co">#&gt; INFO [2025-08-05 11:01:15] </span></span>
-<span><span class="co">#&gt; INFO [2025-08-05 11:01:15] $filename</span></span>
-<span><span class="co">#&gt; INFO [2025-08-05 11:01:15] NULL</span></span>
-<span><span class="co">#&gt; INFO [2025-08-05 11:01:15] </span></span>
-<span><span class="co">#&gt; INFO [2025-08-05 11:01:15] $disable.logging</span></span>
-<span><span class="co">#&gt; INFO [2025-08-05 11:01:15] T</span></span>
-<span><span class="co">#&gt; INFO [2025-08-05 11:01:15] </span></span>
-<span><span class="co">#&gt; INFO [2025-08-05 11:01:15] $fill</span></span>
-<span><span class="co">#&gt; INFO [2025-08-05 11:01:15] colors</span></span>
-<span><span class="co">#&gt; INFO [2025-08-05 11:01:15] </span></span>
-<span><span class="co">#&gt; INFO [2025-08-05 11:01:15] $fontfamily</span></span>
-<span><span class="co">#&gt; INFO [2025-08-05 11:01:15] [1] "sans"</span></span>
-<span><span class="co">#&gt; INFO [2025-08-05 11:01:15] </span></span>
-<span><span class="co">#&gt; INFO [2025-08-05 11:01:15] $fontface</span></span>
-<span><span class="co">#&gt; INFO [2025-08-05 11:01:15] [1] "bold"</span></span>
-<span><span class="co">#&gt; INFO [2025-08-05 11:01:15] </span></span>
-<span><span class="co">#&gt; INFO [2025-08-05 11:01:15] $cat.fontfamily</span></span>
-<span><span class="co">#&gt; INFO [2025-08-05 11:01:15] [1] "sans"</span></span>
-<span><span class="co">#&gt; INFO [2025-08-05 11:01:15] </span></span>
-<span><span class="co">#&gt; INFO [2025-08-05 11:01:15] $lty</span></span>
-<span><span class="co">#&gt; INFO [2025-08-05 11:01:15] [1] 0</span></span>
-<span><span class="co">#&gt; INFO [2025-08-05 11:01:15]</span></span></code></pre></div>
+<span><span class="co">#&gt; INFO [2025-10-08 14:42:36] [[1]]</span></span>
+<span><span class="co">#&gt; INFO [2025-10-08 14:42:36] venn_list</span></span>
+<span><span class="co">#&gt; INFO [2025-10-08 14:42:36] </span></span>
+<span><span class="co">#&gt; INFO [2025-10-08 14:42:36] $filename</span></span>
+<span><span class="co">#&gt; INFO [2025-10-08 14:42:36] NULL</span></span>
+<span><span class="co">#&gt; INFO [2025-10-08 14:42:36] </span></span>
+<span><span class="co">#&gt; INFO [2025-10-08 14:42:36] $disable.logging</span></span>
+<span><span class="co">#&gt; INFO [2025-10-08 14:42:36] T</span></span>
+<span><span class="co">#&gt; INFO [2025-10-08 14:42:36] </span></span>
+<span><span class="co">#&gt; INFO [2025-10-08 14:42:36] $fill</span></span>
+<span><span class="co">#&gt; INFO [2025-10-08 14:42:36] colors</span></span>
+<span><span class="co">#&gt; INFO [2025-10-08 14:42:36] </span></span>
+<span><span class="co">#&gt; INFO [2025-10-08 14:42:36] $fontfamily</span></span>
+<span><span class="co">#&gt; INFO [2025-10-08 14:42:36] [1] "sans"</span></span>
+<span><span class="co">#&gt; INFO [2025-10-08 14:42:36] </span></span>
+<span><span class="co">#&gt; INFO [2025-10-08 14:42:36] $fontface</span></span>
+<span><span class="co">#&gt; INFO [2025-10-08 14:42:36] [1] "bold"</span></span>
+<span><span class="co">#&gt; INFO [2025-10-08 14:42:36] </span></span>
+<span><span class="co">#&gt; INFO [2025-10-08 14:42:36] $cat.fontfamily</span></span>
+<span><span class="co">#&gt; INFO [2025-10-08 14:42:36] [1] "sans"</span></span>
+<span><span class="co">#&gt; INFO [2025-10-08 14:42:36] </span></span>
+<span><span class="co">#&gt; INFO [2025-10-08 14:42:36] $lty</span></span>
+<span><span class="co">#&gt; INFO [2025-10-08 14:42:36] [1] 0</span></span>
+<span><span class="co">#&gt; INFO [2025-10-08 14:42:36]</span></span></code></pre></div>
 <p><img src="DIANNmv_files/figure-html/unnamed-chunk-22-1.png" width="700"></p>
 <div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_venn_diagram.html">plot_venn_diagram</a></span><span class="op">(</span><span class="va">res</span>, comparisons <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'neg_ctrl_vs_motif1'</span>, </span>
 <span>                                       <span class="st">'neg_ctrl_vs_motif2'</span><span class="op">)</span><span class="op">)</span> <span class="co"># only two comp.</span></span>
-<span><span class="co">#&gt; INFO [2025-08-05 11:01:15] [[1]]</span></span>
-<span><span class="co">#&gt; INFO [2025-08-05 11:01:15] venn_list</span></span>
-<span><span class="co">#&gt; INFO [2025-08-05 11:01:15] </span></span>
-<span><span class="co">#&gt; INFO [2025-08-05 11:01:15] $filename</span></span>
-<span><span class="co">#&gt; INFO [2025-08-05 11:01:15] NULL</span></span>
-<span><span class="co">#&gt; INFO [2025-08-05 11:01:15] </span></span>
-<span><span class="co">#&gt; INFO [2025-08-05 11:01:15] $disable.logging</span></span>
-<span><span class="co">#&gt; INFO [2025-08-05 11:01:15] T</span></span>
-<span><span class="co">#&gt; INFO [2025-08-05 11:01:15] </span></span>
-<span><span class="co">#&gt; INFO [2025-08-05 11:01:15] $fill</span></span>
-<span><span class="co">#&gt; INFO [2025-08-05 11:01:15] colors</span></span>
-<span><span class="co">#&gt; INFO [2025-08-05 11:01:15] </span></span>
-<span><span class="co">#&gt; INFO [2025-08-05 11:01:15] $fontfamily</span></span>
-<span><span class="co">#&gt; INFO [2025-08-05 11:01:15] [1] "sans"</span></span>
-<span><span class="co">#&gt; INFO [2025-08-05 11:01:15] </span></span>
-<span><span class="co">#&gt; INFO [2025-08-05 11:01:15] $fontface</span></span>
-<span><span class="co">#&gt; INFO [2025-08-05 11:01:15] [1] "bold"</span></span>
-<span><span class="co">#&gt; INFO [2025-08-05 11:01:15] </span></span>
-<span><span class="co">#&gt; INFO [2025-08-05 11:01:15] $cat.fontfamily</span></span>
-<span><span class="co">#&gt; INFO [2025-08-05 11:01:15] [1] "sans"</span></span>
-<span><span class="co">#&gt; INFO [2025-08-05 11:01:15] </span></span>
-<span><span class="co">#&gt; INFO [2025-08-05 11:01:15] $lty</span></span>
-<span><span class="co">#&gt; INFO [2025-08-05 11:01:15] [1] 0</span></span>
-<span><span class="co">#&gt; INFO [2025-08-05 11:01:15]</span></span></code></pre></div>
+<span><span class="co">#&gt; INFO [2025-10-08 14:42:36] [[1]]</span></span>
+<span><span class="co">#&gt; INFO [2025-10-08 14:42:36] venn_list</span></span>
+<span><span class="co">#&gt; INFO [2025-10-08 14:42:36] </span></span>
+<span><span class="co">#&gt; INFO [2025-10-08 14:42:36] $filename</span></span>
+<span><span class="co">#&gt; INFO [2025-10-08 14:42:36] NULL</span></span>
+<span><span class="co">#&gt; INFO [2025-10-08 14:42:36] </span></span>
+<span><span class="co">#&gt; INFO [2025-10-08 14:42:36] $disable.logging</span></span>
+<span><span class="co">#&gt; INFO [2025-10-08 14:42:36] T</span></span>
+<span><span class="co">#&gt; INFO [2025-10-08 14:42:36] </span></span>
+<span><span class="co">#&gt; INFO [2025-10-08 14:42:36] $fill</span></span>
+<span><span class="co">#&gt; INFO [2025-10-08 14:42:36] colors</span></span>
+<span><span class="co">#&gt; INFO [2025-10-08 14:42:36] </span></span>
+<span><span class="co">#&gt; INFO [2025-10-08 14:42:36] $fontfamily</span></span>
+<span><span class="co">#&gt; INFO [2025-10-08 14:42:36] [1] "sans"</span></span>
+<span><span class="co">#&gt; INFO [2025-10-08 14:42:36] </span></span>
+<span><span class="co">#&gt; INFO [2025-10-08 14:42:36] $fontface</span></span>
+<span><span class="co">#&gt; INFO [2025-10-08 14:42:36] [1] "bold"</span></span>
+<span><span class="co">#&gt; INFO [2025-10-08 14:42:36] </span></span>
+<span><span class="co">#&gt; INFO [2025-10-08 14:42:36] $cat.fontfamily</span></span>
+<span><span class="co">#&gt; INFO [2025-10-08 14:42:36] [1] "sans"</span></span>
+<span><span class="co">#&gt; INFO [2025-10-08 14:42:36] </span></span>
+<span><span class="co">#&gt; INFO [2025-10-08 14:42:36] $lty</span></span>
+<span><span class="co">#&gt; INFO [2025-10-08 14:42:36] [1] 0</span></span>
+<span><span class="co">#&gt; INFO [2025-10-08 14:42:36]</span></span></code></pre></div>
 <p><img src="DIANNmv_files/figure-html/unnamed-chunk-22-2.png" width="700"></p>
 <div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="fu"><a href="../reference/plot_venn_diagram.html">plot_venn_diagram</a></span><span class="op">(</span><span class="va">res</span>, comparisons <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'neg_ctrl_vs_motif1'</span>, </span>
 <span>                                       <span class="st">'neg_ctrl_vs_motif2'</span><span class="op">)</span>, </span>
 <span>                  colors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'red'</span>, <span class="st">'blue'</span><span class="op">)</span><span class="op">)</span> <span class="co"># specify colors used</span></span>
-<span><span class="co">#&gt; INFO [2025-08-05 11:01:15] [[1]]</span></span>
-<span><span class="co">#&gt; INFO [2025-08-05 11:01:15] venn_list</span></span>
-<span><span class="co">#&gt; INFO [2025-08-05 11:01:15] </span></span>
-<span><span class="co">#&gt; INFO [2025-08-05 11:01:15] $filename</span></span>
-<span><span class="co">#&gt; INFO [2025-08-05 11:01:15] NULL</span></span>
-<span><span class="co">#&gt; INFO [2025-08-05 11:01:15] </span></span>
-<span><span class="co">#&gt; INFO [2025-08-05 11:01:15] $disable.logging</span></span>
-<span><span class="co">#&gt; INFO [2025-08-05 11:01:15] T</span></span>
-<span><span class="co">#&gt; INFO [2025-08-05 11:01:15] </span></span>
-<span><span class="co">#&gt; INFO [2025-08-05 11:01:15] $fill</span></span>
-<span><span class="co">#&gt; INFO [2025-08-05 11:01:15] colors</span></span>
-<span><span class="co">#&gt; INFO [2025-08-05 11:01:15] </span></span>
-<span><span class="co">#&gt; INFO [2025-08-05 11:01:15] $fontfamily</span></span>
-<span><span class="co">#&gt; INFO [2025-08-05 11:01:15] [1] "sans"</span></span>
-<span><span class="co">#&gt; INFO [2025-08-05 11:01:15] </span></span>
-<span><span class="co">#&gt; INFO [2025-08-05 11:01:15] $fontface</span></span>
-<span><span class="co">#&gt; INFO [2025-08-05 11:01:15] [1] "bold"</span></span>
-<span><span class="co">#&gt; INFO [2025-08-05 11:01:15] </span></span>
-<span><span class="co">#&gt; INFO [2025-08-05 11:01:15] $cat.fontfamily</span></span>
-<span><span class="co">#&gt; INFO [2025-08-05 11:01:15] [1] "sans"</span></span>
-<span><span class="co">#&gt; INFO [2025-08-05 11:01:15] </span></span>
-<span><span class="co">#&gt; INFO [2025-08-05 11:01:15] $lty</span></span>
-<span><span class="co">#&gt; INFO [2025-08-05 11:01:15] [1] 0</span></span>
-<span><span class="co">#&gt; INFO [2025-08-05 11:01:15]</span></span></code></pre></div>
+<span><span class="co">#&gt; INFO [2025-10-08 14:42:36] [[1]]</span></span>
+<span><span class="co">#&gt; INFO [2025-10-08 14:42:36] venn_list</span></span>
+<span><span class="co">#&gt; INFO [2025-10-08 14:42:36] </span></span>
+<span><span class="co">#&gt; INFO [2025-10-08 14:42:36] $filename</span></span>
+<span><span class="co">#&gt; INFO [2025-10-08 14:42:36] NULL</span></span>
+<span><span class="co">#&gt; INFO [2025-10-08 14:42:36] </span></span>
+<span><span class="co">#&gt; INFO [2025-10-08 14:42:36] $disable.logging</span></span>
+<span><span class="co">#&gt; INFO [2025-10-08 14:42:36] T</span></span>
+<span><span class="co">#&gt; INFO [2025-10-08 14:42:36] </span></span>
+<span><span class="co">#&gt; INFO [2025-10-08 14:42:36] $fill</span></span>
+<span><span class="co">#&gt; INFO [2025-10-08 14:42:36] colors</span></span>
+<span><span class="co">#&gt; INFO [2025-10-08 14:42:36] </span></span>
+<span><span class="co">#&gt; INFO [2025-10-08 14:42:36] $fontfamily</span></span>
+<span><span class="co">#&gt; INFO [2025-10-08 14:42:36] [1] "sans"</span></span>
+<span><span class="co">#&gt; INFO [2025-10-08 14:42:36] </span></span>
+<span><span class="co">#&gt; INFO [2025-10-08 14:42:36] $fontface</span></span>
+<span><span class="co">#&gt; INFO [2025-10-08 14:42:36] [1] "bold"</span></span>
+<span><span class="co">#&gt; INFO [2025-10-08 14:42:36] </span></span>
+<span><span class="co">#&gt; INFO [2025-10-08 14:42:36] $cat.fontfamily</span></span>
+<span><span class="co">#&gt; INFO [2025-10-08 14:42:36] [1] "sans"</span></span>
+<span><span class="co">#&gt; INFO [2025-10-08 14:42:36] </span></span>
+<span><span class="co">#&gt; INFO [2025-10-08 14:42:36] $lty</span></span>
+<span><span class="co">#&gt; INFO [2025-10-08 14:42:36] [1] 0</span></span>
+<span><span class="co">#&gt; INFO [2025-10-08 14:42:36]</span></span></code></pre></div>
 <p><img src="DIANNmv_files/figure-html/unnamed-chunk-22-3.png" width="700"></p>
 </div>
 <div class="section level3">
@@ -821,7 +831,14 @@ instructions on how to do this.</p>
 <div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="va">upset_plot</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/plot_upset.html">plot_upset</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span></span>
-<span><span class="va">upset_plot</span></span></code></pre></div>
+<span><span class="va">upset_plot</span></span>
+<span><span class="co">#&gt; Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Please use `linewidth` instead.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> The deprecated feature was likely used in the <span style="color: #0000BB;">ggupset</span> package.</span></span>
+<span><span class="co">#&gt;   Please report the issue at <span style="color: #0000BB; font-style: italic;">&lt;https://github.com/const-ae/ggupset/issues&gt;</span>.</span></span>
+<span><span class="co">#&gt; <span style="color: #555555;">This warning is displayed once every 8 hours.</span></span></span>
+<span><span class="co">#&gt; <span style="color: #555555;">Call `lifecycle::last_lifecycle_warnings()` to see where this warning was</span></span></span>
+<span><span class="co">#&gt; <span style="color: #555555;">generated.</span></span></span></code></pre></div>
 <p><img src="DIANNmv_files/figure-html/unnamed-chunk-23-1.png" width="700"></p>
 <p>Finally, to get an overview of the number of identified significant
 proteins per condition:</p>
@@ -881,9 +898,7 @@ choice:</p>
 <code class="sourceCode R"><span></span>
 <span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_DEPresults.html">get_DEPresults</a></span><span class="op">(</span><span class="va">se</span>, <span class="st">'motif1'</span>, <span class="st">'neg_ctrl'</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Tested contrasts: motif1_vs_neg_ctrl</span></span>
-<span><span class="va">gsea</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/perform_GSEA.html">perform_GSEA</a></span><span class="op">(</span><span class="va">res</span>, <span class="va">geneset_gobp</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning in preparePathwaysAndStats(pathways, stats, minSize, maxSize, gseaParam, : There are ties in the preranked stats (0.04% of the list).</span></span>
-<span><span class="co">#&gt; The order of those tied genes will be arbitrary, which may produce unexpected results.</span></span></code></pre></div>
+<span><span class="va">gsea</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/perform_GSEA.html">perform_GSEA</a></span><span class="op">(</span><span class="va">res</span>, <span class="va">geneset_gobp</span><span class="op">)</span></span></code></pre></div>
 <div class="section level3">
 <h3 id="plotting-of-gsea-results">Plotting of GSEA results<a class="anchor" aria-label="anchor" href="#plotting-of-gsea-results"></a>
 </h3>
@@ -946,18 +961,24 @@ get_DEPresults()), you can plot them in a single bubble plot.</p>
 <span><span class="co">#&gt; Tested contrasts: motif2_vs_neg_ctrl</span></span>
 <span></span>
 <span><span class="va">gsea1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/perform_GSEA.html">perform_GSEA</a></span><span class="op">(</span><span class="va">res1</span>, <span class="va">geneset_gobp</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning in preparePathwaysAndStats(pathways, stats, minSize, maxSize, gseaParam, : There are ties in the preranked stats (0.04% of the list).</span></span>
-<span><span class="co">#&gt; The order of those tied genes will be arbitrary, which may produce unexpected results.</span></span>
 <span><span class="va">gsea2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/perform_GSEA.html">perform_GSEA</a></span><span class="op">(</span><span class="va">res2</span>, <span class="va">geneset_gobp</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning in preparePathwaysAndStats(pathways, stats, minSize, maxSize, gseaParam, : There are ties in the preranked stats (0.02% of the list).</span></span>
-<span><span class="co">#&gt; The order of those tied genes will be arbitrary, which may produce unexpected results.</span></span>
 <span></span>
 <span><span class="va">bubble</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/plot_gsea_bubbleplot.html">plot_gsea_bubbleplot</a></span><span class="op">(</span><span class="va">gsea1</span>, <span class="va">gsea2</span>,</span>
 <span>                               sample_names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'motif1'</span>, <span class="st">'motif2'</span><span class="op">)</span>, top_n <span class="op">=</span> <span class="fl">10</span>,</span>
 <span>                                remove_prefix <span class="op">=</span> <span class="cn">T</span>, max_name_length <span class="op">=</span> <span class="fl">35</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">bubble</span></span></code></pre></div>
+<span><span class="va">bubble</span></span>
+<span><span class="co">#&gt; Warning: Removed 2 rows containing missing values or values outside the scale range</span></span>
+<span><span class="co">#&gt; (`geom_point()`).</span></span></code></pre></div>
 <p><img src="DIANNmv_files/figure-html/unnamed-chunk-31-1.png" width="700"></p>
+<p>Finally, you can plot enrichment plots for individual pathways with
+plot_gsea_enrichment_plot():</p>
+<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">pathways</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'HALLMARK_MYC_TARGETS_V1'</span>, <span class="st">'HALLMARK_TGF_BETA_SIGNALING'</span><span class="op">)</span></span>
+<span><span class="va">enrichment_plots</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/plot_gsea_enrichment_plot.html">plot_gsea_enrichment_plot</a></span><span class="op">(</span><span class="va">geneset_hallmarks</span>, <span class="va">pathways</span>, <span class="va">res</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">enrichment_plots</span><span class="op">$</span><span class="va">HALLMARK_MYC_TARGETS_V1</span></span></code></pre></div>
+<p><img src="DIANNmv_files/figure-html/unnamed-chunk-32-1.png" width="700"></p>
 </div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

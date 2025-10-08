@@ -39,7 +39,7 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">prepare_diann_data</span><span class="op">(</span><span class="va">pg_matrix</span>, <span class="va">pr_matrix</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">prepare_diann_data</span><span class="op">(</span><span class="va">pg_matrix</span>, <span class="va">pr_matrix</span>, no_samples <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -52,6 +52,11 @@
 
 <dt id="arg-pr-matrix">pr_matrix<a class="anchor" aria-label="anchor" href="#arg-pr-matrix"></a></dt>
 <dd><p>The report.pr_matrix file</p></dd>
+
+
+<dt id="arg-no-samples">no_samples<a class="anchor" aria-label="anchor" href="#arg-no-samples"></a></dt>
+<dd><p>Optional numeric value specifying the number of samples.
+If not provided, a educated guess will be made.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -68,9 +73,9 @@ An example of the prepared sample names and expDesign is printed in the console.
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">tidy_data</span> <span class="op">&lt;-</span> <span class="fu">prepare_diann_data</span><span class="op">(</span><span class="va">report.pg_matrix</span>, <span class="va">report.pr_matrix</span><span class="op">)</span></span></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>no non-missing arguments to max; returning -Inf</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>number of items to replace is not a multiple of replacement length</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                 label condition replicate</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> neg_ctrl_1 neg_ctrl_1  neg_ctrl         1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> neg_ctrl_2 neg_ctrl_2  neg_ctrl         2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> neg_ctrl_3 neg_ctrl_3  neg_ctrl         3</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> motif1_1     motif1_1    motif1         1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> motif1_2     motif1_2    motif1         2</span>

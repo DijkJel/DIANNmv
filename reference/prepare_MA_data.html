@@ -86,27 +86,23 @@ proteins.</p></dd>
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">se</span> <span class="op">&lt;-</span> <span class="fu"><a href="prepare_se.html">prepare_se</a></span><span class="op">(</span><span class="va">report.pg_matrix</span>, <span class="va">expDesign</span>, <span class="va">report.pr_matrix</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="prepare_MA_data-1.png" alt="" width="700" height="433"></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Imputing along margin 2 (samples/columns).</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.3066195</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Imputing along margin 1 (features/rows).</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>36 rows with more than 50 % entries missing;</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span>  mean imputation used for these rows</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Cluster size 5548 broken into 2203 3345 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Cluster size 2203 broken into 1569 634 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Cluster size 1569 broken into 1504 65 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Cluster size 1504 broken into 645 859 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Done cluster 645 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Done cluster 859 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Done cluster 1504 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Done cluster 65 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Done cluster 1569 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Done cluster 634 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Done cluster 2203 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Cluster size 3345 broken into 2136 1209 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Cluster size 2136 broken into 1087 1049 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Done cluster 1087 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Done cluster 1049 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Done cluster 2136 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Done cluster 1209 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Done cluster 3345 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Cluster size 5574 broken into 3662 1912 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Cluster size 3662 broken into 1462 2200 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Done cluster 1462 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Cluster size 2200 broken into 1110 1090 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Done cluster 1110 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Done cluster 1090 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Done cluster 2200 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Done cluster 3662 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Cluster size 1912 broken into 1379 533 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Done cluster 1379 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Done cluster 533 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Done cluster 1912 </span>
 <span class="r-in"><span><span class="va">se</span> <span class="op">&lt;-</span> <span class="fu"><a href="add_median_peptide_intensity.html">add_median_peptide_intensity</a></span><span class="op">(</span><span class="va">se</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="get_DEPresults.html">get_DEPresults</a></span><span class="op">(</span><span class="va">se</span>, type <span class="op">=</span> <span class="st">'all'</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Tested contrasts: neg_ctrl_vs_motif1, neg_ctrl_vs_motif2, motif1_vs_motif2</span>
