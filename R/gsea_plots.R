@@ -228,7 +228,7 @@ plot_gsea_bubbleplot = function(gsea, ..., sample_names = NULL, padj_cutoff = 0.
     ggplot2::geom_point() +
     ggplot2::scale_color_gradient2(low = 'dodgerblue4', mid = 'white', high = 'red3') +
     ggplot2::theme_minimal() +
-    ggplot2::theme(aspect.ratio = 5/1) +
+    ggplot2::theme(aspect.ratio = 5/1, axis.text.x = ggplot2::element_text(angle = 45, hjust = 1)) +
     ggplot2::xlab('') +
     ggplot2::ylab('')
 
