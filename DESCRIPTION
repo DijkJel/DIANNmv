@@ -2,8 +2,9 @@ Package: DIANNmv
 Title: For analysis and visualization of DIANN MS-data
 Version: 1.2.0
 Authors@R: 
-    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"))
-Description: What the package does (one paragraph).
+    person("Jelmer", "Dijkstra", , "j.dijkstra@nki.nl", role = "aut")
+Description: R package for the analysis and visualization of mass spectrometry
+proteomics data.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
