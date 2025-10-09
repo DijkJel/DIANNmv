@@ -3,8 +3,7 @@ Title: For analysis and visualization of DIANN MS-data
 Version: 1.2.0
 Authors@R: 
     person("Jelmer", "Dijkstra", , "j.dijkstra@nki.nl", role = "aut")
-Description: R package for the analysis and visualization of mass spectrometry
-proteomics data.
+Description: R package for the analysis and visualization of mass spectrometry proteomics data.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
