@@ -435,25 +435,25 @@ prepare_barplot_data = function(res, comparisons = 'all', names = NULL){
   sig_cols = paste0(samples, '_significant')
   ratio_cols = paste0(samples, '_ratio')
 
-  df_sig = as.list(res[,sig_cols])
-  df_ratio = as.list(res[,ratio_cols])
+  df_sig = as.list(res[,sig_cols, drop = F])
+  df_ratio = as.list(res[,ratio_cols, drop = F])
 
   up_list = mapply(function(x, y){rownames(res)[x & (y > 0)]}, df_sig, df_ratio)
   down_list = mapply(function(x, y){rownames(res)[x & (y < 0)]}, df_sig, df_ratio)
 
+  if (is.list(up_list)){up = lengths(up_list)} else {up = length(up_list)}
+  if (is.list(down_list)){down = lengths(down_list)} else {down = length(down_list)}
 
   df = data.frame(Group = samples,
-                  up = lengths(up_list),
-                  down = lengths(down_list))
+                  up = up,
+                  down = down)
 
   if (!('all' %in% comparisons)){
     df$Group = factor(df$Group, levels = comparisons)
     df = df[order(df$Group),]
   }
 
-
   if(!is.null(names)){df$Group = factor(names, levels = names)}
-
   df_long = reshape2::melt(df, value.name = 'DEP', id.vars = 'Group', variable.name = 'direction')
 
   return(df_long)
