@@ -1,0 +1,38 @@
+Package: DIANNmv
+Title: For analysis and visualization of DIANN MS-data
+Version: 1.2.1
+Authors@R: 
+    person("Jelmer", "Dijkstra", , "j.dijkstra@nki.nl", role = c("aut", "cre"))
+Description: R package for the analysis and visualization of mass spectrometry proteomics data.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2
+URL: https://github.com/DijkJel/DIANNmv, https://dijkjel.github.io/DIANNmv/
+BugReports: https://github.com/DijkJel/DIANNmv/issues
+biocViews:
+Imports: 
+    cleaver,
+    DEP,
+    fgsea,
+    ggplot2,
+    ggrepel,
+    ggupset,
+    grid,
+    GSEABase,
+    ivs,
+    MsCoreUtils,
+    msigdb,
+    reshape2,
+    S4Vectors,
+    seqinr,
+    stats,
+    stringr,
+    SummarizedExperiment,
+    VennDiagram
+LazyData: true
+LazyDataCompression: xz
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
