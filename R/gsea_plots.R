@@ -389,16 +389,15 @@ plot_gsea_enrichment_plot = function(genesets, pathways, res, line_color = 'gree
     pd <- fgsea::plotEnrichmentData(pathway = pw, stats = ranked_genes,
                                     gseaParam = 1)
 
-
-    p = with(pd, ggplot2::ggplot(data = curve) + ggplot2::geom_line(ggplot2::aes(x = rank,
-                                                                                 y = ES), color = line_color, linewidth = linewidth) +
-               ggplot2::geom_segment(data = ticks, mapping = ggplot2::aes(x = rank, y = -spreadES/16, xend = rank,
-                                                                          yend = spreadES/16), linewidth = ticksSize) +
-               ggplot2::geom_hline(yintercept = posES, colour = ES_color, linetype = "dashed", linewidth = linewidth) +
-               ggplot2::geom_hline(yintercept = negES, colour = ES_color, linetype = "dashed", linewidth = linewidth) +
-               ggplot2::geom_hline(yintercept = 0, colour = "black", linewidth = linewidth) +
-               ggplot2::theme(panel.background = ggplot2::element_blank(),
-                              panel.grid.major = ggplot2::element_line(color = "grey92")))
+    p = ggplot2::ggplot(data = pd$curve) + ggplot2::geom_line(ggplot2::aes(x = .data[['rank']],
+                                                                           y = .data[['ES']]), color = line_color, linewidth = linewidth) +
+      ggplot2::geom_segment(data = pd$ticks, mapping = ggplot2::aes(x = .data[['rank']], y = pd[['spreadES']]/16, xend = .data[['rank']],
+                                                                    yend = pd[['spreadES']]/16), linewidth = ticksSize) +
+      ggplot2::geom_hline(yintercept = pd[['posES']], colour = ES_color , linetype = "dashed", linewidth = linewidth) +
+      ggplot2::geom_hline(yintercept = pd[['negES']], colour = ES_color, linetype = "dashed", linewidth = linewidth) +
+      ggplot2::geom_hline(yintercept = 0, colour = "black", linewidth = linewidth) +
+      ggplot2::theme(panel.background = ggplot2::element_blank(),
+                     panel.grid.major = ggplot2::element_line(color = "grey92"))
 
     p + ggplot2::labs(x = "Rank", y = "Enrichment Score", title = names(pathways)[x])
   })
@@ -417,4 +416,3 @@ plot_gsea_enrichment_plot = function(genesets, pathways, res, line_color = 'gree
   if (length(separate_plots) == 1){separate_plots = separate_plots[[1]]}
   return(separate_plots)
 }
-
