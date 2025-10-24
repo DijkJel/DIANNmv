@@ -105,20 +105,23 @@ contaminants should be removed from the pg_matrix.</p></dd>
 <span class="r-in"><span>                impute <span class="op">=</span> <span class="st">'knn'</span><span class="op">)</span> <span class="co"># creates se with missing values imputed</span></span></span>
 <span class="r-plt img"><img src="prepare_se-1.png" alt="" width="700" height="433"></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Imputing along margin 1 (features/rows).</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>179 rows with more than 50 % entries missing;</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>173 rows with more than 50 % entries missing;</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span>  mean imputation used for these rows</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Cluster size 5663 broken into 3631 2032 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Cluster size 3631 broken into 1249 2382 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Done cluster 1249 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Cluster size 2382 broken into 1294 1088 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Done cluster 1294 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Done cluster 1088 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Done cluster 2382 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Done cluster 3631 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Cluster size 2032 broken into 651 1381 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Done cluster 651 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Done cluster 1381 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Done cluster 2032 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Cluster size 5598 broken into 2470 3128 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Cluster size 2470 broken into 763 1707 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Done cluster 763 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Cluster size 1707 broken into 715 992 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Done cluster 715 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Done cluster 992 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Done cluster 1707 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Done cluster 2470 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Cluster size 3128 broken into 2008 1120 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Cluster size 2008 broken into 953 1055 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Done cluster 953 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Done cluster 1055 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Done cluster 2008 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Done cluster 1120 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Done cluster 3128 </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># creates se without imputing missing values.</span></span></span>
 <span class="r-in"><span><span class="va">se</span> <span class="op">&lt;-</span> <span class="fu">prepare_se</span><span class="op">(</span><span class="va">report.pg_matrix</span>,</span></span>

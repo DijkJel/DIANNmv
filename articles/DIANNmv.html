@@ -336,31 +336,31 @@ no imputation is done. Additionally, you can filter on missing values
 <code class="sourceCode R"><span><span class="va">se</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/prepare_se.html">prepare_se</a></span><span class="op">(</span><span class="va">report.pg_matrix</span>, <span class="va">expDesign</span><span class="op">)</span> <span class="co"># without peptide information</span></span></code></pre></div>
 <p><img src="DIANNmv_files/figure-html/unnamed-chunk-5-1.png" width="700"></p>
 <pre><code><span><span class="co">#&gt; Imputing along margin 2 (samples/columns).</span></span>
-<span><span class="co">#&gt; [1] 0.3066195</span></span>
+<span><span class="co">#&gt; [1] 0.3058978</span></span>
 <span><span class="co">#&gt; Imputing along margin 1 (features/rows).</span></span>
 <span><span class="co">#&gt; Warning in knnimp(x, k, maxmiss = rowmax, maxp = maxp): 36 rows with more than 50 % entries missing;</span></span>
 <span><span class="co">#&gt;  mean imputation used for these rows</span></span>
-<span><span class="co">#&gt; Cluster size 5574 broken into 2304 3270 </span></span>
-<span><span class="co">#&gt; Cluster size 2304 broken into 720 1584 </span></span>
-<span><span class="co">#&gt; Done cluster 720 </span></span>
-<span><span class="co">#&gt; Cluster size 1584 broken into 953 631 </span></span>
-<span><span class="co">#&gt; Done cluster 953 </span></span>
-<span><span class="co">#&gt; Done cluster 631 </span></span>
-<span><span class="co">#&gt; Done cluster 1584 </span></span>
-<span><span class="co">#&gt; Done cluster 2304 </span></span>
-<span><span class="co">#&gt; Cluster size 3270 broken into 1239 2031 </span></span>
-<span><span class="co">#&gt; Done cluster 1239 </span></span>
-<span><span class="co">#&gt; Cluster size 2031 broken into 1024 1007 </span></span>
-<span><span class="co">#&gt; Done cluster 1024 </span></span>
-<span><span class="co">#&gt; Done cluster 1007 </span></span>
-<span><span class="co">#&gt; Done cluster 2031 </span></span>
-<span><span class="co">#&gt; Done cluster 3270</span></span>
+<span><span class="co">#&gt; Cluster size 5511 broken into 3577 1934 </span></span>
+<span><span class="co">#&gt; Cluster size 3577 broken into 2319 1258 </span></span>
+<span><span class="co">#&gt; Cluster size 2319 broken into 3 2316 </span></span>
+<span><span class="co">#&gt; Done cluster 3 </span></span>
+<span><span class="co">#&gt; Cluster size 2316 broken into 1144 1172 </span></span>
+<span><span class="co">#&gt; Done cluster 1144 </span></span>
+<span><span class="co">#&gt; Done cluster 1172 </span></span>
+<span><span class="co">#&gt; Done cluster 2316 </span></span>
+<span><span class="co">#&gt; Done cluster 2319 </span></span>
+<span><span class="co">#&gt; Done cluster 1258 </span></span>
+<span><span class="co">#&gt; Done cluster 3577 </span></span>
+<span><span class="co">#&gt; Cluster size 1934 broken into 1298 636 </span></span>
+<span><span class="co">#&gt; Done cluster 1298 </span></span>
+<span><span class="co">#&gt; Done cluster 636 </span></span>
+<span><span class="co">#&gt; Done cluster 1934</span></span>
 <span><span class="va">se</span></span>
 <span><span class="co">#&gt; class: SummarizedExperiment </span></span>
-<span><span class="co">#&gt; dim: 5610 9 </span></span>
+<span><span class="co">#&gt; dim: 5547 9 </span></span>
 <span><span class="co">#&gt; metadata(0):</span></span>
 <span><span class="co">#&gt; assays(2): '' imputation_mask</span></span>
-<span><span class="co">#&gt; rownames(5610): A2M A2ML1 ... ZYX ZZZ3</span></span>
+<span><span class="co">#&gt; rownames(5547): A2M A2ML1 ... ZYX ZZZ3</span></span>
 <span><span class="co">#&gt; rowData names(7): Protein.Group Protein.Names ... name ID</span></span>
 <span><span class="co">#&gt; colnames(9): neg_ctrl_1 neg_ctrl_2 ... motif2_2 motif2_3</span></span>
 <span><span class="co">#&gt; colData names(4): label ID condition replicate</span></span></code></pre>
@@ -375,28 +375,31 @@ the experimental design.</p>
 <span><span class="va">se</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/prepare_se.html">prepare_se</a></span><span class="op">(</span><span class="va">report.pg_matrix</span>, <span class="va">expDesign</span>, <span class="va">report.pr_matrix</span>, min_pep <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
 <p><img src="DIANNmv_files/figure-html/unnamed-chunk-6-1.png" width="700"></p>
 <pre><code><span><span class="co">#&gt; Imputing along margin 2 (samples/columns).</span></span>
-<span><span class="co">#&gt; [1] 0.2979843</span></span>
+<span><span class="co">#&gt; [1] 0.2967394</span></span>
 <span><span class="co">#&gt; Imputing along margin 1 (features/rows).</span></span>
 <span><span class="co">#&gt; Warning in knnimp(x, k, maxmiss = rowmax, maxp = maxp): 19 rows with more than 50 % entries missing;</span></span>
 <span><span class="co">#&gt;  mean imputation used for these rows</span></span>
-<span><span class="co">#&gt; Cluster size 5260 broken into 3646 1614 </span></span>
-<span><span class="co">#&gt; Cluster size 3646 broken into 2279 1367 </span></span>
-<span><span class="co">#&gt; Cluster size 2279 broken into 1220 1059 </span></span>
-<span><span class="co">#&gt; Done cluster 1220 </span></span>
-<span><span class="co">#&gt; Done cluster 1059 </span></span>
-<span><span class="co">#&gt; Done cluster 2279 </span></span>
-<span><span class="co">#&gt; Done cluster 1367 </span></span>
-<span><span class="co">#&gt; Done cluster 3646 </span></span>
-<span><span class="co">#&gt; Cluster size 1614 broken into 1176 438 </span></span>
-<span><span class="co">#&gt; Done cluster 1176 </span></span>
-<span><span class="co">#&gt; Done cluster 438 </span></span>
-<span><span class="co">#&gt; Done cluster 1614</span></span>
+<span><span class="co">#&gt; Cluster size 5200 broken into 2219 2981 </span></span>
+<span><span class="co">#&gt; Cluster size 2219 broken into 1622 597 </span></span>
+<span><span class="co">#&gt; Cluster size 1622 broken into 940 682 </span></span>
+<span><span class="co">#&gt; Done cluster 940 </span></span>
+<span><span class="co">#&gt; Done cluster 682 </span></span>
+<span><span class="co">#&gt; Done cluster 1622 </span></span>
+<span><span class="co">#&gt; Done cluster 597 </span></span>
+<span><span class="co">#&gt; Done cluster 2219 </span></span>
+<span><span class="co">#&gt; Cluster size 2981 broken into 2256 725 </span></span>
+<span><span class="co">#&gt; Cluster size 2256 broken into 1138 1118 </span></span>
+<span><span class="co">#&gt; Done cluster 1138 </span></span>
+<span><span class="co">#&gt; Done cluster 1118 </span></span>
+<span><span class="co">#&gt; Done cluster 2256 </span></span>
+<span><span class="co">#&gt; Done cluster 725 </span></span>
+<span><span class="co">#&gt; Done cluster 2981</span></span>
 <span><span class="va">se</span></span>
 <span><span class="co">#&gt; class: SummarizedExperiment </span></span>
-<span><span class="co">#&gt; dim: 5279 9 </span></span>
+<span><span class="co">#&gt; dim: 5219 9 </span></span>
 <span><span class="co">#&gt; metadata(1): pr_matrix</span></span>
 <span><span class="co">#&gt; assays(3): '' peptide_info imputation_mask</span></span>
-<span><span class="co">#&gt; rownames(5279): A2M A2ML1 ... ZYX ZZZ3</span></span>
+<span><span class="co">#&gt; rownames(5219): A2M A2ML1 ... ZYX ZZZ3</span></span>
 <span><span class="co">#&gt; rowData names(9): Protein.Group Protein.Names ... ID npep_total</span></span>
 <span><span class="co">#&gt; colnames(9): neg_ctrl_1 neg_ctrl_2 ... motif2_2 motif2_3</span></span>
 <span><span class="co">#&gt; colData names(4): label ID condition replicate</span></span></code></pre>
@@ -531,22 +534,25 @@ addition, the number of iBAQ peptides is added to the rowData.</p>
 <span><span class="va">se</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/prepare_se.html">prepare_se</a></span><span class="op">(</span><span class="va">pg</span>, <span class="va">expDesign</span>, <span class="va">report.pr_matrix</span><span class="op">)</span></span></code></pre></div>
 <p><img src="DIANNmv_files/figure-html/unnamed-chunk-15-1.png" width="700"></p>
 <pre><code><span><span class="co">#&gt; Imputing along margin 2 (samples/columns).</span></span>
-<span><span class="co">#&gt; [1] 0.3059733</span></span>
+<span><span class="co">#&gt; [1] 0.3050842</span></span>
 <span><span class="co">#&gt; Imputing along margin 1 (features/rows).</span></span>
 <span><span class="co">#&gt; Warning in knnimp(x, k, maxmiss = rowmax, maxp = maxp): 33 rows with more than 50 % entries missing;</span></span>
 <span><span class="co">#&gt;  mean imputation used for these rows</span></span>
-<span><span class="co">#&gt; Cluster size 5500 broken into 3626 1874 </span></span>
-<span><span class="co">#&gt; Cluster size 3626 broken into 1266 2360 </span></span>
-<span><span class="co">#&gt; Done cluster 1266 </span></span>
-<span><span class="co">#&gt; Cluster size 2360 broken into 1196 1164 </span></span>
-<span><span class="co">#&gt; Done cluster 1196 </span></span>
-<span><span class="co">#&gt; Done cluster 1164 </span></span>
-<span><span class="co">#&gt; Done cluster 2360 </span></span>
-<span><span class="co">#&gt; Done cluster 3626 </span></span>
-<span><span class="co">#&gt; Cluster size 1874 broken into 1281 593 </span></span>
-<span><span class="co">#&gt; Done cluster 1281 </span></span>
-<span><span class="co">#&gt; Done cluster 593 </span></span>
-<span><span class="co">#&gt; Done cluster 1874</span></span>
+<span><span class="co">#&gt; Cluster size 5475 broken into 3183 2292 </span></span>
+<span><span class="co">#&gt; Cluster size 3183 broken into 2053 1130 </span></span>
+<span><span class="co">#&gt; Cluster size 2053 broken into 1034 1019 </span></span>
+<span><span class="co">#&gt; Done cluster 1034 </span></span>
+<span><span class="co">#&gt; Done cluster 1019 </span></span>
+<span><span class="co">#&gt; Done cluster 2053 </span></span>
+<span><span class="co">#&gt; Done cluster 1130 </span></span>
+<span><span class="co">#&gt; Done cluster 3183 </span></span>
+<span><span class="co">#&gt; Cluster size 2292 broken into 1624 668 </span></span>
+<span><span class="co">#&gt; Cluster size 1624 broken into 716 908 </span></span>
+<span><span class="co">#&gt; Done cluster 716 </span></span>
+<span><span class="co">#&gt; Done cluster 908 </span></span>
+<span><span class="co">#&gt; Done cluster 1624 </span></span>
+<span><span class="co">#&gt; Done cluster 668 </span></span>
+<span><span class="co">#&gt; Done cluster 2292</span></span>
 <span><span class="va">iBAQ</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html" class="external-link">assay</a></span><span class="op">(</span><span class="va">se</span>, <span class="st">'iBAQ'</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">iBAQ</span><span class="op">)</span></span>
 <span><span class="co">#&gt;       neg_ctrl_1  neg_ctrl_2 neg_ctrl_3   motif1_1  motif1_2  motif1_3</span></span>
@@ -597,10 +603,10 @@ includes the pr_matrix when running prepare_se()):</p>
 <span> <span class="va">se</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/add_median_peptide_intensity.html">add_median_peptide_intensity</a></span><span class="op">(</span><span class="va">se</span><span class="op">)</span></span>
 <span> <span class="va">se</span> <span class="co"># an extra assay 'median_peptide_intensities' is added</span></span>
 <span><span class="co">#&gt; class: SummarizedExperiment </span></span>
-<span><span class="co">#&gt; dim: 5533 9 </span></span>
+<span><span class="co">#&gt; dim: 5508 9 </span></span>
 <span><span class="co">#&gt; metadata(1): pr_matrix</span></span>
 <span><span class="co">#&gt; assays(6): '' iBAQ ... imputation_mask median_peptide_intensities</span></span>
-<span><span class="co">#&gt; rownames(5533): A2M A2ML1 ... ZYX ZZZ3</span></span>
+<span><span class="co">#&gt; rownames(5508): A2M A2ML1 ... ZYX ZZZ3</span></span>
 <span><span class="co">#&gt; rowData names(11): Protein.Group Protein.Names ... npep_total</span></span>
 <span><span class="co">#&gt;   baseMean_mpi</span></span>
 <span><span class="co">#&gt; colnames(9): neg_ctrl_1 neg_ctrl_2 ... motif2_2 motif2_3</span></span>
@@ -722,9 +728,9 @@ an MA-plot, with abundances on the x-axis, and fold-changes on the
 y-axis. Significant hits are indicated in blue/red:</p>
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_MA.html">plot_MA</a></span><span class="op">(</span><span class="va">res_man</span>, label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'SMAD3'</span>, <span class="st">'SMAD4'</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: Removed 26 rows containing missing values or values outside the scale range</span></span>
+<span><span class="co">#&gt; Warning: Removed 1 row containing missing values or values outside the scale range</span></span>
 <span><span class="co">#&gt; (`geom_point()`).</span></span>
-<span><span class="co">#&gt; Warning: Removed 26 rows containing missing values or values outside the scale range</span></span>
+<span><span class="co">#&gt; Warning: Removed 1 row containing missing values or values outside the scale range</span></span>
 <span><span class="co">#&gt; (`geom_text_repel()`).</span></span></code></pre></div>
 <p><img src="DIANNmv_files/figure-html/unnamed-chunk-21-1.png" width="700"></p>
 </div>
@@ -737,88 +743,88 @@ are used, but it can handle five comparisons maximally. You can specify
 which comparisons to include.</p>
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_venn_diagram.html">plot_venn_diagram</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span> <span class="co"># all comparisons</span></span>
-<span><span class="co">#&gt; INFO [2025-10-14 08:01:36] [[1]]</span></span>
-<span><span class="co">#&gt; INFO [2025-10-14 08:01:36] venn_list</span></span>
-<span><span class="co">#&gt; INFO [2025-10-14 08:01:36] </span></span>
-<span><span class="co">#&gt; INFO [2025-10-14 08:01:36] $filename</span></span>
-<span><span class="co">#&gt; INFO [2025-10-14 08:01:36] NULL</span></span>
-<span><span class="co">#&gt; INFO [2025-10-14 08:01:36] </span></span>
-<span><span class="co">#&gt; INFO [2025-10-14 08:01:36] $disable.logging</span></span>
-<span><span class="co">#&gt; INFO [2025-10-14 08:01:36] T</span></span>
-<span><span class="co">#&gt; INFO [2025-10-14 08:01:36] </span></span>
-<span><span class="co">#&gt; INFO [2025-10-14 08:01:36] $fill</span></span>
-<span><span class="co">#&gt; INFO [2025-10-14 08:01:36] colors</span></span>
-<span><span class="co">#&gt; INFO [2025-10-14 08:01:36] </span></span>
-<span><span class="co">#&gt; INFO [2025-10-14 08:01:36] $fontfamily</span></span>
-<span><span class="co">#&gt; INFO [2025-10-14 08:01:36] [1] "sans"</span></span>
-<span><span class="co">#&gt; INFO [2025-10-14 08:01:36] </span></span>
-<span><span class="co">#&gt; INFO [2025-10-14 08:01:36] $fontface</span></span>
-<span><span class="co">#&gt; INFO [2025-10-14 08:01:36] [1] "bold"</span></span>
-<span><span class="co">#&gt; INFO [2025-10-14 08:01:36] </span></span>
-<span><span class="co">#&gt; INFO [2025-10-14 08:01:36] $cat.fontfamily</span></span>
-<span><span class="co">#&gt; INFO [2025-10-14 08:01:36] [1] "sans"</span></span>
-<span><span class="co">#&gt; INFO [2025-10-14 08:01:36] </span></span>
-<span><span class="co">#&gt; INFO [2025-10-14 08:01:36] $lty</span></span>
-<span><span class="co">#&gt; INFO [2025-10-14 08:01:36] [1] 0</span></span>
-<span><span class="co">#&gt; INFO [2025-10-14 08:01:36]</span></span></code></pre></div>
+<span><span class="co">#&gt; INFO [2025-10-24 10:42:13] [[1]]</span></span>
+<span><span class="co">#&gt; INFO [2025-10-24 10:42:13] venn_list</span></span>
+<span><span class="co">#&gt; INFO [2025-10-24 10:42:13] </span></span>
+<span><span class="co">#&gt; INFO [2025-10-24 10:42:13] $filename</span></span>
+<span><span class="co">#&gt; INFO [2025-10-24 10:42:13] NULL</span></span>
+<span><span class="co">#&gt; INFO [2025-10-24 10:42:13] </span></span>
+<span><span class="co">#&gt; INFO [2025-10-24 10:42:13] $disable.logging</span></span>
+<span><span class="co">#&gt; INFO [2025-10-24 10:42:13] T</span></span>
+<span><span class="co">#&gt; INFO [2025-10-24 10:42:13] </span></span>
+<span><span class="co">#&gt; INFO [2025-10-24 10:42:13] $fill</span></span>
+<span><span class="co">#&gt; INFO [2025-10-24 10:42:13] colors</span></span>
+<span><span class="co">#&gt; INFO [2025-10-24 10:42:13] </span></span>
+<span><span class="co">#&gt; INFO [2025-10-24 10:42:13] $fontfamily</span></span>
+<span><span class="co">#&gt; INFO [2025-10-24 10:42:13] [1] "sans"</span></span>
+<span><span class="co">#&gt; INFO [2025-10-24 10:42:13] </span></span>
+<span><span class="co">#&gt; INFO [2025-10-24 10:42:13] $fontface</span></span>
+<span><span class="co">#&gt; INFO [2025-10-24 10:42:13] [1] "bold"</span></span>
+<span><span class="co">#&gt; INFO [2025-10-24 10:42:13] </span></span>
+<span><span class="co">#&gt; INFO [2025-10-24 10:42:13] $cat.fontfamily</span></span>
+<span><span class="co">#&gt; INFO [2025-10-24 10:42:13] [1] "sans"</span></span>
+<span><span class="co">#&gt; INFO [2025-10-24 10:42:13] </span></span>
+<span><span class="co">#&gt; INFO [2025-10-24 10:42:13] $lty</span></span>
+<span><span class="co">#&gt; INFO [2025-10-24 10:42:13] [1] 0</span></span>
+<span><span class="co">#&gt; INFO [2025-10-24 10:42:13]</span></span></code></pre></div>
 <p><img src="DIANNmv_files/figure-html/unnamed-chunk-22-1.png" width="700"></p>
 <div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_venn_diagram.html">plot_venn_diagram</a></span><span class="op">(</span><span class="va">res</span>, comparisons <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'neg_ctrl_vs_motif1'</span>, </span>
 <span>                                       <span class="st">'neg_ctrl_vs_motif2'</span><span class="op">)</span><span class="op">)</span> <span class="co"># only two comp.</span></span>
-<span><span class="co">#&gt; INFO [2025-10-14 08:01:36] [[1]]</span></span>
-<span><span class="co">#&gt; INFO [2025-10-14 08:01:36] venn_list</span></span>
-<span><span class="co">#&gt; INFO [2025-10-14 08:01:36] </span></span>
-<span><span class="co">#&gt; INFO [2025-10-14 08:01:36] $filename</span></span>
-<span><span class="co">#&gt; INFO [2025-10-14 08:01:36] NULL</span></span>
-<span><span class="co">#&gt; INFO [2025-10-14 08:01:36] </span></span>
-<span><span class="co">#&gt; INFO [2025-10-14 08:01:36] $disable.logging</span></span>
-<span><span class="co">#&gt; INFO [2025-10-14 08:01:36] T</span></span>
-<span><span class="co">#&gt; INFO [2025-10-14 08:01:36] </span></span>
-<span><span class="co">#&gt; INFO [2025-10-14 08:01:36] $fill</span></span>
-<span><span class="co">#&gt; INFO [2025-10-14 08:01:36] colors</span></span>
-<span><span class="co">#&gt; INFO [2025-10-14 08:01:36] </span></span>
-<span><span class="co">#&gt; INFO [2025-10-14 08:01:36] $fontfamily</span></span>
-<span><span class="co">#&gt; INFO [2025-10-14 08:01:36] [1] "sans"</span></span>
-<span><span class="co">#&gt; INFO [2025-10-14 08:01:36] </span></span>
-<span><span class="co">#&gt; INFO [2025-10-14 08:01:36] $fontface</span></span>
-<span><span class="co">#&gt; INFO [2025-10-14 08:01:36] [1] "bold"</span></span>
-<span><span class="co">#&gt; INFO [2025-10-14 08:01:36] </span></span>
-<span><span class="co">#&gt; INFO [2025-10-14 08:01:36] $cat.fontfamily</span></span>
-<span><span class="co">#&gt; INFO [2025-10-14 08:01:36] [1] "sans"</span></span>
-<span><span class="co">#&gt; INFO [2025-10-14 08:01:36] </span></span>
-<span><span class="co">#&gt; INFO [2025-10-14 08:01:36] $lty</span></span>
-<span><span class="co">#&gt; INFO [2025-10-14 08:01:36] [1] 0</span></span>
-<span><span class="co">#&gt; INFO [2025-10-14 08:01:36]</span></span></code></pre></div>
+<span><span class="co">#&gt; INFO [2025-10-24 10:42:13] [[1]]</span></span>
+<span><span class="co">#&gt; INFO [2025-10-24 10:42:13] venn_list</span></span>
+<span><span class="co">#&gt; INFO [2025-10-24 10:42:13] </span></span>
+<span><span class="co">#&gt; INFO [2025-10-24 10:42:13] $filename</span></span>
+<span><span class="co">#&gt; INFO [2025-10-24 10:42:13] NULL</span></span>
+<span><span class="co">#&gt; INFO [2025-10-24 10:42:13] </span></span>
+<span><span class="co">#&gt; INFO [2025-10-24 10:42:13] $disable.logging</span></span>
+<span><span class="co">#&gt; INFO [2025-10-24 10:42:13] T</span></span>
+<span><span class="co">#&gt; INFO [2025-10-24 10:42:13] </span></span>
+<span><span class="co">#&gt; INFO [2025-10-24 10:42:13] $fill</span></span>
+<span><span class="co">#&gt; INFO [2025-10-24 10:42:13] colors</span></span>
+<span><span class="co">#&gt; INFO [2025-10-24 10:42:13] </span></span>
+<span><span class="co">#&gt; INFO [2025-10-24 10:42:13] $fontfamily</span></span>
+<span><span class="co">#&gt; INFO [2025-10-24 10:42:13] [1] "sans"</span></span>
+<span><span class="co">#&gt; INFO [2025-10-24 10:42:13] </span></span>
+<span><span class="co">#&gt; INFO [2025-10-24 10:42:13] $fontface</span></span>
+<span><span class="co">#&gt; INFO [2025-10-24 10:42:13] [1] "bold"</span></span>
+<span><span class="co">#&gt; INFO [2025-10-24 10:42:13] </span></span>
+<span><span class="co">#&gt; INFO [2025-10-24 10:42:13] $cat.fontfamily</span></span>
+<span><span class="co">#&gt; INFO [2025-10-24 10:42:13] [1] "sans"</span></span>
+<span><span class="co">#&gt; INFO [2025-10-24 10:42:13] </span></span>
+<span><span class="co">#&gt; INFO [2025-10-24 10:42:13] $lty</span></span>
+<span><span class="co">#&gt; INFO [2025-10-24 10:42:13] [1] 0</span></span>
+<span><span class="co">#&gt; INFO [2025-10-24 10:42:13]</span></span></code></pre></div>
 <p><img src="DIANNmv_files/figure-html/unnamed-chunk-22-2.png" width="700"></p>
 <div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="fu"><a href="../reference/plot_venn_diagram.html">plot_venn_diagram</a></span><span class="op">(</span><span class="va">res</span>, comparisons <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'neg_ctrl_vs_motif1'</span>, </span>
 <span>                                       <span class="st">'neg_ctrl_vs_motif2'</span><span class="op">)</span>, </span>
 <span>                  colors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'red'</span>, <span class="st">'blue'</span><span class="op">)</span><span class="op">)</span> <span class="co"># specify colors used</span></span>
-<span><span class="co">#&gt; INFO [2025-10-14 08:01:36] [[1]]</span></span>
-<span><span class="co">#&gt; INFO [2025-10-14 08:01:36] venn_list</span></span>
-<span><span class="co">#&gt; INFO [2025-10-14 08:01:36] </span></span>
-<span><span class="co">#&gt; INFO [2025-10-14 08:01:36] $filename</span></span>
-<span><span class="co">#&gt; INFO [2025-10-14 08:01:36] NULL</span></span>
-<span><span class="co">#&gt; INFO [2025-10-14 08:01:36] </span></span>
-<span><span class="co">#&gt; INFO [2025-10-14 08:01:36] $disable.logging</span></span>
-<span><span class="co">#&gt; INFO [2025-10-14 08:01:36] T</span></span>
-<span><span class="co">#&gt; INFO [2025-10-14 08:01:36] </span></span>
-<span><span class="co">#&gt; INFO [2025-10-14 08:01:36] $fill</span></span>
-<span><span class="co">#&gt; INFO [2025-10-14 08:01:36] colors</span></span>
-<span><span class="co">#&gt; INFO [2025-10-14 08:01:36] </span></span>
-<span><span class="co">#&gt; INFO [2025-10-14 08:01:36] $fontfamily</span></span>
-<span><span class="co">#&gt; INFO [2025-10-14 08:01:36] [1] "sans"</span></span>
-<span><span class="co">#&gt; INFO [2025-10-14 08:01:36] </span></span>
-<span><span class="co">#&gt; INFO [2025-10-14 08:01:36] $fontface</span></span>
-<span><span class="co">#&gt; INFO [2025-10-14 08:01:36] [1] "bold"</span></span>
-<span><span class="co">#&gt; INFO [2025-10-14 08:01:36] </span></span>
-<span><span class="co">#&gt; INFO [2025-10-14 08:01:36] $cat.fontfamily</span></span>
-<span><span class="co">#&gt; INFO [2025-10-14 08:01:36] [1] "sans"</span></span>
-<span><span class="co">#&gt; INFO [2025-10-14 08:01:36] </span></span>
-<span><span class="co">#&gt; INFO [2025-10-14 08:01:36] $lty</span></span>
-<span><span class="co">#&gt; INFO [2025-10-14 08:01:36] [1] 0</span></span>
-<span><span class="co">#&gt; INFO [2025-10-14 08:01:36]</span></span></code></pre></div>
+<span><span class="co">#&gt; INFO [2025-10-24 10:42:13] [[1]]</span></span>
+<span><span class="co">#&gt; INFO [2025-10-24 10:42:13] venn_list</span></span>
+<span><span class="co">#&gt; INFO [2025-10-24 10:42:13] </span></span>
+<span><span class="co">#&gt; INFO [2025-10-24 10:42:13] $filename</span></span>
+<span><span class="co">#&gt; INFO [2025-10-24 10:42:13] NULL</span></span>
+<span><span class="co">#&gt; INFO [2025-10-24 10:42:13] </span></span>
+<span><span class="co">#&gt; INFO [2025-10-24 10:42:13] $disable.logging</span></span>
+<span><span class="co">#&gt; INFO [2025-10-24 10:42:13] T</span></span>
+<span><span class="co">#&gt; INFO [2025-10-24 10:42:13] </span></span>
+<span><span class="co">#&gt; INFO [2025-10-24 10:42:13] $fill</span></span>
+<span><span class="co">#&gt; INFO [2025-10-24 10:42:13] colors</span></span>
+<span><span class="co">#&gt; INFO [2025-10-24 10:42:13] </span></span>
+<span><span class="co">#&gt; INFO [2025-10-24 10:42:13] $fontfamily</span></span>
+<span><span class="co">#&gt; INFO [2025-10-24 10:42:13] [1] "sans"</span></span>
+<span><span class="co">#&gt; INFO [2025-10-24 10:42:13] </span></span>
+<span><span class="co">#&gt; INFO [2025-10-24 10:42:13] $fontface</span></span>
+<span><span class="co">#&gt; INFO [2025-10-24 10:42:13] [1] "bold"</span></span>
+<span><span class="co">#&gt; INFO [2025-10-24 10:42:13] </span></span>
+<span><span class="co">#&gt; INFO [2025-10-24 10:42:13] $cat.fontfamily</span></span>
+<span><span class="co">#&gt; INFO [2025-10-24 10:42:13] [1] "sans"</span></span>
+<span><span class="co">#&gt; INFO [2025-10-24 10:42:13] </span></span>
+<span><span class="co">#&gt; INFO [2025-10-24 10:42:13] $lty</span></span>
+<span><span class="co">#&gt; INFO [2025-10-24 10:42:13] [1] 0</span></span>
+<span><span class="co">#&gt; INFO [2025-10-24 10:42:13]</span></span></code></pre></div>
 <p><img src="DIANNmv_files/figure-html/unnamed-chunk-22-3.png" width="700"></p>
 </div>
 <div class="section level3">
