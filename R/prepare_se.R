@@ -158,7 +158,7 @@ prepare_se = function(pg_matrix, expDesign, pr_matrix = NULL, missing_thr = 0,
     pr_matrix = pr_matrix[!grepl('cRAP', pr_matrix[,1]) & !pr_matrix[,1] %in% pg_matrix[pg_matrix$Potential.contaminant == '+', 1],]
   }
 
-  if(remove_contaminants){pg_matrix = pg_matrix[pg_matrix$Potential.contaminant != '+' | !grepl('cRAP', pg_matrix[,1]),]}
+  if(remove_contaminants){pg_matrix = pg_matrix[pg_matrix$Potential.contaminant != '+' & !grepl('cRAP', pg_matrix[,1]),]}
   pg_uniq = DEP::make_unique(pg_matrix, 'Genes', 'Protein.Group', delim = ';')
 
   pat = paste(expDesign$label, collapse = '|')

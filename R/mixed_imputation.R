@@ -117,6 +117,16 @@ mixed_imputation_matrix = function(data, ed, cutoff = 'empirically'){
 
   #data_split = lapply(conditions, function(x){data[,grep(x, colnames(data))]})
   data_split = lapply(conditions, function(x){data[,ed[ed$condition == x, 'ID']]})
+
+  if (cutoff == 'empirically'){
+    cutoffs = sapply(data_split, get_detection_limit)
+    cutoffs = mapply(function(x, y){
+      e_f = ecdf(x)
+      cutoff = e_f(y)
+    }, data_split, cutoffs)
+    cutoff = median(cutoffs, na.rm = T)
+  }
+
   masks = lapply(data_split, function(x){
     masks = create_imputation_mask(x, cutoff)
     #imputed_data = perform_mixed_imputation(x, masks)
