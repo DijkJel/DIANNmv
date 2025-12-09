@@ -1,0 +1,121 @@
+# DIANNmv
+
+See <https://dijkjel.github.io/DIANNmv/> (’Get Started tab at top) for
+installation and usage instructions.
+
+# Package index
+
+## All functions
+
+- [`add_contaminants()`](https://dijkjel.github.io/DIANNmv/reference/add_contaminants.md)
+  : Adds a Potential.contaminant column to pg_matrix based on MaxQuant
+  contaminants.txt
+- [`add_iBAQ()`](https://dijkjel.github.io/DIANNmv/reference/add_iBAQ.md)
+  : Add iBAQ intensities to report.pg_matrix file.
+- [`add_maxLFQ_iBAQ()`](https://dijkjel.github.io/DIANNmv/reference/add_maxLFQ_iBAQ.md)
+  : Adds iBAQ values based on LFQ values to SummarizedExperiment
+- [`add_median_peptide_intensity()`](https://dijkjel.github.io/DIANNmv/reference/add_median_peptide_intensity.md)
+  : Adds median peptide intensities to summerizedExperiment object
+- [`add_peptide_numbers()`](https://dijkjel.github.io/DIANNmv/reference/add_peptide_numbers.md)
+  : Add the peptide number information to pg_matrix
+- [`add_standardTheme()`](https://dijkjel.github.io/DIANNmv/reference/add_standardTheme.md)
+  : Adds standard changes to ggplot theme
+- [`calculate_iBAQ()`](https://dijkjel.github.io/DIANNmv/reference/calculate_iBAQ.md)
+  : Calculate iBAQ values from raw intensities
+- [`contaminants_maxquant`](https://dijkjel.github.io/DIANNmv/reference/contaminants_maxquant.md)
+  : Data frame with potential contaminants from MaxQuant.
+- [`create_imputation_mask()`](https://dijkjel.github.io/DIANNmv/reference/create_imputation_mask.md)
+  : Returns boolean masks specifying MAR/MNAR imputation
+- [`expDesign`](https://dijkjel.github.io/DIANNmv/reference/expDesign.md)
+  : Experimental design for example data
+- [`get_DEPresults()`](https://dijkjel.github.io/DIANNmv/reference/get_DEPresults.md)
+  : Perform differential protein expression analysis
+- [`get_detection_limit()`](https://dijkjel.github.io/DIANNmv/reference/get_detection_limit.md)
+  : Find the cutoff for MAR/MNAR classification
+- [`get_genesets()`](https://dijkjel.github.io/DIANNmv/reference/get_genesets.md)
+  : Extract a collection of gene sets from the MSigDB object
+- [`get_ibaq_peptides()`](https://dijkjel.github.io/DIANNmv/reference/get_ibaq_peptides.md)
+  : Perform in silico tryptic digest on uniprot fasta file
+- [`get_intensities_prMatrix()`](https://dijkjel.github.io/DIANNmv/reference/get_intensities_prMatrix.md)
+  : Calculate protein intensities from peptide information
+- [`get_median_intensities_prMatrix()`](https://dijkjel.github.io/DIANNmv/reference/get_median_intensities_prMatrix.md)
+  : Calculates the median peptide intensity per proteinGroup per sample.
+- [`get_nPep_prMatrix()`](https://dijkjel.github.io/DIANNmv/reference/get_nPep_prMatrix.md)
+  : Get the numer of razor/unique peptides per proteinGroup per sample
+- [`get_peptide_position_in_protein()`](https://dijkjel.github.io/DIANNmv/reference/get_peptide_position_in_protein.md)
+  : Find the amino acid locations of peptides within a protein sequence
+- [`get_ranked_genes()`](https://dijkjel.github.io/DIANNmv/reference/get_ranked_genes.md)
+  : Rank proteins/genes based on fold change
+- [`ibaq_peptides`](https://dijkjel.github.io/DIANNmv/reference/ibaq_peptides.md)
+  : List with calculated theoretical tryptic peptides for mouse and
+  human for iBAQ Peptides are calculated using 'cleaver' package with
+  'trypsin' set as enzyme, zero miscleavages, and peptide length 7-30.
+- [`load_msigdb()`](https://dijkjel.github.io/DIANNmv/reference/load_msigdb.md)
+  : Downloads MSigDB
+- [`mixed_imputation()`](https://dijkjel.github.io/DIANNmv/reference/mixed_imputation.md)
+  : Perform mixed imputation on summarizedExperiment object
+- [`mixed_imputation_matrix()`](https://dijkjel.github.io/DIANNmv/reference/mixed_imputation_matrix.md)
+  : Perform mixed imputation on a data matrix
+- [`perform_GSEA()`](https://dijkjel.github.io/DIANNmv/reference/perform_GSEA.md)
+  : Perform GSEA based on DEP results
+- [`perform_mixed_imputation()`](https://dijkjel.github.io/DIANNmv/reference/perform_mixed_imputation.md)
+  : Perform mixed imputation over a matrix containing data of a single
+  condition.
+- [`plotVolcano()`](https://dijkjel.github.io/DIANNmv/reference/plotVolcano.md)
+  : create volcano plots for all comparisons present in the results file
+- [`plot_DEP_barplot()`](https://dijkjel.github.io/DIANNmv/reference/plot_DEP_barplot.md)
+  : Make bar plot showing number of differential proteins between
+  conditions.
+- [`plot_MA()`](https://dijkjel.github.io/DIANNmv/reference/plot_MA.md)
+  : Makes MA plots for each comparison in the results data frame
+- [`plot_gsea_barplot()`](https://dijkjel.github.io/DIANNmv/reference/plot_gsea_barplot.md)
+  : Plots GSEA results as bar plot.
+- [`plot_gsea_bubbleplot()`](https://dijkjel.github.io/DIANNmv/reference/plot_gsea_bubbleplot.md)
+  : Plots GSEA data as bubble plot. Mainly useful to compare multiple
+  gsea comparisons.
+- [`plot_gsea_dotplot()`](https://dijkjel.github.io/DIANNmv/reference/plot_gsea_dotplot.md)
+  : Plots GSEA data as a faceted dot plot showing NES, padj, and set
+  size.
+- [`plot_gsea_enrichment_plot()`](https://dijkjel.github.io/DIANNmv/reference/plot_gsea_enrichment_plot.md)
+  : Creates individual GSEA enrichment plots for selected pathwways.
+- [`plot_gsea_volcano()`](https://dijkjel.github.io/DIANNmv/reference/plot_gsea_volcano.md)
+  : Plots GSEA data as volcano plot
+- [`plot_protein_coverage()`](https://dijkjel.github.io/DIANNmv/reference/plot_protein_coverage.md)
+  : Plots the coverage of proteins.
+- [`plot_upset()`](https://dijkjel.github.io/DIANNmv/reference/plot_upset.md)
+  : Plots upset plot showsing overlapping significant proteins between
+  comparisons
+- [`plot_venn_diagram()`](https://dijkjel.github.io/DIANNmv/reference/plot_venn_diagram.md)
+  : Plots a Venn diagram showing overlapping significant proteins
+- [`prepare_MA_data()`](https://dijkjel.github.io/DIANNmv/reference/prepare_MA_data.md)
+  : Prepare the data for making MA plots
+- [`prepare_barplot_data()`](https://dijkjel.github.io/DIANNmv/reference/prepare_barplot_data.md)
+  : Prepare data for plot_DEP_barplot function.
+- [`prepare_diann_data()`](https://dijkjel.github.io/DIANNmv/reference/prepare_diann_data.md)
+  : Tidies sample names and parses an experimental design.
+- [`prepare_gsea_data()`](https://dijkjel.github.io/DIANNmv/reference/prepare_gsea_data.md)
+  : Prepares data for the different GSEA visualization options
+- [`prepare_peptide_data()`](https://dijkjel.github.io/DIANNmv/reference/prepare_peptide_data.md)
+  : Prepares the data for protein coverage plots.
+- [`prepare_se()`](https://dijkjel.github.io/DIANNmv/reference/prepare_se.md)
+  : Prepare summarizedExperiment object from diann report.pg_matrix file
+- [`prepare_volcano_data()`](https://dijkjel.github.io/DIANNmv/reference/prepare_volcano_data.md)
+  : Prepare data for volcano plots
+- [`recode_sig_col()`](https://dijkjel.github.io/DIANNmv/reference/recode_sig_col.md)
+  : Relabel the significance column in the DEP results data frame
+- [`report.pg_matrix`](https://dijkjel.github.io/DIANNmv/reference/report.pg_matrix.md)
+  : Output file of DIANN with raw proteinGroup intensities on protein
+  level.
+- [`report.pr_matrix`](https://dijkjel.github.io/DIANNmv/reference/report.pr_matrix.md)
+  : Output file of DIANN with raw intensities on peptide level.
+- [`summarize_peptide_intensities()`](https://dijkjel.github.io/DIANNmv/reference/summarize_peptide_intensities.md)
+  : Combine different peptide variants into a single intensity
+- [`use_dep()`](https://dijkjel.github.io/DIANNmv/reference/use_dep.md)
+  : Prepares summarizedExperiment object to work with functions from DEP
+  package.
+
+# Articles
+
+### All vignettes
+
+- [DIANNmv](https://dijkjel.github.io/DIANNmv/articles/DIANNmv.md):

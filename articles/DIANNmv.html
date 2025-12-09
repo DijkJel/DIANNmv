@@ -171,7 +171,7 @@ can ignore the warnings):</p>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;     expand.grid, I, unname</span></span>
 <span><span class="co">#&gt; Loading required package: IRanges</span></span>
-<span><span class="co">#&gt; Loading required package: GenomeInfoDb</span></span>
+<span><span class="co">#&gt; Loading required package: Seqinfo</span></span>
 <span><span class="co">#&gt; Loading required package: Biobase</span></span>
 <span><span class="co">#&gt; Welcome to Bioconductor</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -334,7 +334,7 @@ no imputation is done. Additionally, you can filter on missing values
 (Source: contaminants.txt file from maxquant).</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">se</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/prepare_se.html">prepare_se</a></span><span class="op">(</span><span class="va">report.pg_matrix</span>, <span class="va">expDesign</span><span class="op">)</span> <span class="co"># without peptide information</span></span></code></pre></div>
-<p><img src="DIANNmv_files/figure-html/unnamed-chunk-5-1.png" width="700"></p>
+<p><img src="DIANNmv_files/figure-html/unnamed-chunk-5-1.png" class="r-plt" width="700"></p>
 <pre><code><span><span class="co">#&gt; Imputing along margin 2 (samples/columns).</span></span>
 <span><span class="co">#&gt; [1] 0.3058978</span></span>
 <span><span class="co">#&gt; Imputing along margin 1 (features/rows).</span></span>
@@ -373,7 +373,7 @@ the experimental design.</p>
 <code class="sourceCode R"><span><span class="co"># Add peptide information and remove all proteinGroups with &lt;2 total </span></span>
 <span><span class="co"># razor/unique peptides</span></span>
 <span><span class="va">se</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/prepare_se.html">prepare_se</a></span><span class="op">(</span><span class="va">report.pg_matrix</span>, <span class="va">expDesign</span>, <span class="va">report.pr_matrix</span>, min_pep <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
-<p><img src="DIANNmv_files/figure-html/unnamed-chunk-6-1.png" width="700"></p>
+<p><img src="DIANNmv_files/figure-html/unnamed-chunk-6-1.png" class="r-plt" width="700"></p>
 <pre><code><span><span class="co">#&gt; Imputing along margin 2 (samples/columns).</span></span>
 <span><span class="co">#&gt; [1] 0.2967394</span></span>
 <span><span class="co">#&gt; Imputing along margin 1 (features/rows).</span></span>
@@ -532,7 +532,7 @@ addition, the number of iBAQ peptides is added to the rowData.</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">pg</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/add_iBAQ.html">add_iBAQ</a></span><span class="op">(</span><span class="va">report.pg_matrix</span>, <span class="va">report.pr_matrix</span>, organism <span class="op">=</span> <span class="st">'hs'</span><span class="op">)</span></span>
 <span><span class="va">se</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/prepare_se.html">prepare_se</a></span><span class="op">(</span><span class="va">pg</span>, <span class="va">expDesign</span>, <span class="va">report.pr_matrix</span><span class="op">)</span></span></code></pre></div>
-<p><img src="DIANNmv_files/figure-html/unnamed-chunk-15-1.png" width="700"></p>
+<p><img src="DIANNmv_files/figure-html/unnamed-chunk-15-1.png" class="r-plt" width="700"></p>
 <pre><code><span><span class="co">#&gt; Imputing along margin 2 (samples/columns).</span></span>
 <span><span class="co">#&gt; [1] 0.3050842</span></span>
 <span><span class="co">#&gt; Imputing along margin 1 (features/rows).</span></span>
@@ -674,7 +674,7 @@ summed.</p>
 <span><span class="va">smad4</span></span>
 <span><span class="co">#&gt; Warning: Duplicated aesthetics after name standardisation: <span style="color: #00BB00;">ymin</span></span></span>
 <span><span class="co">#&gt; Duplicated aesthetics after name standardisation: <span style="color: #00BB00;">ymin</span></span></span></code></pre></div>
-<p><img src="DIANNmv_files/figure-html/unnamed-chunk-19-1.png" width="700"></p>
+<p><img src="DIANNmv_files/figure-html/unnamed-chunk-19-1.png" class="r-plt" width="700"></p>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span></span>
@@ -688,7 +688,7 @@ summed.</p>
 <span><span class="va">smad4_zoom</span></span>
 <span><span class="co">#&gt; Warning: Duplicated aesthetics after name standardisation: <span style="color: #00BB00;">ymin</span></span></span>
 <span><span class="co">#&gt; Duplicated aesthetics after name standardisation: <span style="color: #00BB00;">ymin</span></span></span></code></pre></div>
-<p><img src="DIANNmv_files/figure-html/unnamed-chunk-19-2.png" width="700"></p>
+<p><img src="DIANNmv_files/figure-html/unnamed-chunk-19-2.png" class="r-plt" width="700"></p>
 </div>
 <div class="section level3">
 <h3 id="volcano-plots">Volcano plots<a class="anchor" aria-label="anchor" href="#volcano-plots"></a>
@@ -703,7 +703,7 @@ different options for labeling specific points in the volcano.</p>
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="fu"><a href="../reference/plotVolcano.html">plotVolcano</a></span><span class="op">(</span><span class="va">res_man</span><span class="op">)</span> <span class="co"># Default volcano plot if one comparison is present.</span></span></code></pre></div>
-<p><img src="DIANNmv_files/figure-html/unnamed-chunk-20-1.png" width="700"></p>
+<p><img src="DIANNmv_files/figure-html/unnamed-chunk-20-1.png" class="r-plt" width="700"></p>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>                    <span class="co"># labels all significant points (can be a bit much).</span></span>
 <span></span>
@@ -711,14 +711,14 @@ different options for labeling specific points in the volcano.</p>
 <span><span class="va">volcano_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/plotVolcano.html">plotVolcano</a></span><span class="op">(</span><span class="va">res_ref</span>, label <span class="op">=</span> <span class="st">''</span><span class="op">)</span> <span class="co"># returns list of volcano plots</span></span>
 <span>                                                 <span class="co"># Don't label anything.</span></span>
 <span><span class="va">volcano_list</span><span class="op">$</span><span class="va">motif1_vs_neg_ctrl</span> <span class="co"># Select which plot you want to see.</span></span></code></pre></div>
-<p><img src="DIANNmv_files/figure-html/unnamed-chunk-20-2.png" width="700"></p>
+<p><img src="DIANNmv_files/figure-html/unnamed-chunk-20-2.png" class="r-plt" width="700"></p>
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="co"># Example of a very ugly volcano plot.</span></span>
 <span><span class="fu"><a href="../reference/plotVolcano.html">plotVolcano</a></span><span class="op">(</span><span class="va">res_man</span>, pval_cutoff <span class="op">=</span> <span class="fl">0.001</span>, fc_cutoff <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>            up_color <span class="op">=</span>  <span class="st">'blue'</span>, down_color <span class="op">=</span> <span class="st">'yellow'</span>, ns_color <span class="op">=</span> <span class="st">'green'</span>,</span>
 <span>            label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'SMAD3'</span>, <span class="st">'SMAD4'</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="DIANNmv_files/figure-html/unnamed-chunk-20-3.png" width="700"></p>
+<p><img src="DIANNmv_files/figure-html/unnamed-chunk-20-3.png" class="r-plt" width="700"></p>
 </div>
 <div class="section level3">
 <h3 id="ma-plots">MA-plots<a class="anchor" aria-label="anchor" href="#ma-plots"></a>
@@ -732,7 +732,7 @@ y-axis. Significant hits are indicated in blue/red:</p>
 <span><span class="co">#&gt; (`geom_point()`).</span></span>
 <span><span class="co">#&gt; Warning: Removed 1 row containing missing values or values outside the scale range</span></span>
 <span><span class="co">#&gt; (`geom_text_repel()`).</span></span></code></pre></div>
-<p><img src="DIANNmv_files/figure-html/unnamed-chunk-21-1.png" width="700"></p>
+<p><img src="DIANNmv_files/figure-html/unnamed-chunk-21-1.png" class="r-plt" width="700"></p>
 </div>
 <div class="section level3">
 <h3 id="venn-diagrams">Venn diagrams<a class="anchor" aria-label="anchor" href="#venn-diagrams"></a>
@@ -743,89 +743,89 @@ are used, but it can handle five comparisons maximally. You can specify
 which comparisons to include.</p>
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_venn_diagram.html">plot_venn_diagram</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span> <span class="co"># all comparisons</span></span>
-<span><span class="co">#&gt; INFO [2025-10-24 13:03:11] [[1]]</span></span>
-<span><span class="co">#&gt; INFO [2025-10-24 13:03:11] venn_list</span></span>
-<span><span class="co">#&gt; INFO [2025-10-24 13:03:11] </span></span>
-<span><span class="co">#&gt; INFO [2025-10-24 13:03:11] $filename</span></span>
-<span><span class="co">#&gt; INFO [2025-10-24 13:03:11] NULL</span></span>
-<span><span class="co">#&gt; INFO [2025-10-24 13:03:11] </span></span>
-<span><span class="co">#&gt; INFO [2025-10-24 13:03:11] $disable.logging</span></span>
-<span><span class="co">#&gt; INFO [2025-10-24 13:03:11] T</span></span>
-<span><span class="co">#&gt; INFO [2025-10-24 13:03:11] </span></span>
-<span><span class="co">#&gt; INFO [2025-10-24 13:03:11] $fill</span></span>
-<span><span class="co">#&gt; INFO [2025-10-24 13:03:11] colors</span></span>
-<span><span class="co">#&gt; INFO [2025-10-24 13:03:11] </span></span>
-<span><span class="co">#&gt; INFO [2025-10-24 13:03:11] $fontfamily</span></span>
-<span><span class="co">#&gt; INFO [2025-10-24 13:03:11] [1] "sans"</span></span>
-<span><span class="co">#&gt; INFO [2025-10-24 13:03:11] </span></span>
-<span><span class="co">#&gt; INFO [2025-10-24 13:03:11] $fontface</span></span>
-<span><span class="co">#&gt; INFO [2025-10-24 13:03:11] [1] "bold"</span></span>
-<span><span class="co">#&gt; INFO [2025-10-24 13:03:11] </span></span>
-<span><span class="co">#&gt; INFO [2025-10-24 13:03:11] $cat.fontfamily</span></span>
-<span><span class="co">#&gt; INFO [2025-10-24 13:03:11] [1] "sans"</span></span>
-<span><span class="co">#&gt; INFO [2025-10-24 13:03:11] </span></span>
-<span><span class="co">#&gt; INFO [2025-10-24 13:03:11] $lty</span></span>
-<span><span class="co">#&gt; INFO [2025-10-24 13:03:11] [1] 0</span></span>
-<span><span class="co">#&gt; INFO [2025-10-24 13:03:11]</span></span></code></pre></div>
-<p><img src="DIANNmv_files/figure-html/unnamed-chunk-22-1.png" width="700"></p>
+<span><span class="co">#&gt; INFO [2025-12-09 13:27:13] [[1]]</span></span>
+<span><span class="co">#&gt; INFO [2025-12-09 13:27:13] venn_list</span></span>
+<span><span class="co">#&gt; INFO [2025-12-09 13:27:13] </span></span>
+<span><span class="co">#&gt; INFO [2025-12-09 13:27:13] $filename</span></span>
+<span><span class="co">#&gt; INFO [2025-12-09 13:27:13] NULL</span></span>
+<span><span class="co">#&gt; INFO [2025-12-09 13:27:13] </span></span>
+<span><span class="co">#&gt; INFO [2025-12-09 13:27:13] $disable.logging</span></span>
+<span><span class="co">#&gt; INFO [2025-12-09 13:27:13] T</span></span>
+<span><span class="co">#&gt; INFO [2025-12-09 13:27:13] </span></span>
+<span><span class="co">#&gt; INFO [2025-12-09 13:27:13] $fill</span></span>
+<span><span class="co">#&gt; INFO [2025-12-09 13:27:13] colors</span></span>
+<span><span class="co">#&gt; INFO [2025-12-09 13:27:13] </span></span>
+<span><span class="co">#&gt; INFO [2025-12-09 13:27:13] $fontfamily</span></span>
+<span><span class="co">#&gt; INFO [2025-12-09 13:27:13] [1] "sans"</span></span>
+<span><span class="co">#&gt; INFO [2025-12-09 13:27:13] </span></span>
+<span><span class="co">#&gt; INFO [2025-12-09 13:27:13] $fontface</span></span>
+<span><span class="co">#&gt; INFO [2025-12-09 13:27:13] [1] "bold"</span></span>
+<span><span class="co">#&gt; INFO [2025-12-09 13:27:13] </span></span>
+<span><span class="co">#&gt; INFO [2025-12-09 13:27:13] $cat.fontfamily</span></span>
+<span><span class="co">#&gt; INFO [2025-12-09 13:27:13] [1] "sans"</span></span>
+<span><span class="co">#&gt; INFO [2025-12-09 13:27:13] </span></span>
+<span><span class="co">#&gt; INFO [2025-12-09 13:27:13] $lty</span></span>
+<span><span class="co">#&gt; INFO [2025-12-09 13:27:13] [1] 0</span></span>
+<span><span class="co">#&gt; INFO [2025-12-09 13:27:13]</span></span></code></pre></div>
+<p><img src="DIANNmv_files/figure-html/unnamed-chunk-22-1.png" class="r-plt" width="700"></p>
 <div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_venn_diagram.html">plot_venn_diagram</a></span><span class="op">(</span><span class="va">res</span>, comparisons <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'neg_ctrl_vs_motif1'</span>, </span>
 <span>                                       <span class="st">'neg_ctrl_vs_motif2'</span><span class="op">)</span><span class="op">)</span> <span class="co"># only two comp.</span></span>
-<span><span class="co">#&gt; INFO [2025-10-24 13:03:11] [[1]]</span></span>
-<span><span class="co">#&gt; INFO [2025-10-24 13:03:11] venn_list</span></span>
-<span><span class="co">#&gt; INFO [2025-10-24 13:03:11] </span></span>
-<span><span class="co">#&gt; INFO [2025-10-24 13:03:11] $filename</span></span>
-<span><span class="co">#&gt; INFO [2025-10-24 13:03:11] NULL</span></span>
-<span><span class="co">#&gt; INFO [2025-10-24 13:03:11] </span></span>
-<span><span class="co">#&gt; INFO [2025-10-24 13:03:11] $disable.logging</span></span>
-<span><span class="co">#&gt; INFO [2025-10-24 13:03:11] T</span></span>
-<span><span class="co">#&gt; INFO [2025-10-24 13:03:11] </span></span>
-<span><span class="co">#&gt; INFO [2025-10-24 13:03:11] $fill</span></span>
-<span><span class="co">#&gt; INFO [2025-10-24 13:03:11] colors</span></span>
-<span><span class="co">#&gt; INFO [2025-10-24 13:03:11] </span></span>
-<span><span class="co">#&gt; INFO [2025-10-24 13:03:11] $fontfamily</span></span>
-<span><span class="co">#&gt; INFO [2025-10-24 13:03:11] [1] "sans"</span></span>
-<span><span class="co">#&gt; INFO [2025-10-24 13:03:11] </span></span>
-<span><span class="co">#&gt; INFO [2025-10-24 13:03:11] $fontface</span></span>
-<span><span class="co">#&gt; INFO [2025-10-24 13:03:11] [1] "bold"</span></span>
-<span><span class="co">#&gt; INFO [2025-10-24 13:03:11] </span></span>
-<span><span class="co">#&gt; INFO [2025-10-24 13:03:11] $cat.fontfamily</span></span>
-<span><span class="co">#&gt; INFO [2025-10-24 13:03:11] [1] "sans"</span></span>
-<span><span class="co">#&gt; INFO [2025-10-24 13:03:11] </span></span>
-<span><span class="co">#&gt; INFO [2025-10-24 13:03:11] $lty</span></span>
-<span><span class="co">#&gt; INFO [2025-10-24 13:03:11] [1] 0</span></span>
-<span><span class="co">#&gt; INFO [2025-10-24 13:03:11]</span></span></code></pre></div>
-<p><img src="DIANNmv_files/figure-html/unnamed-chunk-22-2.png" width="700"></p>
+<span><span class="co">#&gt; INFO [2025-12-09 13:27:13] [[1]]</span></span>
+<span><span class="co">#&gt; INFO [2025-12-09 13:27:13] venn_list</span></span>
+<span><span class="co">#&gt; INFO [2025-12-09 13:27:13] </span></span>
+<span><span class="co">#&gt; INFO [2025-12-09 13:27:13] $filename</span></span>
+<span><span class="co">#&gt; INFO [2025-12-09 13:27:13] NULL</span></span>
+<span><span class="co">#&gt; INFO [2025-12-09 13:27:13] </span></span>
+<span><span class="co">#&gt; INFO [2025-12-09 13:27:13] $disable.logging</span></span>
+<span><span class="co">#&gt; INFO [2025-12-09 13:27:13] T</span></span>
+<span><span class="co">#&gt; INFO [2025-12-09 13:27:13] </span></span>
+<span><span class="co">#&gt; INFO [2025-12-09 13:27:13] $fill</span></span>
+<span><span class="co">#&gt; INFO [2025-12-09 13:27:13] colors</span></span>
+<span><span class="co">#&gt; INFO [2025-12-09 13:27:13] </span></span>
+<span><span class="co">#&gt; INFO [2025-12-09 13:27:13] $fontfamily</span></span>
+<span><span class="co">#&gt; INFO [2025-12-09 13:27:13] [1] "sans"</span></span>
+<span><span class="co">#&gt; INFO [2025-12-09 13:27:13] </span></span>
+<span><span class="co">#&gt; INFO [2025-12-09 13:27:13] $fontface</span></span>
+<span><span class="co">#&gt; INFO [2025-12-09 13:27:13] [1] "bold"</span></span>
+<span><span class="co">#&gt; INFO [2025-12-09 13:27:13] </span></span>
+<span><span class="co">#&gt; INFO [2025-12-09 13:27:13] $cat.fontfamily</span></span>
+<span><span class="co">#&gt; INFO [2025-12-09 13:27:13] [1] "sans"</span></span>
+<span><span class="co">#&gt; INFO [2025-12-09 13:27:13] </span></span>
+<span><span class="co">#&gt; INFO [2025-12-09 13:27:13] $lty</span></span>
+<span><span class="co">#&gt; INFO [2025-12-09 13:27:13] [1] 0</span></span>
+<span><span class="co">#&gt; INFO [2025-12-09 13:27:13]</span></span></code></pre></div>
+<p><img src="DIANNmv_files/figure-html/unnamed-chunk-22-2.png" class="r-plt" width="700"></p>
 <div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="fu"><a href="../reference/plot_venn_diagram.html">plot_venn_diagram</a></span><span class="op">(</span><span class="va">res</span>, comparisons <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'neg_ctrl_vs_motif1'</span>, </span>
 <span>                                       <span class="st">'neg_ctrl_vs_motif2'</span><span class="op">)</span>, </span>
 <span>                  colors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'red'</span>, <span class="st">'blue'</span><span class="op">)</span><span class="op">)</span> <span class="co"># specify colors used</span></span>
-<span><span class="co">#&gt; INFO [2025-10-24 13:03:11] [[1]]</span></span>
-<span><span class="co">#&gt; INFO [2025-10-24 13:03:11] venn_list</span></span>
-<span><span class="co">#&gt; INFO [2025-10-24 13:03:11] </span></span>
-<span><span class="co">#&gt; INFO [2025-10-24 13:03:11] $filename</span></span>
-<span><span class="co">#&gt; INFO [2025-10-24 13:03:11] NULL</span></span>
-<span><span class="co">#&gt; INFO [2025-10-24 13:03:11] </span></span>
-<span><span class="co">#&gt; INFO [2025-10-24 13:03:11] $disable.logging</span></span>
-<span><span class="co">#&gt; INFO [2025-10-24 13:03:11] T</span></span>
-<span><span class="co">#&gt; INFO [2025-10-24 13:03:11] </span></span>
-<span><span class="co">#&gt; INFO [2025-10-24 13:03:11] $fill</span></span>
-<span><span class="co">#&gt; INFO [2025-10-24 13:03:11] colors</span></span>
-<span><span class="co">#&gt; INFO [2025-10-24 13:03:11] </span></span>
-<span><span class="co">#&gt; INFO [2025-10-24 13:03:11] $fontfamily</span></span>
-<span><span class="co">#&gt; INFO [2025-10-24 13:03:11] [1] "sans"</span></span>
-<span><span class="co">#&gt; INFO [2025-10-24 13:03:11] </span></span>
-<span><span class="co">#&gt; INFO [2025-10-24 13:03:11] $fontface</span></span>
-<span><span class="co">#&gt; INFO [2025-10-24 13:03:11] [1] "bold"</span></span>
-<span><span class="co">#&gt; INFO [2025-10-24 13:03:11] </span></span>
-<span><span class="co">#&gt; INFO [2025-10-24 13:03:11] $cat.fontfamily</span></span>
-<span><span class="co">#&gt; INFO [2025-10-24 13:03:11] [1] "sans"</span></span>
-<span><span class="co">#&gt; INFO [2025-10-24 13:03:11] </span></span>
-<span><span class="co">#&gt; INFO [2025-10-24 13:03:11] $lty</span></span>
-<span><span class="co">#&gt; INFO [2025-10-24 13:03:11] [1] 0</span></span>
-<span><span class="co">#&gt; INFO [2025-10-24 13:03:11]</span></span></code></pre></div>
-<p><img src="DIANNmv_files/figure-html/unnamed-chunk-22-3.png" width="700"></p>
+<span><span class="co">#&gt; INFO [2025-12-09 13:27:13] [[1]]</span></span>
+<span><span class="co">#&gt; INFO [2025-12-09 13:27:13] venn_list</span></span>
+<span><span class="co">#&gt; INFO [2025-12-09 13:27:13] </span></span>
+<span><span class="co">#&gt; INFO [2025-12-09 13:27:13] $filename</span></span>
+<span><span class="co">#&gt; INFO [2025-12-09 13:27:13] NULL</span></span>
+<span><span class="co">#&gt; INFO [2025-12-09 13:27:13] </span></span>
+<span><span class="co">#&gt; INFO [2025-12-09 13:27:13] $disable.logging</span></span>
+<span><span class="co">#&gt; INFO [2025-12-09 13:27:13] T</span></span>
+<span><span class="co">#&gt; INFO [2025-12-09 13:27:13] </span></span>
+<span><span class="co">#&gt; INFO [2025-12-09 13:27:13] $fill</span></span>
+<span><span class="co">#&gt; INFO [2025-12-09 13:27:13] colors</span></span>
+<span><span class="co">#&gt; INFO [2025-12-09 13:27:13] </span></span>
+<span><span class="co">#&gt; INFO [2025-12-09 13:27:13] $fontfamily</span></span>
+<span><span class="co">#&gt; INFO [2025-12-09 13:27:13] [1] "sans"</span></span>
+<span><span class="co">#&gt; INFO [2025-12-09 13:27:13] </span></span>
+<span><span class="co">#&gt; INFO [2025-12-09 13:27:13] $fontface</span></span>
+<span><span class="co">#&gt; INFO [2025-12-09 13:27:13] [1] "bold"</span></span>
+<span><span class="co">#&gt; INFO [2025-12-09 13:27:13] </span></span>
+<span><span class="co">#&gt; INFO [2025-12-09 13:27:13] $cat.fontfamily</span></span>
+<span><span class="co">#&gt; INFO [2025-12-09 13:27:13] [1] "sans"</span></span>
+<span><span class="co">#&gt; INFO [2025-12-09 13:27:13] </span></span>
+<span><span class="co">#&gt; INFO [2025-12-09 13:27:13] $lty</span></span>
+<span><span class="co">#&gt; INFO [2025-12-09 13:27:13] [1] 0</span></span>
+<span><span class="co">#&gt; INFO [2025-12-09 13:27:13]</span></span></code></pre></div>
+<p><img src="DIANNmv_files/figure-html/unnamed-chunk-22-3.png" class="r-plt" width="700"></p>
 </div>
 <div class="section level3">
 <h3 id="upset-plot">Upset plot<a class="anchor" aria-label="anchor" href="#upset-plot"></a>
@@ -845,12 +845,12 @@ instructions on how to do this.</p>
 <span><span class="co">#&gt; <span style="color: #555555;">This warning is displayed once every 8 hours.</span></span></span>
 <span><span class="co">#&gt; <span style="color: #555555;">Call `lifecycle::last_lifecycle_warnings()` to see where this warning was</span></span></span>
 <span><span class="co">#&gt; <span style="color: #555555;">generated.</span></span></span></code></pre></div>
-<p><img src="DIANNmv_files/figure-html/unnamed-chunk-23-1.png" width="700"></p>
+<p><img src="DIANNmv_files/figure-html/unnamed-chunk-23-1.png" class="r-plt" width="700"></p>
 <p>Finally, to get an overview of the number of identified significant
 proteins per condition:</p>
 <div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_DEP_barplot.html">plot_DEP_barplot</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span></span></code></pre></div>
-<p><img src="DIANNmv_files/figure-html/unnamed-chunk-24-1.png" width="700"></p>
+<p><img src="DIANNmv_files/figure-html/unnamed-chunk-24-1.png" class="r-plt" width="700"></p>
 <p>You can change the conditions included, order of columns, and
 labels:</p>
 <div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
@@ -858,14 +858,14 @@ labels:</p>
 <span><span class="co"># Include only two comparisons and change the order:</span></span>
 <span><span class="fu"><a href="../reference/plot_DEP_barplot.html">plot_DEP_barplot</a></span><span class="op">(</span><span class="va">res</span>, comparisons <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'neg_ctrl_vs_motif2'</span>,</span>
 <span>                                      <span class="st">'neg_ctrl_vs_motif1'</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="DIANNmv_files/figure-html/unnamed-chunk-25-1.png" width="700"></p>
+<p><img src="DIANNmv_files/figure-html/unnamed-chunk-25-1.png" class="r-plt" width="700"></p>
 <div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="co"># Same as above, but axis labels are changed.</span></span>
 <span><span class="fu"><a href="../reference/plot_DEP_barplot.html">plot_DEP_barplot</a></span><span class="op">(</span><span class="va">res</span>, comparisons <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'neg_ctrl_vs_motif2'</span>,</span>
 <span>                                      <span class="st">'neg_ctrl_vs_motif1'</span><span class="op">)</span>,</span>
 <span>                 names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'motif2'</span>, <span class="st">'motif1'</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="DIANNmv_files/figure-html/unnamed-chunk-25-2.png" width="700"></p>
+<p><img src="DIANNmv_files/figure-html/unnamed-chunk-25-2.png" class="r-plt" width="700"></p>
 </div>
 </div>
 <div class="section level2">
@@ -920,7 +920,7 @@ maximum of 35 characters.</p>
 <span><span class="va">barplot</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/plot_gsea_barplot.html">plot_gsea_barplot</a></span><span class="op">(</span><span class="va">gsea</span>, top_n <span class="op">=</span> <span class="fl">10</span>, remove_prefix <span class="op">=</span> <span class="cn">T</span>,</span>
 <span>                             max_name_length <span class="op">=</span> <span class="fl">35</span><span class="op">)</span></span>
 <span><span class="va">barplot</span></span></code></pre></div>
-<p><img src="DIANNmv_files/figure-html/unnamed-chunk-28-1.png" width="700"></p>
+<p><img src="DIANNmv_files/figure-html/unnamed-chunk-28-1.png" class="r-plt" width="700"></p>
 <div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="co">#Bar plot of 10 pathways with lowest values and different colors for bars.</span></span>
@@ -929,7 +929,7 @@ maximum of 35 characters.</p>
 <span>                              remove_prefix <span class="op">=</span> <span class="cn">T</span>, max_name_length <span class="op">=</span> <span class="fl">35</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">barplot2</span></span></code></pre></div>
-<p><img src="DIANNmv_files/figure-html/unnamed-chunk-28-2.png" width="700"></p>
+<p><img src="DIANNmv_files/figure-html/unnamed-chunk-28-2.png" class="r-plt" width="700"></p>
 <p>With the plot_gsea_dotplot() function, you can include more
 information about the pathways:</p>
 <div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
@@ -938,7 +938,7 @@ information about the pathways:</p>
 <span>                             remove_prefix <span class="op">=</span> <span class="cn">T</span>, max_name_length <span class="op">=</span> <span class="fl">35</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">dotplot</span></span></code></pre></div>
-<p><img src="DIANNmv_files/figure-html/unnamed-chunk-29-1.png" width="700"></p>
+<p><img src="DIANNmv_files/figure-html/unnamed-chunk-29-1.png" class="r-plt" width="700"></p>
 <p>A third way way to visualize the results from GSEA is with a volcano
 plot with the NES on the x-axis and -log10(padj) on the y-axis. Like
 with the volcano plot for DEP visualization, you can specify how to
@@ -948,7 +948,7 @@ label points.</p>
 <span><span class="va">volcano</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/plot_gsea_volcano.html">plot_gsea_volcano</a></span><span class="op">(</span><span class="va">gsea</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">volcano</span></span></code></pre></div>
-<p><img src="DIANNmv_files/figure-html/unnamed-chunk-30-1.png" width="700"></p>
+<p><img src="DIANNmv_files/figure-html/unnamed-chunk-30-1.png" class="r-plt" width="700"></p>
 <div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="co"># plot 10 significant points with the lowest padj value on both sides of volcano.</span></span>
@@ -956,7 +956,7 @@ label points.</p>
 <span>                              </span>
 <span></span>
 <span><span class="va">volcano</span></span></code></pre></div>
-<p><img src="DIANNmv_files/figure-html/unnamed-chunk-30-2.png" width="700"></p>
+<p><img src="DIANNmv_files/figure-html/unnamed-chunk-30-2.png" class="r-plt" width="700"></p>
 <p>If you ran multiple GSEAs on different results objects (from
 get_DEPresults()), you can plot them in a single bubble plot.</p>
 <div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
@@ -976,7 +976,7 @@ get_DEPresults()), you can plot them in a single bubble plot.</p>
 <span><span class="va">bubble</span></span>
 <span><span class="co">#&gt; Warning: Removed 2 rows containing missing values or values outside the scale range</span></span>
 <span><span class="co">#&gt; (`geom_point()`).</span></span></code></pre></div>
-<p><img src="DIANNmv_files/figure-html/unnamed-chunk-31-1.png" width="700"></p>
+<p><img src="DIANNmv_files/figure-html/unnamed-chunk-31-1.png" class="r-plt" width="700"></p>
 <p>Finally, you can plot enrichment plots for individual pathways with
 plot_gsea_enrichment_plot():</p>
 <div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
@@ -984,7 +984,7 @@ plot_gsea_enrichment_plot():</p>
 <span><span class="va">enrichment_plots</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/plot_gsea_enrichment_plot.html">plot_gsea_enrichment_plot</a></span><span class="op">(</span><span class="va">geneset_hallmarks</span>, <span class="va">pathways</span>, <span class="va">res</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">enrichment_plots</span><span class="op">$</span><span class="va">HALLMARK_MYC_TARGETS_V1</span></span></code></pre></div>
-<p><img src="DIANNmv_files/figure-html/unnamed-chunk-32-1.png" width="700"></p>
+<p><img src="DIANNmv_files/figure-html/unnamed-chunk-32-1.png" class="r-plt" width="700"></p>
 </div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
@@ -998,7 +998,7 @@ plot_gsea_enrichment_plot():</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer>
