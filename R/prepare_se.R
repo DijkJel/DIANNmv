@@ -200,7 +200,13 @@ prepare_se = function(pg_matrix, expDesign, pr_matrix = NULL, missing_thr = 0,
   colnames(se) = SummarizedExperiment::colData(se)$ID
 
   if(!is.null(pr_matrix)){
-    colnames(pr_matrix)[11:ncol(pr_matrix)] = SummarizedExperiment::colData(se)$ID
+    start_col = ncol(pr_matrix) - nrow(expDesign) + 1
+    pr_matrix_ints = pr_matrix[start_col:ncol(pr_matrix)]
+    pr_matrix_ints = pr_matrix_ints[,match(expDesign$label, colnames(pr_matrix_ints))]
+
+    colnames(pr_matrix_ints) = SummarizedExperiment::colData(se)$ID
+    pr_matrix[start_col:ncol(pr_matrix)] = pr_matrix_ints
+    colnames(pr_matrix)[start_col:ncol(pr_matrix)] = colnames(pr_matrix_ints)
     rd = rowData(se)
     unique_names = rd[match(pr_matrix$Protein.Group, rd$Protein.Group), 'name']
     pr_matrix$Genes = unique_names
