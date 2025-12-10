@@ -6,3 +6,4 @@
 ^setup\.R$
 ^doc$
 ^docs$
+^.github$
