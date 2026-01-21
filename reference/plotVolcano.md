@@ -14,7 +14,8 @@ plotVolcano(
   up_color = "red3",
   down_color = "dodgerblue",
   ns_color = "grey70",
-  specify_imputed = T
+  specify_imputed = T,
+  remove_overimputed = F
 )
 ```
 
@@ -60,6 +61,12 @@ plotVolcano(
 
   Boolean specifying whether proteins with imputed values need to be
   indicated with open circles, versus closed circles for complete cases.
+
+- remove_overimputed:
+
+  Boolean value. If set to TRUE, proteins with too many imputed values
+  in 1-vs-1 comparisons are removed. Requires 'missing_thr' set in
+  [get_DEPresults](https://dijkjel.github.io/DIANNmv/reference/get_DEPresults.md).
 
 ## Value
 

@@ -9,6 +9,7 @@ prepare_volcano_data(
   res,
   pval_cutoff = 0.05,
   fc_cutoff = 1,
+  remove_overimputed = F,
   label = "sig",
   top_n = NULL,
   up_color = "red3",
@@ -30,6 +31,12 @@ prepare_volcano_data(
 - fc_cutoff:
 
   The log2 fold change significance cutoff.
+
+- remove_overimputed:
+
+  Boolean value. If set to TRUE, proteins with too many imputed values
+  in 1-vs-1 comparisons are removed. Requires 'missing_thr' set in
+  [get_DEPresults](https://dijkjel.github.io/DIANNmv/reference/get_DEPresults.md).
 
 - label:
 

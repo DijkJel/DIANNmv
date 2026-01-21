@@ -48,7 +48,8 @@
 <span>  alpha <span class="op">=</span> <span class="fl">0.05</span>,</span>
 <span>  lfc <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  type <span class="op">=</span> <span class="st">"manual"</span>,</span>
-<span>  fdr_type <span class="op">=</span> <span class="st">"BH"</span></span>
+<span>  fdr_type <span class="op">=</span> <span class="st">"BH"</span>,</span>
+<span>  missing_thr <span class="op">=</span> <span class="cn">NA</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -94,6 +95,11 @@ and 'all'.</p></dd>
 <dt id="arg-fdr-type">fdr_type<a class="anchor" aria-label="anchor" href="#arg-fdr-type"></a></dt>
 <dd><p>Type of fdr correction. Options are 'fdrtool' and
 'BH' (Benjamini-Hochberg). Default is 'BH'</p></dd>
+
+
+<dt id="arg-missing-thr">missing_thr<a class="anchor" aria-label="anchor" href="#arg-missing-thr"></a></dt>
+<dd><p>Optional numeric value. Checks if one of the two conditions
+in 1-vs-1 comparisons has enough values. Adds '_overimpute' column to output.</p></dd>
 
 </dl></div>
     <div class="section level2">

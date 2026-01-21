@@ -9,13 +9,13 @@
 Source:
 [`DESCRIPTION`](https://github.com/DijkJel/DIANNmv/blob/master/DESCRIPTION)
 
-Dijkstra J (2025). *DIANNmv: For analysis and visualization of DIANN
+Dijkstra J (2026). *DIANNmv: For analysis and visualization of DIANN
 MS-data*. R package version 1.2.2, <https://github.com/DijkJel/DIANNmv>.
 
     @Manual{,
       title = {DIANNmv: For analysis and visualization of DIANN MS-data},
       author = {Jelmer Dijkstra},
-      year = {2025},
+      year = {2026},
       note = {R package version 1.2.2},
       url = {https://github.com/DijkJel/DIANNmv},
     }

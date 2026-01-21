@@ -742,30 +742,30 @@ which comparisons to include.
 
 ``` r
 plot_venn_diagram(res) # all comparisons
-#> INFO [2025-12-10 14:33:47] [[1]]
-#> INFO [2025-12-10 14:33:47] venn_list
-#> INFO [2025-12-10 14:33:47] 
-#> INFO [2025-12-10 14:33:47] $filename
-#> INFO [2025-12-10 14:33:47] NULL
-#> INFO [2025-12-10 14:33:47] 
-#> INFO [2025-12-10 14:33:47] $disable.logging
-#> INFO [2025-12-10 14:33:47] T
-#> INFO [2025-12-10 14:33:47] 
-#> INFO [2025-12-10 14:33:47] $fill
-#> INFO [2025-12-10 14:33:47] colors
-#> INFO [2025-12-10 14:33:47] 
-#> INFO [2025-12-10 14:33:47] $fontfamily
-#> INFO [2025-12-10 14:33:47] [1] "sans"
-#> INFO [2025-12-10 14:33:47] 
-#> INFO [2025-12-10 14:33:47] $fontface
-#> INFO [2025-12-10 14:33:47] [1] "bold"
-#> INFO [2025-12-10 14:33:47] 
-#> INFO [2025-12-10 14:33:47] $cat.fontfamily
-#> INFO [2025-12-10 14:33:47] [1] "sans"
-#> INFO [2025-12-10 14:33:47] 
-#> INFO [2025-12-10 14:33:47] $lty
-#> INFO [2025-12-10 14:33:47] [1] 0
-#> INFO [2025-12-10 14:33:47]
+#> INFO [2026-01-21 15:25:10] [[1]]
+#> INFO [2026-01-21 15:25:10] venn_list
+#> INFO [2026-01-21 15:25:10] 
+#> INFO [2026-01-21 15:25:10] $filename
+#> INFO [2026-01-21 15:25:10] NULL
+#> INFO [2026-01-21 15:25:10] 
+#> INFO [2026-01-21 15:25:10] $disable.logging
+#> INFO [2026-01-21 15:25:10] T
+#> INFO [2026-01-21 15:25:10] 
+#> INFO [2026-01-21 15:25:10] $fill
+#> INFO [2026-01-21 15:25:10] colors
+#> INFO [2026-01-21 15:25:10] 
+#> INFO [2026-01-21 15:25:10] $fontfamily
+#> INFO [2026-01-21 15:25:10] [1] "sans"
+#> INFO [2026-01-21 15:25:10] 
+#> INFO [2026-01-21 15:25:10] $fontface
+#> INFO [2026-01-21 15:25:10] [1] "bold"
+#> INFO [2026-01-21 15:25:10] 
+#> INFO [2026-01-21 15:25:10] $cat.fontfamily
+#> INFO [2026-01-21 15:25:10] [1] "sans"
+#> INFO [2026-01-21 15:25:10] 
+#> INFO [2026-01-21 15:25:10] $lty
+#> INFO [2026-01-21 15:25:10] [1] 0
+#> INFO [2026-01-21 15:25:10]
 ```
 
 ![](DIANNmv_files/figure-html/unnamed-chunk-22-1.png)
@@ -773,30 +773,30 @@ plot_venn_diagram(res) # all comparisons
 ``` r
 plot_venn_diagram(res, comparisons = c('neg_ctrl_vs_motif1', 
                                        'neg_ctrl_vs_motif2')) # only two comp.
-#> INFO [2025-12-10 14:33:47] [[1]]
-#> INFO [2025-12-10 14:33:47] venn_list
-#> INFO [2025-12-10 14:33:47] 
-#> INFO [2025-12-10 14:33:47] $filename
-#> INFO [2025-12-10 14:33:47] NULL
-#> INFO [2025-12-10 14:33:47] 
-#> INFO [2025-12-10 14:33:47] $disable.logging
-#> INFO [2025-12-10 14:33:47] T
-#> INFO [2025-12-10 14:33:47] 
-#> INFO [2025-12-10 14:33:47] $fill
-#> INFO [2025-12-10 14:33:47] colors
-#> INFO [2025-12-10 14:33:47] 
-#> INFO [2025-12-10 14:33:47] $fontfamily
-#> INFO [2025-12-10 14:33:47] [1] "sans"
-#> INFO [2025-12-10 14:33:47] 
-#> INFO [2025-12-10 14:33:47] $fontface
-#> INFO [2025-12-10 14:33:47] [1] "bold"
-#> INFO [2025-12-10 14:33:47] 
-#> INFO [2025-12-10 14:33:47] $cat.fontfamily
-#> INFO [2025-12-10 14:33:47] [1] "sans"
-#> INFO [2025-12-10 14:33:47] 
-#> INFO [2025-12-10 14:33:47] $lty
-#> INFO [2025-12-10 14:33:47] [1] 0
-#> INFO [2025-12-10 14:33:47]
+#> INFO [2026-01-21 15:25:10] [[1]]
+#> INFO [2026-01-21 15:25:10] venn_list
+#> INFO [2026-01-21 15:25:10] 
+#> INFO [2026-01-21 15:25:10] $filename
+#> INFO [2026-01-21 15:25:10] NULL
+#> INFO [2026-01-21 15:25:10] 
+#> INFO [2026-01-21 15:25:10] $disable.logging
+#> INFO [2026-01-21 15:25:10] T
+#> INFO [2026-01-21 15:25:10] 
+#> INFO [2026-01-21 15:25:10] $fill
+#> INFO [2026-01-21 15:25:10] colors
+#> INFO [2026-01-21 15:25:10] 
+#> INFO [2026-01-21 15:25:10] $fontfamily
+#> INFO [2026-01-21 15:25:10] [1] "sans"
+#> INFO [2026-01-21 15:25:10] 
+#> INFO [2026-01-21 15:25:10] $fontface
+#> INFO [2026-01-21 15:25:10] [1] "bold"
+#> INFO [2026-01-21 15:25:10] 
+#> INFO [2026-01-21 15:25:10] $cat.fontfamily
+#> INFO [2026-01-21 15:25:10] [1] "sans"
+#> INFO [2026-01-21 15:25:10] 
+#> INFO [2026-01-21 15:25:10] $lty
+#> INFO [2026-01-21 15:25:10] [1] 0
+#> INFO [2026-01-21 15:25:10]
 ```
 
 ![](DIANNmv_files/figure-html/unnamed-chunk-22-2.png)
@@ -806,30 +806,30 @@ plot_venn_diagram(res, comparisons = c('neg_ctrl_vs_motif1',
 plot_venn_diagram(res, comparisons = c('neg_ctrl_vs_motif1', 
                                        'neg_ctrl_vs_motif2'), 
                   colors = c('red', 'blue')) # specify colors used
-#> INFO [2025-12-10 14:33:47] [[1]]
-#> INFO [2025-12-10 14:33:47] venn_list
-#> INFO [2025-12-10 14:33:47] 
-#> INFO [2025-12-10 14:33:47] $filename
-#> INFO [2025-12-10 14:33:47] NULL
-#> INFO [2025-12-10 14:33:47] 
-#> INFO [2025-12-10 14:33:47] $disable.logging
-#> INFO [2025-12-10 14:33:47] T
-#> INFO [2025-12-10 14:33:47] 
-#> INFO [2025-12-10 14:33:47] $fill
-#> INFO [2025-12-10 14:33:47] colors
-#> INFO [2025-12-10 14:33:47] 
-#> INFO [2025-12-10 14:33:47] $fontfamily
-#> INFO [2025-12-10 14:33:47] [1] "sans"
-#> INFO [2025-12-10 14:33:47] 
-#> INFO [2025-12-10 14:33:47] $fontface
-#> INFO [2025-12-10 14:33:47] [1] "bold"
-#> INFO [2025-12-10 14:33:47] 
-#> INFO [2025-12-10 14:33:47] $cat.fontfamily
-#> INFO [2025-12-10 14:33:47] [1] "sans"
-#> INFO [2025-12-10 14:33:47] 
-#> INFO [2025-12-10 14:33:47] $lty
-#> INFO [2025-12-10 14:33:47] [1] 0
-#> INFO [2025-12-10 14:33:47]
+#> INFO [2026-01-21 15:25:10] [[1]]
+#> INFO [2026-01-21 15:25:10] venn_list
+#> INFO [2026-01-21 15:25:10] 
+#> INFO [2026-01-21 15:25:10] $filename
+#> INFO [2026-01-21 15:25:10] NULL
+#> INFO [2026-01-21 15:25:10] 
+#> INFO [2026-01-21 15:25:10] $disable.logging
+#> INFO [2026-01-21 15:25:10] T
+#> INFO [2026-01-21 15:25:10] 
+#> INFO [2026-01-21 15:25:10] $fill
+#> INFO [2026-01-21 15:25:10] colors
+#> INFO [2026-01-21 15:25:10] 
+#> INFO [2026-01-21 15:25:10] $fontfamily
+#> INFO [2026-01-21 15:25:10] [1] "sans"
+#> INFO [2026-01-21 15:25:10] 
+#> INFO [2026-01-21 15:25:10] $fontface
+#> INFO [2026-01-21 15:25:10] [1] "bold"
+#> INFO [2026-01-21 15:25:10] 
+#> INFO [2026-01-21 15:25:10] $cat.fontfamily
+#> INFO [2026-01-21 15:25:10] [1] "sans"
+#> INFO [2026-01-21 15:25:10] 
+#> INFO [2026-01-21 15:25:10] $lty
+#> INFO [2026-01-21 15:25:10] [1] 0
+#> INFO [2026-01-21 15:25:10]
 ```
 
 ![](DIANNmv_files/figure-html/unnamed-chunk-22-3.png)
@@ -849,7 +849,7 @@ upset_plot
 #> ℹ Please use `linewidth` instead.
 #> ℹ The deprecated feature was likely used in the ggupset package.
 #>   Please report the issue at <https://github.com/const-ae/ggupset/issues>.
-#> This warning is displayed once every 8 hours.
+#> This warning is displayed once per session.
 #> Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
 #> generated.
 ```

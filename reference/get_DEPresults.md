@@ -14,7 +14,8 @@ get_DEPresults(
   alpha = 0.05,
   lfc = 1,
   type = "manual",
-  fdr_type = "BH"
+  fdr_type = "BH",
+  missing_thr = NA
 )
 ```
 
@@ -59,6 +60,11 @@ get_DEPresults(
 
   Type of fdr correction. Options are 'fdrtool' and 'BH'
   (Benjamini-Hochberg). Default is 'BH'
+
+- missing_thr:
+
+  Optional numeric value. Checks if one of the two conditions in 1-vs-1
+  comparisons has enough values. Adds '\_overimpute' column to output.
 
 ## Value
 
