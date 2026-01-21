@@ -155,7 +155,7 @@ plotVolcano = function(res, pval_cutoff = 0.05, fc_cutoff = 1, label = 'sig', to
 
     ratio_col = grep('ratio', colnames(data), value = T)
     padj_col = grep('p.adj', colnames(data), value = T)
-    impute_col = grep('imputed', colnames(data), value = T)
+    impute_col = grep('_imputed', colnames(data), value = T)
 
     data$category = ifelse(data[,impute_col], 'imputed', 'not-imputed')
 
