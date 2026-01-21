@@ -13,7 +13,8 @@ get_DEPresults(
   alpha = 0.05,
   lfc = 1,
   type = "manual",
-  fdr_type = "BH"
+  fdr_type = "BH",
+  missing_thr = NA
 )
 }
 \arguments{
@@ -38,6 +39,9 @@ and 'all'.}
 
 \item{fdr_type}{Type of fdr correction. Options are 'fdrtool' and
 'BH' (Benjamini-Hochberg). Default is 'BH'}
+
+\item{missing_thr}{Optional numeric value. Checks if one of the two conditions
+in 1-vs-1 comparisons has enough values. Adds '_overimpute' column to output.}
 }
 \value{
 A data frame with the results of differential protein expression

@@ -48,6 +48,8 @@ recode_sig_col = function(res, pval_cutoff = 0.05, fc_cutoff = 1){
 #' "type = 'manual'"
 #' @param fdr_type Type of fdr correction. Options are 'fdrtool' and
 #' 'BH' (Benjamini-Hochberg). Default is 'BH'
+#' @param missing_thr Optional numeric value. Checks if one of the two conditions
+#' in 1-vs-1 comparisons has enough values. Adds '_overimpute' column to output.
 #'
 #' @import DEP
 #' @import SummarizedExperiment
@@ -61,25 +63,45 @@ recode_sig_col = function(res, pval_cutoff = 0.05, fc_cutoff = 1){
 #' se <- prepare_se(report.pg_matrix, expDesign)
 #' res <- get_DEPresults(se, 'motif1', 'neg_ctrl', type = 'manual')
 
+
 get_DEPresults = function(se, condition1 = NULL, condition2 = NULL, ref_condition = NULL, tests = NULL,
-                          alpha = 0.05, lfc = 1, type = 'manual', fdr_type = 'BH'){
+                          alpha = 0.05, lfc = 1, type = 'manual', fdr_type = 'BH', missing_thr = NA){
 
 
   get_imputation_column = function(se, conditions = NULL){
     imputation_mask = SummarizedExperiment::assay(se, 'imputation_mask')
+    conditions = paste(conditions, '_')
     pat = paste(conditions, collapse = '|')
     if (!is.null(conditions)){imputation_mask = imputation_mask[,grep(pat, colnames(imputation_mask))]}
     is_imputed = apply(imputation_mask, 1, any)
+
     return(is_imputed)
   }
 
-  if (type == 'manual'){
+  get_missing_column = function(se, conditions = NULL, missing_thr = NA){
+    imputation_mask = SummarizedExperiment::assay(se, 'imputation_mask')
+    missing_mat = sapply(conditions, function(x){
+      conditions = paste(conditions, '_')
+      imp = imputation_mask[,grep(x, colnames(imputation_mask))]
+      rowSums(is.na(imp)) > missing_thr
+    })
 
+    passes_missing = rowSums(missing_mat) != 0
+    return(passes_missing)
+  }
+
+  if (type == 'manual'){
     if (!is.null(tests)){
 
       pats = lapply(tests, function(x){strsplit(x, '_vs_')[[1]]})
       imputation_mask = sapply(pats, function(x){get_imputation_column(se, x)})
       colnames(imputation_mask) = paste0(tests, '_imputed')
+
+      if (!is.na(missing_thr)){
+        missing_mask = sapply(pats, function(x){get_missing_column(se, x, missing_thr)})
+        colnames(missing_mask) = paste0(tests, '_overimputed')
+      }
+
 
       dep = DEP::test_diff(se, type = 'manual', test = tests)
       dep <- DEP::add_rejections(dep, alpha = alpha, lfc = lfc)
@@ -107,6 +129,12 @@ get_DEPresults = function(se, condition1 = NULL, condition2 = NULL, ref_conditio
 
       imputation_mask = as.matrix(get_imputation_column(se, c(condition1, condition2)), ncol = 1)
       colnames(imputation_mask) = paste0(test, '_imputed')
+
+      if (!is.na(missing_thr)){
+        missing_mask = as.matrix(get_missing_column(se, c(condition1, condition2), missing_thr), ncol = 1)
+        colnames(missing_mask) = paste0(test, '_overimputed')
+      }
+
 
       dep = DEP::test_diff(se, type = 'manual', test = test)
       dep <- DEP::add_rejections(dep, alpha = alpha, lfc = lfc)
@@ -138,6 +166,12 @@ get_DEPresults = function(se, condition1 = NULL, condition2 = NULL, ref_conditio
     cnames = sapply(conditions, paste, collapse = '_vs_')
     colnames(imputation_mask) = paste0(cnames, '_imputed')
 
+    if (!is.na(missing_thr)){
+      missing_mask = sapply(conditions, function(x){get_missing_column(se, x, missing_thr)})
+      colnames(missing_mask) = paste0(cnames, '_overimputed')
+    }
+
+
     dep = DEP::test_diff(se, type = "control", control = ref_condition)
     res = DEP::add_rejections(dep, alpha, lfc)
     res = DEP::get_results(res)
@@ -166,6 +200,12 @@ get_DEPresults = function(se, condition1 = NULL, condition2 = NULL, ref_conditio
     cnames = sapply(pats, paste, collapse = '_vs_')
     colnames(imputation_mask) = paste0(cnames, '_imputed')
 
+    if (!is.na(missing_thr)){
+      missing_mask = sapply(pats, function(x){get_missing_column(se, x)})
+      colnames(missing_mask) = paste0(cnames, '_overimputed')
+    }
+
+
     pval_cols = grep('p.val', colnames(res))
     padj_cols = grep('p.adj', colnames(res))
 
@@ -185,5 +225,10 @@ get_DEPresults = function(se, condition1 = NULL, condition2 = NULL, ref_conditio
   imputation_mask = imputation_mask[res$name,,drop = F]
   res = cbind(res, imputation_mask)
 
+  if (!is.na(missing_thr)){
+    res = cbind(res, missing_mask)
+  }
+
   return(res)
 }
+

@@ -34,6 +34,9 @@ add_standardTheme  = function(plot){
 #' @param down_color Specifies the color of the significantly down-regulated
 #' proteins.
 #' @param ns_color Specifies the color of non-significant proteins.
+#' @param remove_overimputed Boolean value. If set to TRUE, proteins with too many
+#' imputed values in 1-vs-1 comparisons are removed. Requires 'missing_thr' set
+#' in \link{get_DEPresults}.
 #'
 #' @return A list with a data frame for each comparison present in res.
 #' @export
@@ -44,8 +47,13 @@ add_standardTheme  = function(plot){
 #' data <- prepare_volcano_data(res)
 #'
 
-prepare_volcano_data = function(res, pval_cutoff = 0.05, fc_cutoff = 1, label = 'sig', top_n = NULL,
+
+prepare_volcano_data = function(res, pval_cutoff = 0.05, fc_cutoff = 1, remove_overimputed = F, label = 'sig', top_n = NULL,
                                 up_color = 'red3', down_color = 'dodgerblue', ns_color = 'grey70'){
+
+  if (remove_overimputed){
+    if (!any(grepl('_overimputed', colnames(res)))){stop('Overimputed column not present in data. Run get_DEPresults() with missing_thr set.')}
+  }
 
   res = recode_sig_col(res, pval_cutoff, fc_cutoff)
   samples = grep('ratio', colnames(res), value = TRUE)
@@ -57,7 +65,11 @@ prepare_volcano_data = function(res, pval_cutoff = 0.05, fc_cutoff = 1, label = 
     sig_col = grep('sig', colnames(df))
     ratio_col = grep('ratio', colnames(df))
     padj_col = grep('p.adj', colnames(df))
-    impute_col = grep('imputed', colnames(df))
+    impute_col = grep('_imputed', colnames(df))
+    if (remove_overimputed){
+      overimpute_col = grep('_overimputed', colnames(df))
+      df = df[!df[,overimpute_col],]
+    }
 
     df$color = up_color
     df$color = ifelse(df[,ratio_col] < 0, down_color, df$color)
@@ -106,7 +118,9 @@ prepare_volcano_data = function(res, pval_cutoff = 0.05, fc_cutoff = 1, label = 
 #' @param ns_color Specifies the color of non-significant proteins.
 #' @param specify_imputed Boolean specifying whether proteins with imputed values
 #' need to be indicated with open circles, versus closed circles for complete cases.
-#'
+#' @param remove_overimputed Boolean value. If set to TRUE, proteins with too many
+#' imputed values in 1-vs-1 comparisons are removed. Requires 'missing_thr' set
+#' in \link{get_DEPresults}.
 #' @import ggplot2 ggrepel
 #'
 #' @return A single ggplot object (1 comparison) or a list with ggplot objects.
@@ -124,9 +138,11 @@ prepare_volcano_data = function(res, pval_cutoff = 0.05, fc_cutoff = 1, label = 
 #' vol <- plotVolcano(res, label = c('SMAD3', 'SMAD4')) # Only labels SMAD3/4
 #' vol <- plotVolcano(res, up_color = 'green', down_color = 'yellow') #
 #' # Gives a very ugly volcano plot
-plotVolcano = function(res, pval_cutoff = 0.05, fc_cutoff = 1, label = 'sig', top_n = NULL, up_color = 'red3', down_color = 'dodgerblue', ns_color = 'grey70', specify_imputed = T){
+plotVolcano = function(res, pval_cutoff = 0.05, fc_cutoff = 1, label = 'sig', top_n = NULL,
+                       up_color = 'red3', down_color = 'dodgerblue', ns_color = 'grey70',
+                       specify_imputed = T, remove_overimputed = F){
 
-  data = prepare_volcano_data(res, pval_cutoff, fc_cutoff, label, top_n, up_color, down_color, ns_color)
+  data = prepare_volcano_data(res, pval_cutoff, fc_cutoff, remove_overimputed, label, top_n, up_color, down_color, ns_color)
   titles = names(data)
 
   plot_list = lapply(seq(data), function(x){

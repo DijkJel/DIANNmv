@@ -13,7 +13,8 @@ plotVolcano(
   up_color = "red3",
   down_color = "dodgerblue",
   ns_color = "grey70",
-  specify_imputed = T
+  specify_imputed = T,
+  remove_overimputed = F
 )
 }
 \arguments{
@@ -40,6 +41,10 @@ proteins.}
 
 \item{specify_imputed}{Boolean specifying whether proteins with imputed values
 need to be indicated with open circles, versus closed circles for complete cases.}
+
+\item{remove_overimputed}{Boolean value. If set to TRUE, proteins with too many
+imputed values in 1-vs-1 comparisons are removed. Requires 'missing_thr' set
+in \link{get_DEPresults}.}
 }
 \value{
 A single ggplot object (1 comparison) or a list with ggplot objects.
