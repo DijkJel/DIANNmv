@@ -8,12 +8,12 @@ prepare_volcano_data(
   res,
   pval_cutoff = 0.05,
   fc_cutoff = 1,
-  remove_overimputed = F,
   label = "sig",
   top_n = NULL,
   up_color = "red3",
   down_color = "dodgerblue",
-  ns_color = "grey70"
+  ns_color = "grey70",
+  remove_overimputed = F
 )
 }
 \arguments{
@@ -22,10 +22,6 @@ prepare_volcano_data(
 \item{pval_cutoff}{The p.adj significance cutoff.}
 
 \item{fc_cutoff}{The log2 fold change significance cutoff.}
-
-\item{remove_overimputed}{Boolean value. If set to TRUE, proteins with too many
-imputed values in 1-vs-1 comparisons are removed. Requires 'missing_thr' set
-in \link{get_DEPresults}.}
 
 \item{label}{Specifies which points to label. The default is 'sig', labeling
 all significant points. Entering a value for top_n limits the labeling to
@@ -41,6 +37,10 @@ up-regulated proteins.}
 proteins.}
 
 \item{ns_color}{Specifies the color of non-significant proteins.}
+
+\item{remove_overimputed}{Boolean value. If set to TRUE, proteins with too many
+imputed values in 1-vs-1 comparisons are removed. Requires 'missing_thr' set
+in \link{get_DEPresults}.}
 }
 \value{
 A list with a data frame for each comparison present in res.

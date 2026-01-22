@@ -142,7 +142,7 @@ plotVolcano = function(res, pval_cutoff = 0.05, fc_cutoff = 1, label = 'sig', to
                        up_color = 'red3', down_color = 'dodgerblue', ns_color = 'grey70',
                        specify_imputed = T, remove_overimputed = F){
 
-  data = prepare_volcano_data(res, pval_cutoff, fc_cutoff, remove_overimputed, label, top_n, up_color, down_color, ns_color)
+  data = prepare_volcano_data(res, pval_cutoff, fc_cutoff, label, top_n, up_color, down_color, ns_color, remove_overimputed)
   titles = names(data)
 
   plot_list = lapply(seq(data), function(x){
