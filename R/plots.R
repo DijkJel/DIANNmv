@@ -48,8 +48,8 @@ add_standardTheme  = function(plot){
 #'
 
 
-prepare_volcano_data = function(res, pval_cutoff = 0.05, fc_cutoff = 1, remove_overimputed = F, label = 'sig', top_n = NULL,
-                                up_color = 'red3', down_color = 'dodgerblue', ns_color = 'grey70'){
+prepare_volcano_data = function(res, pval_cutoff = 0.05, fc_cutoff = 1, label = 'sig', top_n = NULL,
+                                up_color = 'red3', down_color = 'dodgerblue', ns_color = 'grey70', remove_overimputed = F){
 
   if (remove_overimputed){
     if (!any(grepl('_overimputed', colnames(res)))){stop('Overimputed column not present in data. Run get_DEPresults() with missing_thr set.')}
