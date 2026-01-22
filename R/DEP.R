@@ -70,7 +70,7 @@ get_DEPresults = function(se, condition1 = NULL, condition2 = NULL, ref_conditio
 
   get_imputation_column = function(se, conditions = NULL){
     imputation_mask = SummarizedExperiment::assay(se, 'imputation_mask')
-    conditions = paste(conditions, '_')
+    conditions = paste0(conditions, '_')
     pat = paste(conditions, collapse = '|')
     if (!is.null(conditions)){imputation_mask = imputation_mask[,grep(pat, colnames(imputation_mask))]}
     is_imputed = apply(imputation_mask, 1, any)
@@ -81,7 +81,7 @@ get_DEPresults = function(se, condition1 = NULL, condition2 = NULL, ref_conditio
   get_missing_column = function(se, conditions = NULL, missing_thr = NA){
     imputation_mask = SummarizedExperiment::assay(se, 'imputation_mask')
     missing_mat = sapply(conditions, function(x){
-      conditions = paste(conditions, '_')
+      conditions = paste0(conditions, '_')
       imp = imputation_mask[,grep(x, colnames(imputation_mask))]
       rowSums(is.na(imp)) > missing_thr
     })

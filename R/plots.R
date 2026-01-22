@@ -167,7 +167,9 @@ plotVolcano = function(res, pval_cutoff = 0.05, fc_cutoff = 1, label = 'sig', to
         ggplot2::geom_vline(xintercept = c(-fc_cutoff, fc_cutoff), color = 'red', linetype = 'dashed', linewidth = 1) +
         ggrepel::geom_text_repel(max.overlaps = Inf, min.segment.length = 0.01) +
         ggplot2::ggtitle(title) + ggplot2::theme_classic() +
-        ggplot2::scale_shape_manual(values = c('imputed' = 21, 'not-imputed' = 19))
+        ggplot2::scale_shape_manual(values = c('imputed' = 21, 'not-imputed' = 19)) +
+        ggplot2::labs(x = 'Log2(FoldChange)', y = '-log10(p.adj)') +
+        ggplot2::theme(plot.title = element_text(hjust = 0.5))
     }
 
     else {
@@ -176,7 +178,9 @@ plotVolcano = function(res, pval_cutoff = 0.05, fc_cutoff = 1, label = 'sig', to
         ggplot2::geom_hline(yintercept = -log10(pval_cutoff), color = 'red', linetype = 'dashed', linewidth = 1) +
         ggplot2::geom_vline(xintercept = c(-fc_cutoff, fc_cutoff), color = 'red', linetype = 'dashed', linewidth = 1) +
         ggrepel::geom_text_repel(max.overlaps = Inf, min.segment.length = 0.01) +
-        ggplot2::ggtitle(title) + ggplot2::theme_classic()
+        ggplot2::ggtitle(title) + ggplot2::theme_classic() +
+        ggplot2::labs(x = 'Log2(FoldChange)', y = '-log10(p.adj)') +
+        ggplot2::theme(plot.title = element_text(hjust = 0.5))
     }
 
     p = add_standardTheme(p)
