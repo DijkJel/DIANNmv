@@ -41,6 +41,7 @@ use_article('DIANNmv')
 use_build_ignore('setup.R')
 use_build_ignore('DIANNmv.pdf')
 
+use_news_md()
 
 devtools::build_rmd("vignettes/DIANNmv.rmd")
 install()
