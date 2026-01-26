@@ -201,7 +201,7 @@ get_DEPresults = function(se, condition1 = NULL, condition2 = NULL, ref_conditio
     colnames(imputation_mask) = paste0(cnames, '_imputed')
 
     if (!is.na(missing_thr)){
-      missing_mask = sapply(pats, function(x){get_missing_column(se, x)})
+      missing_mask = sapply(pats, function(x){get_missing_column(se, x, missing_thr)})
       colnames(missing_mask) = paste0(cnames, '_overimputed')
     }
 
