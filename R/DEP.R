@@ -79,14 +79,15 @@ get_DEPresults = function(se, condition1 = NULL, condition2 = NULL, ref_conditio
   }
 
   get_missing_column = function(se, conditions = NULL, missing_thr = NA){
+
     imputation_mask = SummarizedExperiment::assay(se, 'imputation_mask')
     missing_mat = sapply(conditions, function(x){
-      conditions = paste0(conditions, '_')
-      imp = imputation_mask[,grep(x, colnames(imputation_mask))]
-      rowSums(is.na(imp)) > missing_thr
+      conditions = paste0(x, '_')
+      imp = imputation_mask[,grep(conditions, colnames(imputation_mask))]
+      rowSums(imp) > missing_thr
     })
 
-    passes_missing = rowSums(missing_mat) != 0
+    passes_missing = rowSums(missing_mat) == 2
     return(passes_missing)
   }
 
