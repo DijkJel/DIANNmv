@@ -1,5 +1,11 @@
 # Changelog
 
+## DIANNmv 1.3.2
+
+### Bug Fix:
+
+- The bug with overimputation in v1.3.1 is fixed.
+
 ## DIANNmv 1.3.1
 
 ### New Features:
